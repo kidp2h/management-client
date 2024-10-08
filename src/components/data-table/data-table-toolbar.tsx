@@ -2,6 +2,7 @@
 
 import { Cross2Icon } from '@radix-ui/react-icons';
 import type { Table } from '@tanstack/react-table';
+import { Search } from 'lucide-react';
 import * as React from 'react';
 
 import { DataTableFacetedFilter } from '@/components/data-table/data-table-faceted-filter';
@@ -37,46 +38,48 @@ export function DataTableToolbar<TData>({
   return (
     <div
       className={cn(
-        'flex w-full items-center justify-between space-x-2 overflow-auto p-1',
+        'flex w-full items-center justify-between space-x-2 overflow-auto py-2',
         className,
       )}
       {...props}
     >
       <div className="flex flex-1 items-center space-x-2">
-        {searchableColumns.length > 0
-        && searchableColumns.map(
-          column =>
-            table.getColumn(column.value ? String(column.value) : '') && (
-              <Input
-                key={String(column.value)}
-                placeholder={column.placeholder}
-                value={
-                  (table
-                    .getColumn(String(column.value))
-                    ?.getFilterValue() as string) ?? ''
-                }
-                onChange={event =>
-                  table
-                    .getColumn(String(column.value))
-                    ?.setFilterValue(event.target.value)}
-                className="h-8 w-40 lg:w-64"
-              />
-            ),
-        )}
-        {filterableColumns.length > 0
-        && filterableColumns.map(
-          column =>
-            table.getColumn(column.value ? String(column.value) : '') && (
-              <DataTableFacetedFilter
-                key={String(column.value)}
-                column={table.getColumn(
-                  column.value ? String(column.value) : '',
-                )}
-                title={column.label}
-                options={column.options ?? []}
-              />
-            ),
-        )}
+        {searchableColumns.length > 0 &&
+          searchableColumns.map(
+            column =>
+              table.getColumn(column.value ? String(column.value) : '') && (
+                <Input
+                  key={String(column.value)}
+                  placeholder={column.placeholder}
+                  startIcon={Search}
+                  value={
+                    (table
+                      .getColumn(String(column.value))
+                      ?.getFilterValue() as string) ?? ''
+                  }
+                  onChange={event =>
+                    table
+                      .getColumn(String(column.value))
+                      ?.setFilterValue(event.target.value)
+                  }
+                  className="h-10 w-40 focus-visible:ring-transparent lg:w-64"
+                />
+              ),
+          )}
+        {filterableColumns.length > 0 &&
+          filterableColumns.map(
+            column =>
+              table.getColumn(column.value ? String(column.value) : '') && (
+                <DataTableFacetedFilter
+                  key={String(column.value)}
+                  column={table.getColumn(
+                    column.value ? String(column.value) : '',
+                  )}
+                  title={column.label}
+                  options={column.options ?? []}
+                />
+              ),
+          )}
         {isFiltered && (
           <Button
             aria-label="Reset filters"
@@ -84,7 +87,7 @@ export function DataTableToolbar<TData>({
             className="h-8 px-2 lg:px-3"
             onClick={() => table.resetColumnFilters()}
           >
-            Reset
+            Đặt lại
             <Cross2Icon className="ml-2 size-4" aria-hidden="true" />
           </Button>
         )}

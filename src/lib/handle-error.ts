@@ -6,18 +6,15 @@ export function getErrorMessage(err: unknown) {
   const unknownError = 'Something went wrong, please try again later.';
 
   if (err instanceof z.ZodError) {
-    const errors = err.issues.map((issue) => {
+    const errors = err.issues.map(issue => {
       return issue.message;
     });
     return errors.join('\n');
-  }
-  else if (err instanceof Error) {
+  } else if (err instanceof Error) {
     return err.message;
-  }
-  else if (isRedirectError(err)) {
+  } else if (isRedirectError(err)) {
     throw err;
-  }
-  else {
+  } else {
     return unknownError;
   }
 }

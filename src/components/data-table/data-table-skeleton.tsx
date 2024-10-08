@@ -91,13 +91,13 @@ export function DataTableSkeleton(props: DataTableSkeletonProps) {
         <div className="flex flex-1 items-center space-x-2">
           {searchableColumnCount > 0
             ? Array.from({ length: searchableColumnCount }).map((_, i) => (
-              <Skeleton key={i} className="h-7 w-40 lg:w-60" />
-            ))
+                <Skeleton key={i} className="h-7 w-40 lg:w-60" />
+              ))
             : null}
           {filterableColumnCount > 0
             ? Array.from({ length: filterableColumnCount }).map((_, i) => (
-              <Skeleton key={i} className="h-7 w-[4.5rem] border-dashed" />
-            ))
+                <Skeleton key={i} className="h-7 w-[4.5rem] border-dashed" />
+              ))
             : null}
         </div>
         {showViewOptions ? (

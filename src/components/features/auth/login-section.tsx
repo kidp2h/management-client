@@ -1,13 +1,14 @@
 'use client';
-import { useTheme } from 'next-themes';
 import React from 'react';
+
+import { Globe } from '@/components/three/globe';
+import { Cover } from '@/components/ui/cover';
 
 import { LoginForm } from './login-form';
 
 type AuthSectionProps = {};
 
 export const LoginSection = ({}: AuthSectionProps) => {
-  const { theme } = useTheme();
   return (
     <div className="h-[calc(100vh-3.5rem-3.5rem)]">
       <div className="relative h-full overflow-hidden">
@@ -15,11 +16,12 @@ export const LoginSection = ({}: AuthSectionProps) => {
           <div className="xl:w-1/2">
             {/* Title */}
             <h1 className="scroll-m-20 text-4xl font-extrabold uppercase tracking-tight lg:text-5xl">
-              Đăng nhập
+              <Cover className="cursor-pointer rounded-lg">Đăng nhập</Cover>
             </h1>
             <p className="mb-24 mt-3 text-xl text-muted-foreground">
               Đăng nhập để sử dụng hệ thống
             </p>
+
             {/* <div className="mt-8 grid">
               <Button variant="outline">
                 <svg
@@ -59,11 +61,14 @@ export const LoginSection = ({}: AuthSectionProps) => {
           </div>
         </div>
         <div>
-          <img
+          {/* <img
             className="hidden h-full lg:absolute lg:end-0 lg:right-0 lg:top-0 xl:block"
             src={theme === 'dark' ? '/assets/hero1.svg' : '/assets/hero2.svg'}
             alt="image description"
-          />
+          /> */}
+          <div className="hidden h-full w-1/2 lg:absolute lg:end-0 lg:right-0 lg:top-0 xl:block">
+            <Globe />
+          </div>
         </div>
       </div>
     </div>

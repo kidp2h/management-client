@@ -79,7 +79,7 @@ export const TreeView = ({
         closeIcon={closeIcon}
         className="size-full overflow-y-auto"
       >
-        {getVirtualItems().map((element) => (
+        {getVirtualItems().map(element => (
           <TreeItem
             aria-label="Root"
             key={element.key}
@@ -121,7 +121,7 @@ export const TreeItem = forwardRef<
     return (
       <ul ref={ref} className="w-full space-y-1 " {...props}>
         {elements &&
-          elements.map((element) => (
+          elements.map(element => (
             <li key={element.id} className="w-full">
               {element.children && element.children?.length > 0 ? (
                 <Folder

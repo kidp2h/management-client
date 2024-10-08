@@ -3,7 +3,6 @@
 import {
   CaretSortIcon,
   ChevronDownIcon,
-  PlusIcon,
   TextIcon,
 } from '@radix-ui/react-icons';
 import * as React from 'react';
@@ -16,7 +15,6 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-  CommandSeparator,
 } from '@/components/ui/command';
 import {
   Popover,
@@ -44,9 +42,9 @@ export function DataTableFilterCombobox<TData>({
 }: DataTableFilterComboboxProps<TData>) {
   const [value, setValue] = React.useState('');
   const [open, setOpen] = React.useState(false);
-  const [selectedOption, setSelectedOption] = React.useState<
-    DataTableFilterOption<TData>
-  >(options[0] ?? ({} as DataTableFilterOption<TData>));
+  const [, setSelectedOption] = React.useState<DataTableFilterOption<TData>>(
+    options[0] ?? ({} as DataTableFilterOption<TData>),
+  );
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -62,13 +60,13 @@ export function DataTableFilterCombobox<TData>({
               className="mr-2 size-4 shrink-0"
               aria-hidden="true"
             />
-            Filter
+            Lọc
           </Button>
         )}
       </PopoverTrigger>
       <PopoverContent className="w-[12.5rem] p-0" align="end">
         <Command>
-          <CommandInput placeholder="Filter by..." />
+          <CommandInput placeholder="Lọc bởi..." />
           <CommandList>
             <CommandEmpty>No item found.</CommandEmpty>
             <CommandGroup>
@@ -83,12 +81,12 @@ export function DataTableFilterCombobox<TData>({
                   <CommandItem
                     key={String(option.value)}
                     className="capitalize"
-                    value={String(option.value)}
-                    onSelect={(currentValue) => {
+                    value={String(option.label)}
+                    onSelect={currentValue => {
                       setValue(currentValue === value ? '' : currentValue);
                       setOpen(false);
                       setSelectedOption(option);
-                      setSelectedOptions((prev) => {
+                      setSelectedOptions(prev => {
                         return [...prev, { ...option }];
                       });
                       onSelect();
@@ -106,7 +104,7 @@ export function DataTableFilterCombobox<TData>({
                   </CommandItem>
                 ))}
             </CommandGroup>
-            <CommandSeparator />
+            {/* <CommandSeparator />
             <CommandGroup>
               <CommandItem
                 onSelect={() => {
@@ -125,9 +123,9 @@ export function DataTableFilterCombobox<TData>({
                 }}
               >
                 <PlusIcon className="mr-2 size-4" aria-hidden="true" />
-                Advanced filter
+                Lọc nâng cao
               </CommandItem>
-            </CommandGroup>
+            </CommandGroup> */}
           </CommandList>
         </Command>
       </PopoverContent>

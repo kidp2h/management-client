@@ -67,7 +67,7 @@ export default function AutoFormObject<
 
   return (
     <Accordion type="multiple" className="space-y-5 border-none">
-      {Object.keys(shape).map((name) => {
+      {Object.keys(shape).map(name => {
         let item = shape[name] as z.ZodAny;
         item = handleIfZodNumber(item) as z.ZodAny;
         const zodBaseType = getBaseType(item);

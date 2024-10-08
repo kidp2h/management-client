@@ -1,23 +1,22 @@
 import { createBrowserClient } from '@supabase/ssr';
 
+import { env } from '@/../env.mjs';
+
+import type { Database } from './database.types';
+
 export function createClient() {
   try {
-    if (
-      process.env.NEXT_PUBLIC_SUPABASE_URL
-      && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-    ) {
-      return createBrowserClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    if (env.NEXT_PUBLIC_SUPABASE_URL && env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+      return createBrowserClient<Database>(
+        env.NEXT_PUBLIC_SUPABASE_URL!,
+        env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
       );
-    }
-    else {
+    } else {
       throw new Error(
         'Missing env vars: NEXT_PUBLIC_SUPABASE_ANON_KEY, NEXT_PUBLIC_SUPABASE_URL ',
       );
     }
-  }
-  catch {
+  } catch {
     throw new Error('[CLIENT] Failed to create Supabase client');
   }
 }

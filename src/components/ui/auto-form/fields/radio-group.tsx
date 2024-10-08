@@ -26,7 +26,7 @@ export default function AutoFormRadioGroup({
 
   let values: string[] = [];
   if (!Array.isArray(baseValues)) {
-    values = Object.entries(baseValues).map((item) => item[0]);
+    values = Object.entries(baseValues).map(item => item[0]);
   } else {
     values = baseValues;
   }

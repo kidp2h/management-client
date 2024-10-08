@@ -1,7 +1,7 @@
 'use memo';
 import React from 'react';
 
-import { RecordsManagementSection } from '@/components/records';
+import { RecordsManagementSection } from '@/components/features/records';
 import type { SearchParams } from '@/types';
 
 type RecordsManagementPageProps = {
@@ -10,7 +10,6 @@ type RecordsManagementPageProps = {
 export default async function RecordsManagementPage({
   searchParams,
 }: RecordsManagementPageProps) {
-  console.log(searchParams);
   const records = [
     {
       id: '1',
@@ -26,9 +25,9 @@ export default async function RecordsManagementPage({
     },
   ];
   const getRecords = (searchParams: any) => {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       resolve({
-        data: records.filter((record) => {
+        data: records.filter(record => {
           if (searchParams.code) {
             return record.code.includes(searchParams.code);
           }
@@ -38,6 +37,6 @@ export default async function RecordsManagementPage({
       });
     });
   };
-  const _ = getRecords(searchParams);
-  return <RecordsManagementSection records={_} />;
+  // const _ = getRecords(searchParams);
+  return <RecordsManagementSection records={getRecords(searchParams)} />;
 }

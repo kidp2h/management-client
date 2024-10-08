@@ -95,9 +95,9 @@ const Tree = forwardRef<HTMLDivElement, TreeViewProps>(
     }, []);
 
     const handleExpand = useCallback((id: string) => {
-      setExpendedItems((prev) => {
+      setExpendedItems(prev => {
         if (prev?.includes(id)) {
-          return prev.filter((item) => item !== id);
+          return prev.filter(item => item !== id);
         }
         return [...(prev ?? []), id];
       });
@@ -116,11 +116,11 @@ const Tree = forwardRef<HTMLDivElement, TreeViewProps>(
           const newPath = [...currentPath, currentElement.id];
           if (currentElement.id === selectId) {
             if (isSelectable) {
-              setExpendedItems((prev) => [...(prev ?? []), ...newPath]);
+              setExpendedItems(prev => [...(prev ?? []), ...newPath]);
             } else {
               if (newPath.includes(currentElement.id)) {
                 newPath.pop();
-                setExpendedItems((prev) => [...(prev ?? []), ...newPath]);
+                setExpendedItems(prev => [...(prev ?? []), ...newPath]);
               }
             }
             return;
@@ -130,12 +130,12 @@ const Tree = forwardRef<HTMLDivElement, TreeViewProps>(
             currentElement.children &&
             currentElement.children.length > 0
           ) {
-            currentElement.children.forEach((child) => {
+            currentElement.children.forEach(child => {
               findParent(child, newPath);
             });
           }
         };
-        elements.forEach((element) => {
+        elements.forEach(element => {
           findParent(element);
         });
       },
@@ -177,8 +177,8 @@ const Tree = forwardRef<HTMLDivElement, TreeViewProps>(
               defaultValue={expendedItems}
               value={expendedItems}
               className="flex flex-col gap-1"
-              onValueChange={(value) =>
-                setExpendedItems((prev) => [...(prev ?? []), value[0]])
+              onValueChange={value =>
+                setExpendedItems(prev => [...(prev ?? []), value[0]])
               }
               dir={dir as Direction}
             >
@@ -287,8 +287,8 @@ const Folder = forwardRef<
                 className="ml-5 flex flex-col flex-nowrap gap-1 py-1 rtl:mr-5 "
                 defaultValue={expendedItems}
                 value={expendedItems}
-                onValueChange={(value) => {
-                  setExpendedItems?.((prev) => [...(prev ?? []), value[0]]);
+                onValueChange={value => {
+                  setExpendedItems?.(prev => [...(prev ?? []), value[0]]);
                 }}
               >
                 {children}
@@ -386,7 +386,7 @@ const CollapseButton = forwardRef<
     const expandTree = (element: TreeViewElement) => {
       const isSelectable = element.isSelectable ?? true;
       if (isSelectable && element.children && element.children.length > 0) {
-        setExpendedItems?.((prev) => [...(prev ?? []), element.id]);
+        setExpendedItems?.(prev => [...(prev ?? []), element.id]);
         element.children.forEach(expandTree);
       }
     };

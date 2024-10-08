@@ -1,32 +1,16 @@
-import Link from 'next/link';
-
+import AutoBreadcrumb from '@/components/common/auto-breadcrumb';
 import MainContent from '@/components/common/main-content';
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb';
 import { ContentLayout } from '@/layouts';
 
 export default async function DashboardPage() {
+  const items = [
+    { name: 'Trang chủ', href: '/' },
+    { isSeparator: true },
+    { name: 'Bảng điều khiển' },
+  ];
   return (
-    <ContentLayout title="Dashboard">
-      <Breadcrumb>
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink asChild>
-              <Link href="/">Trang chủ</Link>
-            </BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbPage>Bảng điều khiển </BreadcrumbPage>
-          </BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb>
+    <ContentLayout title="Bảng điều khiển">
+      <AutoBreadcrumb items={items} />
       <MainContent>x</MainContent>
     </ContentLayout>
   );

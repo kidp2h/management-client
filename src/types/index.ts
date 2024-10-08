@@ -1,3 +1,5 @@
+import type { SQL } from 'drizzle-orm';
+
 import type { DataTableConfig } from '@/config/data-table';
 
 export interface SearchParams {
@@ -32,4 +34,9 @@ export type FeatureFlagValue = DataTableConfig['featureFlags'][number]['value'];
 
 export enum ClerkCode {
   NOT_FOUND = 'form_identifier_not_found',
+  INVALID_PASSWORD = 'form_password_validation_failed',
 }
+export type DrizzleWhere<T> =
+  | SQL<unknown>
+  | ((aliases: T) => SQL<T> | undefined)
+  | undefined;

@@ -29,11 +29,11 @@ export default function AutoFormEnum({
   if (!Array.isArray(baseValues)) {
     values = Object.entries(baseValues);
   } else {
-    values = baseValues.map((value) => [value, value]);
+    values = baseValues.map(value => [value, value]);
   }
 
   function findItem(value: any) {
-    return values.find((item) => item[0] === value);
+    return values.find(item => item[0] === value);
   }
 
   return (

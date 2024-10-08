@@ -174,8 +174,8 @@ export function CollapseMenuButton({
           <DropdownMenuItem key={`${index}-${label}`} asChild>
             <Link
               className={`cursor-pointer ${
-                ((active === undefined && pathname === href) || active)
-                && 'bg-secondary'
+                ((active === undefined && pathname === href) || active) &&
+                'bg-secondary'
               }`}
               href={href}
             >

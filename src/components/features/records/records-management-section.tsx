@@ -1,17 +1,9 @@
 'use client';
-import Link from 'next/link';
 import React from 'react';
 
+import AutoBreadcrumb from '@/components/common/auto-breadcrumb';
 import MainContent from '@/components/common/main-content';
 import { TreeView } from '@/components/extends/tree-view';
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb';
 import {
   Menubar,
   MenubarContent,
@@ -38,6 +30,11 @@ type RecordsManagementSectionProps = {
 export const RecordsManagementSection = ({
   records,
 }: RecordsManagementSectionProps) => {
+  const items = [
+    { name: 'Trang chủ', href: '/' },
+    { isSeparator: true },
+    { name: 'Quản lý hồ sơ' },
+  ];
   const elements = [
     {
       id: '1',
@@ -66,19 +63,7 @@ export const RecordsManagementSection = ({
   ];
   return (
     <ContentLayout title="Quản lý hồ sơ">
-      <Breadcrumb>
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink asChild>
-              <Link href="/">Trang chủ</Link>
-            </BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbPage>Quản lý hồ sơ</BreadcrumbPage>
-          </BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb>
+      <AutoBreadcrumb items={items} />
       <MainContent>
         <div className="flex size-full flex-row">
           <ResizablePanelGroup direction="horizontal" className="w-full">
@@ -115,9 +100,7 @@ export const RecordsManagementSection = ({
                     </MenubarTrigger>
                     <MenubarContent className="bg-card">
                       <MenubarItem>
-                        Xuất file
-                        {' '}
-                        <MenubarShortcut>⌘T</MenubarShortcut>
+                        Xuất file <MenubarShortcut>⌘T</MenubarShortcut>
                       </MenubarItem>
                       <MenubarSeparator />
                       <MenubarItem>In</MenubarItem>
@@ -129,9 +112,7 @@ export const RecordsManagementSection = ({
                     </MenubarTrigger>
                     <MenubarContent className="bg-card">
                       <MenubarItem>
-                        Xuất file
-                        {' '}
-                        <MenubarShortcut>⌘T</MenubarShortcut>
+                        Xuất file <MenubarShortcut>⌘T</MenubarShortcut>
                       </MenubarItem>
                       <MenubarSeparator />
                       <MenubarItem>In</MenubarItem>
@@ -143,9 +124,7 @@ export const RecordsManagementSection = ({
                     </MenubarTrigger>
                     <MenubarContent className="bg-card">
                       <MenubarItem>
-                        Xuất file
-                        {' '}
-                        <MenubarShortcut>⌘T</MenubarShortcut>
+                        Xuất file <MenubarShortcut>⌘T</MenubarShortcut>
                       </MenubarItem>
                       <MenubarSeparator />
                       <MenubarItem>In</MenubarItem>
@@ -157,9 +136,7 @@ export const RecordsManagementSection = ({
                     </MenubarTrigger>
                     <MenubarContent className="bg-card">
                       <MenubarItem>
-                        Xuất file
-                        {' '}
-                        <MenubarShortcut>⌘T</MenubarShortcut>
+                        Xuất file <MenubarShortcut>⌘T</MenubarShortcut>
                       </MenubarItem>
                       <MenubarSeparator />
                       <MenubarItem>In</MenubarItem>
@@ -168,7 +145,7 @@ export const RecordsManagementSection = ({
                 </Menubar>
               </div>
               <div className="mt-1">
-                <TableProvider>
+                <TableProvider isHidden={false}>
                   <RecordsTable records={records} />
                 </TableProvider>
               </div>

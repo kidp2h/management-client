@@ -3,12 +3,12 @@
 import React, { use } from 'react';
 
 import { DataTableAdvancedToolbar } from '@/components/data-table/advanced/data-table-advanced-toolbar';
+import { DataTable } from '@/components/data-table/data-table';
+import { DataTableToolbar } from '@/components/data-table/data-table-toolbar';
 import { useDataTable } from '@/hooks/use-data-table';
 import { useTable } from '@/providers/table-provider';
 import type { DataTableFilterField } from '@/types';
 
-import { DataTable } from '../data-table/data-table';
-import { DataTableToolbar } from '../data-table/data-table-toolbar';
 import { getColumns } from './records-table-column';
 
 interface RecordsTableProps {

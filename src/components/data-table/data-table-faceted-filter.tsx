@@ -55,9 +55,7 @@ export function DataTableFacetedFilter<TData, TValue>({
                     variant="secondary"
                     className="rounded-sm px-1 font-normal"
                   >
-                    {selectedValues.size}
-                    {' '}
-                    selected
+                    {selectedValues.size} selected
                   </Badge>
                 ) : (
                   options
@@ -83,7 +81,7 @@ export function DataTableFacetedFilter<TData, TValue>({
           <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
             <CommandGroup className="max-h-[18.75rem] overflow-y-auto overflow-x-hidden">
-              {options.map((option) => {
+              {options.map(option => {
                 const isSelected = selectedValues.has(option.value);
 
                 return (
@@ -92,8 +90,7 @@ export function DataTableFacetedFilter<TData, TValue>({
                     onSelect={() => {
                       if (isSelected) {
                         selectedValues.delete(option.value);
-                      }
-                      else {
+                      } else {
                         selectedValues.add(option.value);
                       }
                       const filterValues = Array.from(selectedValues);
@@ -119,12 +116,12 @@ export function DataTableFacetedFilter<TData, TValue>({
                       />
                     )}
                     <span>{option.label}</span>
-                    {option.withCount
-                    && column?.getFacetedUniqueValues()?.get(option.value) && (
-                      <span className="ml-auto flex size-4 items-center justify-center font-mono text-xs">
-                        {column?.getFacetedUniqueValues().get(option.value)}
-                      </span>
-                    )}
+                    {option.withCount &&
+                      column?.getFacetedUniqueValues()?.get(option.value) && (
+                        <span className="ml-auto flex size-4 items-center justify-center font-mono text-xs">
+                          {column?.getFacetedUniqueValues().get(option.value)}
+                        </span>
+                      )}
                   </CommandItem>
                 );
               })}

@@ -16,6 +16,7 @@ export default antfu(
       semi: true,
       indent: 2,
       quotes: 'single',
+      arrowParens: 'avoid',
     },
 
     formatters: {
@@ -72,6 +73,19 @@ export default antfu(
       'tailwindcss/migration-from-tailwind-2': 'off',
       'react-hooks/exhaustive-deps': 'off',
       'react-refresh/only-export-components': 'off',
+      'style/indent': 'off',
+      'style/indent-binary-ops': 'off',
+      'style/brace-style': 'off',
+      'style/jsx-one-expression-per-line': 'off',
+      'style/arrow-parens': 'off',
+      'style/operator-linebreak': 'off',
+      'style/jsx-curly-newline': 'off',
+      'no-extra-boolean-cast': 'off',
+      curly: 'off',
+      'style/quote-props': 'off',
+      'style/jsx-wrap-multilines': 'off',
+      'unicorn/number-literal-case': 'off',
+      'eslint-comments/no-unlimited-disable': 'off',
     },
   },
 );

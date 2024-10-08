@@ -24,12 +24,11 @@ const makeConfiguredStore = () =>
 export const makeStore = () => {
   if (typeof window === 'undefined') {
     return makeConfiguredStore();
-  }
-  else {
+  } else {
     const persistedReducer = persistReducer(persistConfig, rootReducer);
     const store: any = configureStore({
       reducer: persistedReducer,
-      middleware: (getDefaultMiddleware) => {
+      middleware: getDefaultMiddleware => {
         return getDefaultMiddleware({
           serializableCheck: false,
         }).concat();

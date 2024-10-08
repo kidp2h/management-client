@@ -66,9 +66,7 @@ export function DataTableMultiFilter<TData>({
           className="h-7 truncate rounded-full"
         >
           <TextAlignCenterIcon className="mr-2 size-3" aria-hidden="true" />
-          {options.length}
-          {' '}
-          rule
+          {options.length} rule
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-fit p-0 text-xs" align="start">
@@ -95,12 +93,10 @@ export function DataTableMultiFilter<TData>({
             size="sm"
             className="w-full justify-start"
             onClick={() => {
-              setSelectedOptions(prev =>
-                prev.filter(item => !item.isMulti),
-              );
+              setSelectedOptions(prev => prev.filter(item => !item.isMulti));
             }}
           >
-            Delete filter
+            Xoá lọc
           </Button>
         </div>
       </PopoverContent>
@@ -145,16 +141,26 @@ export function MultiFilterRow<TData>({
     DataTableFilterOption<TData> | undefined
   >(options[0]);
 
+  console.log(options);
+
   const filterVarieties = selectedOption?.options.length
-    ? ['is', 'is not']
-    : ['contains', 'does not contain', 'is', 'is not'];
+    ? [
+        { label: 'là', value: 'is' },
+        { label: 'không phải là', value: 'is not' },
+      ]
+    : [
+        { label: 'chứa', value: 'contains' },
+        { label: 'không chứa', value: 'does not contain' },
+        { label: 'là', value: 'is' },
+        { label: 'không phải là', value: 'is not' },
+      ];
 
   const [filterVariety, setFilterVariety] = React.useState(filterVarieties[0]);
 
   // Update filter variety
   React.useEffect(() => {
     if (selectedOption?.options.length) {
-      setFilterVariety('is');
+      setFilterVariety({ label: 'là', value: 'is' });
     }
   }, [selectedOption?.options.length]);
 
@@ -166,8 +172,7 @@ export function MultiFilterRow<TData>({
       for (const [key, value] of Object.entries(params)) {
         if (value === null) {
           newSearchParams.delete(key);
-        }
-        else {
+        } else {
           newSearchParams.set(key, String(value));
         }
       }
@@ -183,7 +188,7 @@ export function MultiFilterRow<TData>({
       router.push(
         `${pathname}?${createQueryString({
           [selectedOption?.value ?? '']: `${debounceValue}${
-            debounceValue.length > 0 ? `.${filterVariety}` : ''
+            debounceValue.length > 0 ? `~${filterVariety.value}` : ''
           }`,
         })}`,
         {
@@ -228,7 +233,8 @@ export function MultiFilterRow<TData>({
           onValueChange={value =>
             setOperator(
               dataTableConfig.logicalOperators.find(o => o.value === value),
-            )}
+            )
+          }
         >
           <SelectTrigger className="h-8 w-fit text-xs">
             <SelectValue placeholder={operator?.label} />
@@ -237,7 +243,7 @@ export function MultiFilterRow<TData>({
             <SelectGroup>
               {dataTableConfig.logicalOperators.map(operator => (
                 <SelectItem
-                  key={operator.value}
+                  key={operator.label}
                   value={operator.value}
                   className="text-xs"
                 >
@@ -252,12 +258,10 @@ export function MultiFilterRow<TData>({
       )}
       <Select
         value={String(selectedOption?.value)}
-        onValueChange={(value) => {
-          setSelectedOption(
-            allOptions.find(option => option.value === value),
-          );
+        onValueChange={value => {
+          setSelectedOption(allOptions.find(option => option.value === value));
           setSelectedOptions(prev =>
-            prev.map((item) => {
+            prev.map(item => {
               if (item.id === option.id) {
                 return {
                   ...item,
@@ -287,17 +291,22 @@ export function MultiFilterRow<TData>({
         </SelectContent>
       </Select>
       <Select
-        value={filterVariety}
-        onValueChange={value => setFilterVariety(value)}
+        value={filterVariety.value}
+        onValueChange={i => {
+          setFilterVariety({
+            label: filterVarieties.find(item => item.value === i)?.label ?? '',
+            value: i,
+          });
+        }}
       >
         <SelectTrigger className="h-8 w-full truncate px-2 py-0.5 hover:bg-muted/50">
-          <SelectValue placeholder={filterVarieties[0]} />
+          <SelectValue placeholder={filterVarieties[0].label} />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
             {filterVarieties.map(variety => (
-              <SelectItem key={variety} value={variety}>
-                {variety}
+              <SelectItem key={variety.value} value={variety.value}>
+                {variety.label}
               </SelectItem>
             ))}
           </SelectGroup>
@@ -316,7 +325,7 @@ export function MultiFilterRow<TData>({
         )
       ) : (
         <Input
-          placeholder="Type here..."
+          placeholder="Từ khoá"
           className="h-8"
           value={value}
           onChange={event => setValue(event.target.value)}
@@ -332,13 +341,14 @@ export function MultiFilterRow<TData>({
         <DropdownMenuContent>
           <DropdownMenuItem
             onClick={() => {
-              setSelectedOptions(prev =>
-                prev.filter(item => item.id !== option.id),
-              );
+              setSelectedOptions(prev => {
+                console.log(prev);
+                return prev.filter(item => item.id !== option.id);
+              });
             }}
           >
             <TrashIcon className="mr-2 size-4" aria-hidden="true" />
-            Remove
+            Xoá
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() => {
@@ -359,7 +369,7 @@ export function MultiFilterRow<TData>({
             }}
           >
             <CopyIcon className="mr-2 size-4" aria-hidden="true" />
-            Duplicate
+            Nhân bản
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

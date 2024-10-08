@@ -40,6 +40,7 @@ function AutoForm<SchemaType extends ZodObjectOrWrapped>({
   children,
   className,
   dependencies,
+  resetOnSubmit,
 }: {
   formSchema: SchemaType;
   values?: Partial<z.infer<SchemaType>>;
@@ -52,6 +53,7 @@ function AutoForm<SchemaType extends ZodObjectOrWrapped>({
     | ((formState: FormState<z.infer<SchemaType>>) => React.ReactNode);
   className?: string;
   dependencies?: Dependency<z.infer<SchemaType>>[];
+  resetOnSubmit?: boolean;
 }) {
   const objectFormSchema = getObjectFormSchema(formSchema);
   const defaultValues: DefaultValues<z.infer<typeof objectFormSchema>> | null =
@@ -68,10 +70,13 @@ function AutoForm<SchemaType extends ZodObjectOrWrapped>({
     if (parsedValues.success) {
       onSubmitProp?.(parsedValues.data);
     }
+    if (resetOnSubmit) {
+      form.reset();
+    }
   }
 
   React.useEffect(() => {
-    const subscription = form.watch((values) => {
+    const subscription = form.watch(values => {
       onValuesChangeProp?.(values);
       const parsedValues = formSchema.safeParse(values);
       if (parsedValues.success) {
@@ -91,7 +96,7 @@ function AutoForm<SchemaType extends ZodObjectOrWrapped>({
     <div className="w-full">
       <Form {...form}>
         <form
-          onSubmit={(e) => {
+          onSubmit={e => {
             form.handleSubmit(onSubmit)(e);
           }}
           className={cn('space-y-5', className)}

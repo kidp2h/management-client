@@ -8,6 +8,7 @@ import localFont from 'next/font/local';
 import Script from 'next/script';
 
 import { Toaster } from '@/components/ui/sonner';
+import { cn } from '@/lib/utils';
 import { ThemeProvider } from '@/providers';
 import { GlobalStoreProvider } from '@/providers/global-store-provider';
 import { LoadingProvider } from '@/providers/loading-provider';
@@ -37,7 +38,9 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
         <body
-          className={`${geistSans.variable} ${geistMono.variable} relative min-h-screen antialiased`}
+          className={cn(
+            `${geistSans.variable} ${geistMono.variable} relative min-h-screen antialiased`,
+          )}
         >
           {/* <StoreProvider> */}
           <GlobalStoreProvider>

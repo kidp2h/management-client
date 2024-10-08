@@ -281,8 +281,8 @@ export function useDataTable<TData>({
     return enableAdvancedFilter
       ? { searchableColumns: [], filterableColumns: [] }
       : {
-          searchableColumns: filterFields.filter((field) => !field.options),
-          filterableColumns: filterFields.filter((field) => field.options),
+          searchableColumns: filterFields.filter(field => !field.options),
+          filterableColumns: filterFields.filter(field => field.options),
         };
   }, [filterFields, enableAdvancedFilter]);
 
@@ -290,7 +290,7 @@ export function useDataTable<TData>({
     (updateOrValue: Updater<ColumnFiltersState>) => {
       if (enableAdvancedFilter) return; // Don't process filters if advanced filtering is enabled
 
-      setColumnFilters((prev) => {
+      setColumnFilters(prev => {
         const next =
           typeof updateOrValue === 'function'
             ? updateOrValue(prev)
@@ -299,10 +299,10 @@ export function useDataTable<TData>({
         const filterUpdates = next.reduce<
           Record<string, string | string[] | null>
         >((acc, filter) => {
-          if (searchableColumns.find((col) => col.value === filter.id)) {
+          if (searchableColumns.find(col => col.value === filter.id)) {
             // For search filters, use the value directly
             acc[filter.id] = filter.value as string;
-          } else if (filterableColumns.find((col) => col.value === filter.id)) {
+          } else if (filterableColumns.find(col => col.value === filter.id)) {
             // For faceted filters, use the array of values
             acc[filter.id] = filter.value as string[];
           }
@@ -310,8 +310,8 @@ export function useDataTable<TData>({
         }, {});
 
         // Handle filter removal
-        prev.forEach((prevFilter) => {
-          if (!next.some((filter) => filter.id === prevFilter.id)) {
+        prev.forEach(prevFilter => {
+          if (!next.some(filter => filter.id === prevFilter.id)) {
             filterUpdates[prevFilter.id] = null;
           }
         });

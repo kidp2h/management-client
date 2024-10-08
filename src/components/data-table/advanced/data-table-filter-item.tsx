@@ -59,8 +59,8 @@ export function DataTableFilterItem<TData>({
     item => item.value === column?.id,
   )?.filterOperator;
 
-  const operators
-    = selectedOption.options.length > 0
+  const operators =
+    selectedOption.options.length > 0
       ? dataTableConfig.selectableOperators
       : dataTableConfig.comparisonOperators;
 
@@ -79,8 +79,7 @@ export function DataTableFilterItem<TData>({
       for (const [key, value] of Object.entries(params)) {
         if (value === null) {
           newSearchParams.delete(key);
-        }
-        else {
+        } else {
           newSearchParams.set(key, String(value));
         }
       }
@@ -101,8 +100,7 @@ export function DataTableFilterItem<TData>({
             : null,
       });
       router.push(`${pathname}?${newSearchParams}`);
-    }
-    else {
+    } else {
       // key=value~operator
       const newSearchParams = createQueryString({
         [String(selectedOption.value)]:
@@ -128,22 +126,22 @@ export function DataTableFilterItem<TData>({
           <span className="font-medium capitalize">{selectedOption.label}</span>
           {selectedOption.options.length > 0
             ? selectedValues.size > 0 && (
-              <span className="text-muted-foreground">
-                <span className="text-foreground">: </span>
-                {selectedValues.size > 2
-                  ? `${selectedValues.size} selected`
-                  : selectedOption.options
-                    .filter(item => selectedValues.has(item.value))
-                    .map(item => item.label)
-                    .join(', ')}
-              </span>
-            )
+                <span className="text-muted-foreground">
+                  <span className="text-foreground">: </span>
+                  {selectedValues.size > 2
+                    ? `${selectedValues.size} selected`
+                    : selectedOption.options
+                        .filter(item => selectedValues.has(item.value))
+                        .map(item => item.label)
+                        .join(', ')}
+                </span>
+              )
             : value.length > 0 && (
-              <span className="text-muted-foreground">
-                <span className="text-foreground">: </span>
-                {value}
-              </span>
-            )}
+                <span className="text-muted-foreground">
+                  <span className="text-foreground">: </span>
+                  {value}
+                </span>
+              )}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-60 space-y-1.5 p-2" align="start">
@@ -155,7 +153,8 @@ export function DataTableFilterItem<TData>({
             <Select
               value={selectedOperator?.value}
               onValueChange={value =>
-                setSelectedOperator(operators.find(c => c.value === value))}
+                setSelectedOperator(operators.find(c => c.value === value))
+              }
             >
               <SelectTrigger className="h-auto w-fit truncate border-none px-2 py-0.5 text-xs hover:bg-muted/50">
                 <SelectValue placeholder={selectedOperator?.label} />
@@ -207,7 +206,7 @@ export function DataTableFilterItem<TData>({
           )
         ) : (
           <Input
-            placeholder="Type here..."
+            placeholder="Nhập giá trì cần tìm..."
             className="h-8"
             value={value}
             onChange={event => setValue(event.target.value)}

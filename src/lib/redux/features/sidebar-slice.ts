@@ -12,7 +12,7 @@ export const sidebarSlice = createAppSlice({
   name: 'sidebar',
   initialState,
   reducers: create => ({
-    setToggle: create.reducer((state) => {
+    setToggle: create.reducer(state => {
       state.isOpen = !state.isOpen;
     }),
   }),

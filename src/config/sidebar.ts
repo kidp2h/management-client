@@ -72,8 +72,8 @@ export function getMenuList(pathname: string): Group[] {
           icon: Bookmark,
           submenus: [
             {
-              href: '#',
-              label: '1',
+              href: '/religions',
+              label: 'Tôn giáo',
             },
             {
               href: '#',

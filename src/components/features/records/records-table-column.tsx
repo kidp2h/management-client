@@ -10,8 +10,8 @@ export function getColumns(): ColumnDef<any>[] {
       header: ({ table }) => (
         <Checkbox
           checked={
-            table.getIsAllPageRowsSelected()
-            || (table.getIsSomePageRowsSelected() && 'indeterminate')
+            table.getIsAllPageRowsSelected() ||
+            (table.getIsSomePageRowsSelected() && 'indeterminate')
           }
           onCheckedChange={value => table.toggleAllPageRowsSelected(!!value)}
           aria-label="Select all"
@@ -31,6 +31,9 @@ export function getColumns(): ColumnDef<any>[] {
     },
     {
       accessorKey: 'code',
+      meta: {
+        label: 'Mã hồ sơ',
+      },
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Mã hồ sơ" />
       ),

@@ -2,8 +2,8 @@ import type { BaseQueryFn, FetchArgs } from '@reduxjs/toolkit/query';
 import { fetchBaseQuery } from '@reduxjs/toolkit/query';
 
 export const baseQuery = fetchBaseQuery({
-  baseUrl: process.env.NEXT_PUBLIC_BASE_API!,
-  prepareHeaders: (headers) => {
+  baseUrl: ''!,
+  prepareHeaders: headers => {
     // const accessToken = (getState() as RootState).auth.accessToken;
     // if (accessToken) {
     //   headers.set('Authorization', `Bearer ${accessToken}`);

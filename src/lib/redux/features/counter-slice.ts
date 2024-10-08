@@ -16,10 +16,10 @@ export const counterSlice = createAppSlice({
   name: 'counter',
   initialState,
   reducers: create => ({
-    increment: create.reducer((state) => {
+    increment: create.reducer(state => {
       state.value += 1;
     }),
-    decrement: create.reducer((state) => {
+    decrement: create.reducer(state => {
       state.value -= 1;
     }),
     incrementByAmount: create.reducer(

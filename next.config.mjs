@@ -4,6 +4,14 @@ const nextConfig = {
     dirs: ['.'],
     ignoreDuringBuilds: true,
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'img.clerk.com',
+      },
+    ],
+  },
   reactStrictMode: true,
 };
 

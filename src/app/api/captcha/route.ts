@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { env } from '@/../env.mjs';
+
 export async function POST(req: Request) {
   if (!req.method.includes('POST')) {
     return new Response(
@@ -10,7 +12,7 @@ export async function POST(req: Request) {
 
   const data = await req.json();
   const { token } = data;
-  const secretKey: string | undefined = process.env.RECAPTCHA_SECRET_KEY;
+  const secretKey: string | undefined = env.RECAPTCHA_SECRET_KEY;
 
   if (!token) {
     console.log('Token not found');
@@ -28,15 +30,13 @@ export async function POST(req: Request) {
       return new Response(JSON.stringify({ message: 'Success' }), {
         status: 200,
       });
-    }
-    else {
+    } else {
       console.log('Failed to verify', response);
       return new Response(JSON.stringify({ message: 'Failed to verify' }), {
         status: 405,
       });
     }
-  }
-  catch (error) {
+  } catch (error) {
     console.log(error);
     return new Response(JSON.stringify({ message: 'Internal Server Error' }), {
       status: 500,

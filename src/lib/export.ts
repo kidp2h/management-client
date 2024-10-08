@@ -47,7 +47,7 @@ export function exportTableToCSV<TData>(
       : table.getRowModel().rows
     ).map(row =>
       headers
-        .map((header) => {
+        .map(header => {
           const cellValue = row.getValue(header);
           // Handle values that might contain commas or newlines
           return typeof cellValue === 'string'

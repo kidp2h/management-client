@@ -8,7 +8,7 @@ export const LoadingScreen = ({ isLoading }: { isLoading: boolean }) => {
   const [color] = React.useState(theme === 'dark' ? 'white' : 'black');
   return (
     isLoading && (
-      <div className="fixed z-50 flex size-full  items-center justify-center overflow-hidden bg-white bg-opacity-40 dark:bg-black dark:bg-opacity-80">
+      <div className="fixed z-50 flex size-full items-center  justify-center overflow-hidden bg-white bg-opacity-40 backdrop-blur-sm dark:bg-black dark:bg-opacity-80">
         <PropagateLoader color={color} />
       </div>
     )

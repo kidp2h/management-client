@@ -68,7 +68,7 @@ export function DataTableColumnHeader<TData, TValue>({
                   className="mr-2 size-3.5 text-muted-foreground/70"
                   aria-hidden="true"
                 />
-                Asc
+                Tăng dần
               </DropdownMenuItem>
               <DropdownMenuItem
                 aria-label="Sort descending"
@@ -78,7 +78,7 @@ export function DataTableColumnHeader<TData, TValue>({
                   className="mr-2 size-3.5 text-muted-foreground/70"
                   aria-hidden="true"
                 />
-                Desc
+                Giảm dần
               </DropdownMenuItem>
             </>
           )}
@@ -94,7 +94,7 @@ export function DataTableColumnHeader<TData, TValue>({
                 className="mr-2 size-3.5 text-muted-foreground/70"
                 aria-hidden="true"
               />
-              Hide
+              Ẩn
             </DropdownMenuItem>
           )}
         </DropdownMenuContent>
