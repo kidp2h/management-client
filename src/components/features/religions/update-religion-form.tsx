@@ -6,7 +6,7 @@ import type { z } from 'zod';
 import AutoForm, { AutoFormSubmit } from '@/components/ui/auto-form';
 import type { FieldConfig } from '@/components/ui/auto-form/types';
 import { updateReligion } from '@/db/actions/religions';
-import { updateReligionSchema } from '@/lib/zod/schemas/religions-schema';
+import { updateReligionSchema } from '@/lib/zod/schemas/religion-schema';
 
 export interface UpdateReligionFormProps {
   onSuccess: () => void;

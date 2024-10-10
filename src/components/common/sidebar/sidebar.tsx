@@ -25,8 +25,7 @@ export function Sidebar({ menuList }: SidebarProps) {
       <SidebarToggle isOpen={isOpen} setToggle={() => toggle()} />
       <div
         className={cn(
-          'relative flex flex-col px-3 py-4 overflow-y-auto shadow-md dark:shadow-zinc-800',
-          isOpen ? 'h-full' : '',
+          'relative flex flex-col px-3 py-4 overflow-y-auto shadow-md dark:shadow-zinc-800 h-full',
         )}
       >
         <Button

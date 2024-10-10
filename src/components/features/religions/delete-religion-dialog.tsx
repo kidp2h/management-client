@@ -122,7 +122,7 @@ export function DeleteReligionsDialog({
           <DrawerTitle>Bạn có chắc chắn không?</DrawerTitle>
           <DrawerDescription>
             Hành động này không thể hoàn tác. Điều này sẽ xóa vĩnh viễn{' '}
-            <span className="font-medium">{religions.length}</span>
+            <span className="font-medium">{religions.length} </span>
             {name}.
           </DrawerDescription>
         </DrawerHeader>

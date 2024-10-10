@@ -48,7 +48,7 @@ export function CreateDataDialog({
             Thêm mới {name}
           </Button>
         </DialogTrigger>
-        <DialogContent>
+        <DialogContent className="max-h-[95vh] overflow-y-scroll">
           <DialogHeader>
             <DialogTitle>Tạo {name}</DialogTitle>
             <DialogDescription>{description}</DialogDescription>

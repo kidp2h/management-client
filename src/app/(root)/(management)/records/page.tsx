@@ -2,6 +2,10 @@
 import React from 'react';
 
 import { RecordsManagementSection } from '@/components/features/records';
+import { getAllRanks } from '@/db/queries/ranks';
+import { getRecords } from '@/db/queries/records';
+import { getAllReligions } from '@/db/queries/religions';
+import { getRecordsSchema } from '@/lib/zod/schemas/record-schema';
 import type { SearchParams } from '@/types';
 
 type RecordsManagementPageProps = {
@@ -10,33 +14,17 @@ type RecordsManagementPageProps = {
 export default async function RecordsManagementPage({
   searchParams,
 }: RecordsManagementPageProps) {
-  const records = [
-    {
-      id: '1',
-      code: 'R0001',
-    },
-    {
-      id: '2',
-      code: 'R0002',
-    },
-    {
-      id: '3',
-      code: 'R0003',
-    },
-  ];
-  const getRecords = (searchParams: any) => {
-    return new Promise(resolve => {
-      resolve({
-        data: records.filter(record => {
-          if (searchParams.code) {
-            return record.code.includes(searchParams.code);
-          }
-          return true;
-        }),
-        pageCount: 1,
-      });
-    });
-  };
-  // const _ = getRecords(searchParams);
-  return <RecordsManagementSection records={getRecords(searchParams)} />;
+  const search = getRecordsSchema.parse(searchParams);
+
+  const [religions, ranks] = await Promise.all([
+    getAllReligions(),
+    getAllRanks(),
+  ]);
+  return (
+    <RecordsManagementSection
+      records={getRecords(search)}
+      religions={religions.data || []}
+      ranks={ranks.data || []}
+    />
+  );
 }

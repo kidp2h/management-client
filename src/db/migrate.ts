@@ -3,7 +3,7 @@ import { migrate } from 'drizzle-orm/postgres-js/migrator';
 import { db } from '.';
 
 export async function runMigrate() {
-  console.log('⏳ Running migrations...');
+  console.warn('⏳ Running migrations...');
 
   const start = Date.now();
 
@@ -11,7 +11,7 @@ export async function runMigrate() {
 
   const end = Date.now();
 
-  console.log(`✅ Migrations completed in ${end - start}ms`);
+  console.warn(`✅ Migrations completed in ${end - start}ms`);
 
   process.exit(0);
 }

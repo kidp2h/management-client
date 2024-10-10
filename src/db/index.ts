@@ -1,3 +1,5 @@
+import { exit } from 'node:process';
+
 import { drizzle } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
 
@@ -10,5 +12,38 @@ const connectionString = env.DATABASE_URL;
 if (!connectionString) {
   throw new Error('Missing env var: DATABASE_URL');
 }
-export const client = postgres(connectionString, { prepare: false });
-export const db = drizzle(client, { schema, logger: true });
+let clientInstance: ReturnType<typeof postgres> | null = null;
+let dbInstance: ReturnType<typeof drizzle> | null = null;
+
+const getClient = () => {
+  if (!clientInstance) {
+    try {
+      clientInstance = postgres(connectionString);
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
+  return clientInstance;
+};
+
+const getDb = () => {
+  try {
+    if (!dbInstance) {
+      const client = getClient();
+      if (client) dbInstance = drizzle(client, { schema, logger: false });
+    }
+    return dbInstance;
+  } catch (error) {
+    console.error(error);
+    return dbInstance;
+  }
+};
+
+export const client = getClient();
+export const db = getDb() || exit(0);
+if (!db) throw new Error('Failed initialize db');
+export type Response<T> = {
+  data: T;
+  error: string;
+};

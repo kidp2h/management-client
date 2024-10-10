@@ -2,7 +2,7 @@ import React from 'react';
 
 import ReligionsManagementSection from '@/components/features/religions/religions-management-section';
 import { getReligions } from '@/db/queries/religions';
-import { getReligionsSchema } from '@/lib/zod/schemas/religions-schema';
+import { getReligionsSchema } from '@/lib/zod/schemas/religion-schema';
 import type { SearchParams } from '@/types';
 
 export interface ReligionsManagementPageProps {

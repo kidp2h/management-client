@@ -45,6 +45,7 @@ export function DataTableFilterCombobox<TData>({
   const [, setSelectedOption] = React.useState<DataTableFilterOption<TData>>(
     options[0] ?? ({} as DataTableFilterOption<TData>),
   );
+  console.log('H');
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -54,7 +55,7 @@ export function DataTableFilterCombobox<TData>({
             variant="outline"
             size="sm"
             role="combobox"
-            className="capitalize"
+            className="h-12 capitalize"
           >
             <CaretSortIcon
               className="mr-2 size-4 shrink-0"
@@ -68,13 +69,13 @@ export function DataTableFilterCombobox<TData>({
         <Command>
           <CommandInput placeholder="Lọc bởi..." />
           <CommandList>
-            <CommandEmpty>No item found.</CommandEmpty>
+            <CommandEmpty>Không tìm thấy.</CommandEmpty>
             <CommandGroup>
               {options
                 .filter(
                   option =>
                     !selectedOptions.some(
-                      selectedOption => selectedOption.value === option.value,
+                      selectedOption => selectedOption.key === option.value,
                     ),
                 )
                 .map(option => (
@@ -104,28 +105,6 @@ export function DataTableFilterCombobox<TData>({
                   </CommandItem>
                 ))}
             </CommandGroup>
-            {/* <CommandSeparator />
-            <CommandGroup>
-              <CommandItem
-                onSelect={() => {
-                  setOpen(false);
-                  setSelectedOptions([
-                    ...selectedOptions,
-                    {
-                      id: crypto.randomUUID(),
-                      label: selectedOption?.label ?? '',
-                      value: selectedOption?.value ?? '',
-                      options: selectedOption?.options ?? [],
-                      isMulti: true,
-                    },
-                  ]);
-                  onSelect();
-                }}
-              >
-                <PlusIcon className="mr-2 size-4" aria-hidden="true" />
-                Lọc nâng cao
-              </CommandItem>
-            </CommandGroup> */}
           </CommandList>
         </Command>
       </PopoverContent>

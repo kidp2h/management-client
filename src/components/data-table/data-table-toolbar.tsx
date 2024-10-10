@@ -16,6 +16,7 @@ interface DataTableToolbarProps<TData>
   extends React.HTMLAttributes<HTMLDivElement> {
   table: Table<TData>;
   filterFields?: DataTableFilterField<TData>[];
+  btnView?: boolean;
 }
 
 export function DataTableToolbar<TData>({
@@ -23,6 +24,7 @@ export function DataTableToolbar<TData>({
   filterFields = [],
   children,
   className,
+  btnView = true,
   ...props
 }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
@@ -94,7 +96,7 @@ export function DataTableToolbar<TData>({
       </div>
       <div className="flex items-center gap-2">
         {children}
-        <DataTableViewOptions table={table} />
+        {btnView && <DataTableViewOptions table={table} />}
       </div>
     </div>
   );

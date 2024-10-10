@@ -66,7 +66,7 @@ export function DataTableMultiFilter<TData>({
           className="h-7 truncate rounded-full"
         >
           <TextAlignCenterIcon className="mr-2 size-3" aria-hidden="true" />
-          {options.length} rule
+          {options.length} quy định
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-fit p-0 text-xs" align="start">
@@ -140,8 +140,6 @@ export function MultiFilterRow<TData>({
   const [selectedOption, setSelectedOption] = React.useState<
     DataTableFilterOption<TData> | undefined
   >(options[0]);
-
-  console.log(options);
 
   const filterVarieties = selectedOption?.options.length
     ? [
@@ -342,7 +340,6 @@ export function MultiFilterRow<TData>({
           <DropdownMenuItem
             onClick={() => {
               setSelectedOptions(prev => {
-                console.log(prev);
                 return prev.filter(item => item.id !== option.id);
               });
             }}

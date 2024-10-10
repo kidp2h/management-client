@@ -2,16 +2,16 @@ import z from 'zod';
 
 import { searchParamsSchema } from '.';
 
-export const religionsSchema = z.object({
+export const religionSchema = z.object({
   id: z.string().optional(),
   name: z.string().optional(),
   code: z.string().optional(),
   created_at: z.string().optional(),
 });
-export type ReligionsSchema = z.infer<typeof religionsSchema>;
+export type ReligionsSchema = z.infer<typeof religionSchema>;
 export const getReligionsSchema = z.object({
   ...searchParamsSchema.shape,
-  ...religionsSchema.shape,
+  ...religionSchema.shape,
 });
 export type GetReligionsSchema = z.infer<typeof getReligionsSchema>;
 

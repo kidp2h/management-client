@@ -24,15 +24,24 @@ export default function AutoFormEnum({
 }: AutoFormInputComponentProps) {
   const baseValues = (getBaseSchema(zodItem) as unknown as z.ZodEnum<any>)._def
     .values;
+  console.log('field', field);
 
   let values: [string, string][] = [];
   if (!Array.isArray(baseValues)) {
     values = Object.entries(baseValues);
   } else {
-    values = baseValues.map(value => [value, value]);
+    values = baseValues.map(value => {
+      const s = value.split('|');
+      if (s.length === 2) {
+        return [s[0], s[1]];
+      } else {
+        return [value, value];
+      }
+    });
   }
 
   function findItem(value: any) {
+    console.log(value);
     return values.find(item => item[0] === value);
   }
 
@@ -50,12 +59,17 @@ export default function AutoFormEnum({
         >
           <SelectTrigger className={fieldProps.className}>
             <SelectValue placeholder={fieldConfigItem.inputProps?.placeholder}>
-              {field.value ? findItem(field.value)?.[1] : 'Select an option'}
+              {field.value
+                ? findItem(field.value)?.[1]
+                : fieldConfigItem.inputProps?.defaultValue}
             </SelectValue>
           </SelectTrigger>
           <SelectContent>
             {values.map(([value, label]) => (
-              <SelectItem value={label} key={value}>
+              <SelectItem
+                value={value === label ? value : `${value}|${label}`}
+                key={value}
+              >
                 {label}
               </SelectItem>
             ))}

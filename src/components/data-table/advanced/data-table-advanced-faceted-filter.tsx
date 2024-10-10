@@ -40,11 +40,10 @@ export function DataTableAdvancedFacetedFilter<TData, TValue>({
         />
       </div>
       <CommandList>
-        <CommandEmpty>No results found.</CommandEmpty>
+        <CommandEmpty>Không tìm thấy.</CommandEmpty>
         <CommandGroup className="px-0">
           {options.map(option => {
             const isSelected = selectedValues.has(option.value);
-
             return (
               <CommandItem
                 key={option.value}
@@ -117,7 +116,7 @@ export function DataTableAdvancedFacetedFilter<TData, TValue>({
                 }}
                 className="justify-center text-center"
               >
-                Clear filters
+                Xoá lọc
               </CommandItem>
             </CommandGroup>
           </>

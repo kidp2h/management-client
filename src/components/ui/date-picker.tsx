@@ -11,14 +11,16 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { forwardRef } from 'react';
+import dayjs from 'dayjs';
 
 export const DatePicker = forwardRef<
   HTMLDivElement,
   {
     date?: Date;
     setDate: (date?: Date) => void;
+    placeholder: string;
   }
->(function DatePickerCmp({ date, setDate }, ref) {
+>(function DatePickerCmp({ date, setDate, placeholder }, ref) {
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -30,7 +32,7 @@ export const DatePicker = forwardRef<
           )}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
-          {date ? format(date, 'PPP') : <span>Pick a date</span>}
+          {date ? dayjs(date).format('DD-MM-YYYY') : <span>{placeholder}</span>}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0" ref={ref}>
@@ -39,6 +41,9 @@ export const DatePicker = forwardRef<
           selected={date}
           onSelect={setDate}
           initialFocus
+          captionLayout="dropdown-buttons"
+          fromYear={1960}
+          toYear={new Date().getFullYear() + 2}
         />
       </PopoverContent>
     </Popover>

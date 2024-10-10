@@ -25,7 +25,11 @@ export default function AutoFormInput({
           />
         )}
         <FormControl>
-          <Input type={type} {...fieldPropsWithoutShowLabel} />
+          <Input
+            startIcon={fieldConfigItem?.icon}
+            type={type}
+            {...fieldPropsWithoutShowLabel}
+          />
         </FormControl>
         <AutoFormTooltip fieldConfigItem={fieldConfigItem} />
         <FormMessage />

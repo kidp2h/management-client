@@ -2,6 +2,7 @@ import type { ControllerRenderProps, FieldValues } from 'react-hook-form';
 import type * as z from 'zod';
 
 import type { INPUT_COMPONENTS } from './config';
+import { LucideIcon } from 'lucide-react';
 
 export type FieldConfigItem = {
   description?: React.ReactNode;
@@ -17,6 +18,7 @@ export type FieldConfigItem = {
   renderParent?: (props: {
     children: React.ReactNode;
   }) => React.ReactElement | null;
+  icon?: LucideIcon;
 };
 
 export type FieldConfig<SchemaType extends z.infer<z.ZodObject<any, any>>> = {

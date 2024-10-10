@@ -33,7 +33,7 @@ export function getMenuList(pathname: string): Group[] {
           submenus: [
             {
               href: '/records',
-              label: '1',
+              label: 'Quản lý hồ sơ CBCCVC',
             },
             {
               href: '#',
@@ -76,12 +76,12 @@ export function getMenuList(pathname: string): Group[] {
               label: 'Tôn giáo',
             },
             {
-              href: '#',
-              label: '2',
+              href: '/languages',
+              label: 'Ngôn ngữ',
             },
             {
-              href: '#',
-              label: '3',
+              href: '/ranks',
+              label: 'Cấp bậc',
             },
             {
               href: '#',

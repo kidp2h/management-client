@@ -10,7 +10,7 @@ import { getErrorMessage } from '@/lib/handle-error';
 import type {
   CreateReligionSchema,
   UpdateReligionSchema,
-} from '@/lib/zod/schemas/religions-schema';
+} from '@/lib/zod/schemas/religion-schema';
 
 export async function createReligion(input: CreateReligionSchema) {
   noStore();

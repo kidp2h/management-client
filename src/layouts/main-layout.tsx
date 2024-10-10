@@ -19,7 +19,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
       <Sidebar menuList={menuList} />
       <main
         className={cn(
-          'min-h-[calc(100vh_-_56px)] bg-zinc-50 dark:bg-zinc-900 transition-[margin-left] ease-in-out duration-300',
+          'min-h-[calc(100vh_-_56px)] bg-zinc-50 dark:bg-zinc-900 transition-[margin-left]',
           isOpen === false ? 'lg:ml-[90px]' : 'lg:ml-72',
         )}
       >

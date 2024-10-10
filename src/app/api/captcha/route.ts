@@ -15,7 +15,6 @@ export async function POST(req: Request) {
   const secretKey: string | undefined = env.RECAPTCHA_SECRET_KEY;
 
   if (!token) {
-    console.log('Token not found');
     return new Response(JSON.stringify({ message: 'Token not found' }), {
       status: 405,
     });
@@ -31,13 +30,13 @@ export async function POST(req: Request) {
         status: 200,
       });
     } else {
-      console.log('Failed to verify', response);
+      console.error('Failed to verify', response);
       return new Response(JSON.stringify({ message: 'Failed to verify' }), {
         status: 405,
       });
     }
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return new Response(JSON.stringify({ message: 'Internal Server Error' }), {
       status: 500,
     });

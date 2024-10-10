@@ -102,6 +102,7 @@
 
 ::-webkit-scrollbar {
   width: 0.5rem;
+  height: 0.5rem;
 }
 
 html {
@@ -131,4 +132,7 @@ html::-webkit-scrollbar {
 
 body {
   pointer-events: auto !important;
+}
+.rdp-vhidden {
+  @apply hidden;
 }

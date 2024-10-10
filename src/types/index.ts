@@ -9,6 +9,7 @@ export interface SearchParams {
 export interface Option {
   label: string;
   value: string;
+  key?: string;
   icon?: React.ComponentType<{ className?: string }>;
   withCount?: boolean;
 }
@@ -16,6 +17,7 @@ export interface Option {
 export interface DataTableFilterField<TData> {
   label: string;
   value: keyof TData;
+  key?: string;
   placeholder?: string;
   options?: Option[];
 }
@@ -25,6 +27,7 @@ export interface DataTableFilterOption<TData> {
   label: string;
   value: keyof TData;
   options: Option[];
+  key?: string;
   filterValues?: string[];
   filterOperator?: string;
   isMulti?: boolean;

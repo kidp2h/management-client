@@ -33,7 +33,6 @@ export function DataTableFacetedFilter<TData, TValue>({
   options,
 }: DataTableFacetedFilterProps<TData, TValue>) {
   const selectedValues = new Set(column?.getFilterValue() as string[]);
-
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -134,7 +133,7 @@ export function DataTableFacetedFilter<TData, TValue>({
                     onSelect={() => column?.setFilterValue(undefined)}
                     className="justify-center text-center"
                   >
-                    Clear filters
+                    Xoá lọc
                   </CommandItem>
                 </CommandGroup>
               </>

@@ -18,6 +18,7 @@ interface DataTableAdvancedToolbarProps<TData>
   extends React.HTMLAttributes<HTMLDivElement> {
   table: Table<TData>;
   filterFields?: DataTableFilterField<TData>[];
+  btnView?: boolean;
 }
 
 export function DataTableAdvancedToolbar<TData>({
@@ -25,6 +26,7 @@ export function DataTableAdvancedToolbar<TData>({
   filterFields = [],
   children,
   className,
+  btnView = true,
   ...props
 }: DataTableAdvancedToolbarProps<TData>) {
   const searchParams = useSearchParams();
@@ -35,6 +37,7 @@ export function DataTableAdvancedToolbar<TData>({
         id: crypto.randomUUID(),
         label: field.label,
         value: field.value,
+        key: field.key,
         options: field.options ?? [],
       };
     });
@@ -72,7 +75,7 @@ export function DataTableAdvancedToolbar<TData>({
   return (
     <div
       className={cn(
-        'flex w-full flex-col space-y-2.5 overflow-auto py-1',
+        'flex w-full flex-row-reverse gap-2  items-center space-2.5 overflow-auto py-1',
         className,
       )}
       {...props}
@@ -80,14 +83,7 @@ export function DataTableAdvancedToolbar<TData>({
       <div className="ml-auto flex items-center gap-2">
         {children}
         {(options.length > 0 && selectedOptions.length > 0) ||
-        openFilterBuilder ? // > //   onClick={() => setOpenFilterBuilder(!openFilterBuilder)} //   size="sm" //   variant="outline" // <Button
-        //   <CaretSortIcon
-        //     className="mr-2 size-4 shrink-0"
-        //     aria-hidden="true"
-        //   />
-        //   Lọc
-        // </Button>
-        null : (
+        openFilterBuilder ? null : ( // </Button> //   Lọc //   /> //     aria-hidden="true" //     className="mr-2 size-4 shrink-0" //   <CaretSortIcon // > //   onClick={() => setOpenFilterBuilder(!openFilterBuilder)} //   size="sm" //   variant="outline" // <Button
           <DataTableFilterCombobox
             options={options.filter(
               option =>
@@ -100,7 +96,7 @@ export function DataTableAdvancedToolbar<TData>({
             onSelect={onFilterComboboxItemSelect}
           />
         )}
-        <DataTableViewOptions table={table} />
+        {btnView && <DataTableViewOptions table={table} />}
       </div>
       <div className={cn('flex items-center gap-2')}>
         {selectedOptions

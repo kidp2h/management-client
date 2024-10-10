@@ -1,5 +1,6 @@
 'use client';
 import { useUser } from '@clerk/nextjs';
+import { isEmpty } from 'lodash';
 import Image from 'next/image';
 import React, { useRef, useState, useTransition } from 'react';
 import { toast } from 'sonner';
@@ -47,10 +48,17 @@ export default React.memo(() => {
     }
   };
   const handleUpdateAccount = async (
-    values: z.infer<ReturnType<typeof updateAccountSchema>>,
+    values: z.infer<typeof updateAccountSchema>,
   ) => {
     try {
-      await user?.update(values);
+      await user?.update({
+        firstName: isEmpty(values.firstName)
+          ? user?.firstName || ''
+          : values.firstName,
+        lastName: isEmpty(values.lastName)
+          ? user?.lastName || ''
+          : values.lastName,
+      });
       toast.success('Cập nhật thông tin thành công');
     } catch (error) {
       handleClerkException(error, () => {
@@ -145,19 +153,17 @@ export default React.memo(() => {
                   <Skeleton className="h-8 w-full" />
                 ) : (
                   <AutoForm
-                    formSchema={updateAccountSchema()}
+                    formSchema={updateAccountSchema}
                     resetOnSubmit={false}
                     fieldConfig={{
                       firstName: {
                         inputProps: {
-                          placeholder: 'Tên',
-                          defaultValue: user?.firstName || '',
+                          placeholder: user?.firstName || 'Tên',
                         },
                       },
                       lastName: {
                         inputProps: {
-                          placeholder: 'Họ',
-                          defaultValue: user?.lastName || '',
+                          placeholder: user?.lastName || 'Họ',
                         },
                       },
                     }}

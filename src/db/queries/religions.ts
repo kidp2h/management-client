@@ -7,18 +7,14 @@ import { db } from '@/db';
 import type { Religions } from '@/db/schema';
 import { religions } from '@/db/schema';
 import { filterColumn } from '@/lib/filter-column';
-import type { GetReligionsSchema } from '@/lib/zod/schemas/religions-schema';
+import type { GetReligionsSchema } from '@/lib/zod/schemas/religion-schema';
 import type { DrizzleWhere } from '@/types';
 
 export async function getReligions(input: Partial<GetReligionsSchema>) {
   noStore();
 
   try {
-    console.log(input);
     const offset = (input.page! - 1) * input.per_page!;
-    // Column and order to sort by
-    // Spliting the sort string by "." to get the column and order
-    // Example: "title.desc" => ["title", "desc"]
     const [column, order] = (input.sort?.split('.').filter(Boolean) ?? [
       'createdAt',
       'desc',
@@ -45,7 +41,6 @@ export async function getReligions(input: Partial<GetReligionsSchema>) {
       fromDate ? gte(religions.createdAt, fromDate) : undefined,
       toDate ? lte(religions.createdAt, toDate) : undefined,
     ];
-    console.log(expressions);
     const where: DrizzleWhere<Religions> =
       !input.operator || input.operator === 'and'
         ? and(...expressions)
@@ -84,5 +79,15 @@ export async function getReligions(input: Partial<GetReligionsSchema>) {
   } catch (error) {
     console.error('Error getting religions:', error);
     return { data: [], pageCount: 0 };
+  }
+}
+
+export async function getAllReligions() {
+  try {
+    const data = await db.select().from(religions);
+    return { data };
+  } catch (error) {
+    console.error('Error getting religions:', error);
+    return { data: null };
   }
 }

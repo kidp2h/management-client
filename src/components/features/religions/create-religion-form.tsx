@@ -4,7 +4,7 @@ import { toast } from 'sonner';
 
 import AutoForm, { AutoFormSubmit } from '@/components/ui/auto-form';
 import { createReligion } from '@/db/actions/religions';
-import { createReligionSchema } from '@/lib/zod/schemas/religions-schema';
+import { createReligionSchema } from '@/lib/zod/schemas/religion-schema';
 
 export interface CreateReligionFormProps {
   onSuccess: () => void;

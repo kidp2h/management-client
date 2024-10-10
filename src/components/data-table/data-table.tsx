@@ -27,6 +27,8 @@ interface DataTableProps<TData> extends React.HTMLAttributes<HTMLDivElement> {
    * @example floatingBar={<TasksTableFloatingBar table={table} />}
    */
   floatingBar?: React.ReactNode | null;
+
+  loading?: boolean;
 }
 
 export function DataTable<TData>({
@@ -34,6 +36,7 @@ export function DataTable<TData>({
   floatingBar = null,
   children,
   className,
+  loading,
   ...props
 }: DataTableProps<TData>) {
   return (
