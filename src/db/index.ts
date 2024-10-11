@@ -31,7 +31,7 @@ const getDb = () => {
   try {
     if (!dbInstance) {
       const client = getClient();
-      if (client) dbInstance = drizzle(client, { schema, logger: false });
+      if (client) dbInstance = drizzle(client, { schema, logger: true });
     }
     return dbInstance;
   } catch (error) {

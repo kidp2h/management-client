@@ -90,6 +90,9 @@ export async function updateRecord(input: UpdateRecordSchema & { id: string }) {
         religionId: input.religionId,
         birthday: input.birthday,
         rankId: input.rankId,
+        englishCertification: input.englishCertification,
+        technologyCertification: input.technologyCertification,
+        bloodType: input.bloodType,
         isPartyMember: input.isPartyMember,
         degree: input.degree,
       })

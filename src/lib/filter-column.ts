@@ -17,20 +17,26 @@ export function filterColumn({
   isSelectable,
 }: {
   column: Column<ColumnBaseConfig<ColumnDataType, string>, object, object>;
-  value: string;
+  value: string | boolean;
   isSelectable?: boolean;
 }) {
-  const [filterValue, filterOperator] = (value?.split('~').filter(Boolean) ??
-    []) as [
-    string,
-    DataTableConfig['comparisonOperators'][number]['value'] | undefined,
-  ];
+  let filterValue = null;
+  let filterOperator = null;
 
-  if (!filterValue) {
+  if (typeof value === 'boolean') {
+    [filterValue, filterOperator] = [value, 'eq'];
+  } else {
+    [filterValue, filterOperator] = (value?.split('~').filter(Boolean) ??
+      []) as [
+      string,
+      DataTableConfig['comparisonOperators'][number]['value'] | undefined,
+    ];
+  }
+  if (typeof filterValue !== 'boolean' && !filterValue) {
     return;
   }
 
-  if (isSelectable) {
+  if (isSelectable && typeof filterValue !== 'boolean') {
     switch (filterOperator) {
       case 'eq':
         return inArray(column, filterValue?.split('.').filter(Boolean) ?? []);

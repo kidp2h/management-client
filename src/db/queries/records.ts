@@ -23,7 +23,6 @@ import type { DrizzleWhere } from '@/types';
 
 export async function getRecords(input: Partial<GetRecordsSchema>) {
   noStore();
-  console.log('input', input);
   try {
     const offset = (input.page! - 1) * input.per_page!;
     const [column, order] = (input.sort?.split('.').filter(Boolean) ?? [
@@ -42,7 +41,7 @@ export async function getRecords(input: Partial<GetRecordsSchema>) {
             value: input.code,
           })
         : undefined,
-      !!input.fullName
+      input.fullName
         ? filterColumn({
             column: records.fullName,
             value: input.fullName,
@@ -64,28 +63,28 @@ export async function getRecords(input: Partial<GetRecordsSchema>) {
         : undefined,
       !!input.birthday
         ? and(
-            gte(records.birthday, input.birthday),
-            lte(records.birthday, input.birthday),
+            gte(records.birthday, new Date(input.birthday.split(',')[0])),
+            lte(records.birthday, new Date(input.birthday.split(',')[1])),
           )
         : undefined,
-      !!input.religionId
+      input.religionId
         ? filterColumn({
             column: records.religionId,
             value: input.religionId,
           })
         : undefined,
 
-      !!input.rankId
+      input.rankId
         ? filterColumn({
             column: records.rankId,
             value: input.rankId,
           })
         : undefined,
 
-      !!input.isPartyMember
+      input.isPartyMember !== undefined
         ? filterColumn({
             column: records.isPartyMember,
-            value: input.isPartyMember.toString(),
+            value: input.isPartyMember,
           })
         : undefined,
       !!input.degree

@@ -3,8 +3,11 @@ import React from 'react';
 import { TreeView } from '@/components/extends/tree-view';
 import { ResizablePanel } from '@/components/ui/resizable';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useMediaQuery } from '@/hooks/use-media-query';
+import { cn } from '@/lib/utils';
 
-export default function DepartmentsTreePanel() {
+export default React.memo(() => {
+  const isDesktop = useMediaQuery('(min-width: 1024px)');
   const elements = [
     {
       id: '1',
@@ -33,15 +36,17 @@ export default function DepartmentsTreePanel() {
   ];
   return (
     <ResizablePanel
-      className="w-[30%]"
+      className={cn(isDesktop ? 'w-[30%]' : 'w-full')}
       defaultSize={30}
       minSize={19}
       maxSize={50}
     >
       <div className="size-full rounded-l-lg bg-primary-foreground  p-2 shadow-lg">
         <Tabs defaultValue="tree" className="h-full p-0">
-          <TabsList className="grid h-[4.5%] grid-cols-1 flex-wrap gap-1">
-            <TabsTrigger value="tree">Sơ đồ cây đơn vị</TabsTrigger>
+          <TabsList className="grid h-fit grid-cols-1 flex-wrap gap-1">
+            <TabsTrigger value="tree" className="font-bold uppercase">
+              Sơ đồ cây đơn vị
+            </TabsTrigger>
             {/* <TabsTrigger value="tree-1">So do cay don vi1</TabsTrigger> */}
           </TabsList>
           <TabsContent value="tree" className="h-full animate-none">
@@ -62,4 +67,4 @@ export default function DepartmentsTreePanel() {
       </div>
     </ResizablePanel>
   );
-}
+});

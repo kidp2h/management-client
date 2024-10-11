@@ -38,6 +38,7 @@ export function DataTableAdvancedToolbar<TData>({
         label: field.label,
         value: field.value,
         key: field.key,
+        description: field.description,
         options: field.options ?? [],
       };
     });
@@ -82,34 +83,25 @@ export function DataTableAdvancedToolbar<TData>({
     >
       <div className="ml-auto flex items-center gap-2">
         {children}
-        {(options.length > 0 && selectedOptions.length > 0) ||
-        openFilterBuilder ? null : ( // </Button> //   Lọc //   /> //     aria-hidden="true" //     className="mr-2 size-4 shrink-0" //   <CaretSortIcon // > //   onClick={() => setOpenFilterBuilder(!openFilterBuilder)} //   size="sm" //   variant="outline" // <Button
-          <DataTableFilterCombobox
-            options={options.filter(
-              option =>
-                !selectedOptions.some(
-                  selectedOption => selectedOption.value === option.value,
-                ),
-            )}
-            selectedOptions={selectedOptions}
-            setSelectedOptions={setSelectedOptions}
-            onSelect={onFilterComboboxItemSelect}
-          />
-        )}
+        {(options.length > 0 && selectedOptions.length > 0) || openFilterBuilder
+          ? null // </Button> //   Lọc //   /> //     aria-hidden="true" //     className="mr-2 size-4 shrink-0" //   <CaretSortIcon // > //   onClick={() => setOpenFilterBuilder(!openFilterBuilder)} //   size="sm" //   variant="outline" // <Button
+          : null}
         {btnView && <DataTableViewOptions table={table} />}
       </div>
       <div className={cn('flex items-center gap-2')}>
         {selectedOptions
           .filter(option => !option.isMulti)
           .map(selectedOption => (
-            <DataTableFilterItem
-              key={String(selectedOption.value)}
-              table={table}
-              selectedOption={selectedOption}
-              selectedOptions={selectedOptions}
-              setSelectedOptions={setSelectedOptions}
-              defaultOpen={openCombobox}
-            />
+            <div key={String(selectedOption.value)}>
+              <DataTableFilterItem
+                key={String(selectedOption.value)}
+                table={table}
+                selectedOption={selectedOption}
+                selectedOptions={selectedOptions}
+                setSelectedOptions={setSelectedOptions}
+                defaultOpen={openCombobox}
+              />
+            </div>
           ))}
         {selectedOptions.some(option => option.isMulti) ? (
           <DataTableMultiFilter

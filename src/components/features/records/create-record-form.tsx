@@ -18,7 +18,6 @@ export default function CreateRecordForm({ onSuccess }: CreateRecordFormProps) {
     <AutoForm
       onSubmit={async values => {
         startCreateTransition(async () => {
-          console.log(values);
           const { error } = await createRecord({
             ...values,
             religionId: values.religionId.split('|')[0],

@@ -19,7 +19,9 @@ import {
 } from '@/components/ui/resizable';
 import type { getRecords } from '@/db/queries/records';
 import type { Ranks, Religions } from '@/db/schema';
+import { useMediaQuery } from '@/hooks/use-media-query';
 import { ContentLayout } from '@/layouts';
+import { cn } from '@/lib/utils';
 import { useGlobalStore } from '@/providers/global-store-provider';
 import { TableProvider } from '@/providers/table-provider';
 
@@ -37,6 +39,7 @@ export const RecordsManagementSection = ({
   ranks,
 }: RecordsManagementSectionProps) => {
   const { setReligions, setRanks } = useGlobalStore(state => state);
+  const isDesktop = useMediaQuery('(min-width: 1024px)');
   useEffect(() => {
     setReligions(religions);
     setRanks(ranks);
@@ -46,17 +49,22 @@ export const RecordsManagementSection = ({
     { isSeparator: true },
     { name: 'Quản lý hồ sơ' },
   ];
-
   return (
     <ContentLayout title="Quản lý hồ sơ">
       <AutoBreadcrumb items={items} />
       <MainContent>
         <div className="flex size-full h-screen rounded-lg border">
-          <ResizablePanelGroup direction="horizontal" className="w-full">
+          <ResizablePanelGroup
+            direction={isDesktop ? 'horizontal' : 'vertical'}
+            className="w-full"
+          >
             <DepartmentsTreePanel />
 
             <ResizableHandle withHandle />
-            <ResizablePanel className="w-[70%] p-2" defaultSize={70}>
+            <ResizablePanel
+              className={cn('w-[70%] p-2', !isDesktop ? 'w-full' : '')}
+              defaultSize={70}
+            >
               <div className="w-full">
                 <Menubar className="h-[4.5%] bg-card">
                   <MenubarMenu>

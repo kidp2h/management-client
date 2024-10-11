@@ -1,7 +1,13 @@
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
 import { NextResponse } from 'next/server';
 
-const isPublicRoute = createRouteMatcher(['/auth', '/api/captcha(.*)']);
+const isPublicRoute = createRouteMatcher([
+  '/auth',
+  '/api/captcha(.*)',
+  '/users',
+  '/users/(.*)',
+  '/',
+]);
 
 export default clerkMiddleware(
   (auth, request) => {

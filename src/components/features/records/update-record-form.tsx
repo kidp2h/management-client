@@ -28,7 +28,6 @@ export default function UpdateRecordForm({
         ranks.map(r => `${r.id}|${r.name}`),
       )}
       onSubmit={async values => {
-        console.log(values);
         startUpdateTransition(async () => {
           const { error } = await updateRecord({
             id: data.id,

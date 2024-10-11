@@ -9,17 +9,30 @@ import {
 
 import { searchParamsSchema } from '.';
 
+const stringToBoolean = (value: unknown) => {
+  if (typeof value === 'string') {
+    return value === 'true';
+  }
+  return value;
+};
+
+const stringToDate = (value: unknown) => {
+  if (typeof value === 'string') {
+    return new Date(value);
+  }
+  return value;
+};
 export const recordSchema = z.object({
   id: z.string().optional(),
   code: z.string().optional(),
   fullName: z.string().optional(),
   religionId: z.string().optional(),
-  birthday: z.date().optional(),
+  birthday: z.preprocess(stringToDate, z.date()).optional(),
   bloodType: z.enum(enumBloodType).optional(),
   rankId: z.string().optional(),
   englishCertification: z.enum(enumEnglishCertification).optional(),
   technologyCertification: z.enum(enumTechnologyCertification).optional(),
-  isPartyMember: z.boolean().optional(),
+  isPartyMember: z.preprocess(stringToBoolean, z.boolean()).optional(),
   degree: z.enum(enumDegree).optional(),
   created_at: z.string().optional(),
   updated_at: z.string().optional(),
@@ -32,6 +45,7 @@ export const getRecordsSchema = z.object({
   religion: z.string().optional(),
   rank: z.string().optional(),
   englishCertification: z.string().optional(),
+  birthday: z.string().optional(),
   technologyCertification: z.string().optional(),
 });
 export type GetRecordsSchema = z.infer<typeof getRecordsSchema>;

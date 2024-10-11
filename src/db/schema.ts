@@ -128,7 +128,14 @@ export const recordsRelations = relations(records, ({ one, many }) => ({
   }),
   recordsToLanguages: many(recordsToLanguages),
 }));
-
+export const faculties = pgTable('faculties', {
+  id: uuid('id')
+    .$default(() => uuidv4())
+    .primaryKey(),
+  name: text('name').notNull().unique(),
+  code: text('code').notNull().unique(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
 export const languagesRelations = relations(languages, ({ many }) => ({
   recordsToLanguages: many(recordsToLanguages),
 }));

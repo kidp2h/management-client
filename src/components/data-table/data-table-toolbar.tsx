@@ -30,12 +30,18 @@ export function DataTableToolbar<TData>({
   const isFiltered = table.getState().columnFilters.length > 0;
 
   // Memoize computation of searchableColumns and filterableColumns
-  const { searchableColumns, filterableColumns } = React.useMemo(() => {
-    return {
-      searchableColumns: filterFields.filter(field => !field.options),
-      filterableColumns: filterFields.filter(field => field.options),
-    };
-  }, [filterFields]);
+  const { searchableColumns, filterableColumns, pickerableColumns } =
+    React.useMemo(() => {
+      return {
+        searchableColumns: filterFields.filter(
+          field => !field.options && !field.isDate,
+        ),
+        filterableColumns: filterFields.filter(
+          field => field.options && !field.isDate,
+        ),
+        pickerableColumns: filterFields.filter(field => field.isDate),
+      };
+    }, [filterFields]);
 
   return (
     <div
@@ -45,6 +51,17 @@ export function DataTableToolbar<TData>({
       )}
       {...props}
     >
+      {isFiltered && (
+        <Button
+          aria-label="Reset filters"
+          variant="ghost"
+          className="h-8 px-2 lg:px-3"
+          onClick={() => table.resetColumnFilters()}
+        >
+          Đặt lại
+          <Cross2Icon className="ml-2 size-4" aria-hidden="true" />
+        </Button>
+      )}
       <div className="flex flex-1 items-center space-x-2">
         {searchableColumns.length > 0 &&
           searchableColumns.map(
@@ -82,17 +99,21 @@ export function DataTableToolbar<TData>({
                 />
               ),
           )}
-        {isFiltered && (
-          <Button
-            aria-label="Reset filters"
-            variant="ghost"
-            className="h-8 px-2 lg:px-3"
-            onClick={() => table.resetColumnFilters()}
-          >
-            Đặt lại
-            <Cross2Icon className="ml-2 size-4" aria-hidden="true" />
-          </Button>
-        )}
+        {pickerableColumns.length > 0 &&
+          pickerableColumns.map(
+            column =>
+              table.getColumn(column.value ? String(column.value) : '') && (
+                <DataTableFacetedFilter
+                  key={String(column.value)}
+                  column={table.getColumn(
+                    column.value ? String(column.value) : '',
+                  )}
+                  isDate
+                  title={column.label}
+                  options={column.options ?? []}
+                />
+              ),
+          )}
       </div>
       <div className="flex items-center gap-2">
         {children}

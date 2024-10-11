@@ -15,7 +15,6 @@ export default async function RecordsManagementPage({
   searchParams,
 }: RecordsManagementPageProps) {
   const search = getRecordsSchema.parse(searchParams);
-
   const [religions, ranks] = await Promise.all([
     getAllReligions(),
     getAllRanks(),

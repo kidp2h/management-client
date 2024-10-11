@@ -11,6 +11,7 @@ export interface Option {
   value: string;
   key?: string;
   icon?: React.ComponentType<{ className?: string }>;
+  isBoolean?: boolean;
   withCount?: boolean;
 }
 
@@ -18,6 +19,8 @@ export interface DataTableFilterField<TData> {
   label: string;
   value: keyof TData;
   key?: string;
+  description?: string;
+  isDate?: boolean;
   placeholder?: string;
   options?: Option[];
 }
@@ -28,6 +31,7 @@ export interface DataTableFilterOption<TData> {
   value: keyof TData;
   options: Option[];
   key?: string;
+  description?: string;
   filterValues?: string[];
   filterOperator?: string;
   isMulti?: boolean;

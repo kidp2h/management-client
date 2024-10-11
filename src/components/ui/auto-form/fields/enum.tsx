@@ -24,7 +24,6 @@ export default function AutoFormEnum({
 }: AutoFormInputComponentProps) {
   const baseValues = (getBaseSchema(zodItem) as unknown as z.ZodEnum<any>)._def
     .values;
-  console.log('field', field);
 
   let values: [string, string][] = [];
   if (!Array.isArray(baseValues)) {
@@ -41,7 +40,6 @@ export default function AutoFormEnum({
   }
 
   function findItem(value: any) {
-    console.log(value);
     return values.find(item => item[0] === value);
   }
 

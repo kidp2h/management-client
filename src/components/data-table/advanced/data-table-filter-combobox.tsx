@@ -45,7 +45,6 @@ export function DataTableFilterCombobox<TData>({
   const [, setSelectedOption] = React.useState<DataTableFilterOption<TData>>(
     options[0] ?? ({} as DataTableFilterOption<TData>),
   );
-  console.log('H');
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -75,7 +74,7 @@ export function DataTableFilterCombobox<TData>({
                 .filter(
                   option =>
                     !selectedOptions.some(
-                      selectedOption => selectedOption.key === option.value,
+                      selectedOption => selectedOption.value === option.value,
                     ),
                 )
                 .map(option => (

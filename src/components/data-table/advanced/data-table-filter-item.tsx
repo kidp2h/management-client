@@ -1,5 +1,6 @@
 import { TrashIcon } from '@radix-ui/react-icons';
 import type { Table } from '@tanstack/react-table';
+import { Search } from 'lucide-react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import * as React from 'react';
 
@@ -205,13 +206,19 @@ export function DataTableFilterItem<TData>({
             />
           )
         ) : (
-          <Input
-            placeholder="Nhập giá trì cần tìm..."
-            className="h-8"
-            value={value}
-            onChange={event => setValue(event.target.value)}
-            autoFocus
-          />
+          <div>
+            <Input
+              placeholder="Nhập giá trì cần tìm..."
+              className="mb-3 h-8"
+              value={value}
+              startIcon={Search}
+              onChange={event => setValue(event.target.value)}
+              autoFocus
+            />
+            <div className="text-xs text-red-500">
+              {selectedOption?.description}
+            </div>
+          </div>
         )}
       </PopoverContent>
     </Popover>

@@ -2,23 +2,15 @@ import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 import type { ColumnDef } from '@tanstack/react-table';
 import dayjs from 'dayjs';
 import {
-  BookCheck,
-  BookOpenText,
-  Building,
-  Cake,
-  CaseUpper,
-  Code,
-  Cpu,
-  Droplet,
-  HeartPulse,
-  ScanBarcode,
-  Star,
+  CircleUser,
+  History,
+  ImageIcon,
+  Key,
+  ShieldPlus,
   Timer,
-  TypeOutline,
-  University,
+  UserCircle,
 } from 'lucide-react';
 import React from 'react';
-import { toast } from 'sonner';
 
 import { UpdateDataSheet } from '@/components/common/update-data-sheet';
 import { DataTableColumnHeader } from '@/components/data-table/data-table-column-header';
@@ -30,31 +22,16 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
   DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Switch } from '@/components/ui/switch';
-import { updateRecord } from '@/db/actions/records';
-import type { Ranks, Religions } from '@/db/schema';
-import { records } from '@/db/schema';
 
-import { DeleteRecordsDialog } from './delete-record-dialog';
-import UpdateRecordForm from './update-record-form';
+import { DeleteUsersDialog } from './delete-user-dialog';
+import UpdateUserForm from './update-user-form';
 
-export interface DataColumnsRecords {
-  religions: Religions[];
-  ranks: Ranks[];
-}
+export interface DataColumnsUsers {}
 
-export function getColumns({
-  religions,
-  ranks,
-}: DataColumnsRecords): ColumnDef<any>[] {
+export function getColumns(): ColumnDef<any, any>[] {
   return [
     {
       id: 'select',
@@ -81,190 +58,119 @@ export function getColumns({
       enableHiding: true,
     },
     {
-      accessorKey: 'code',
+      accessorKey: 'imageUrl',
       meta: {
-        label: 'Mã hồ sơ',
+        label: 'Ảnh đại diện',
       },
       header: ({ column }) => (
         <div className="flex flex-row items-center gap-1 ">
-          <ScanBarcode className="mr-2 size-5 text-muted-foreground" />
-          <DataTableColumnHeader column={column} title="Mã hồ sơ" />
+          <ImageIcon className="mr-2 size-5 text-blue-500 " />
+          <DataTableColumnHeader column={column} title="Ảnh đại diện" />
         </div>
       ),
-      cell: ({ row }) => <div className="w-20">{row.getValue('code')}</div>,
-      enableSorting: false,
-      enableHiding: true,
-    },
-    {
-      accessorKey: 'fullName',
-      meta: {
-        label: 'Họ và tên',
-      },
-      header: ({ column }) => (
-        <div className="flex flex-row items-center gap-1 ">
-          <TypeOutline className="mr-2 size-5 text-pink-500" />
-          <DataTableColumnHeader column={column} title="Họ và tên" />
-        </div>
-      ),
-      cell: ({ row }) => (
-        <div className="w-fit">{row.getValue('fullName')}</div>
-      ),
-      enableSorting: false,
-      enableHiding: true,
-    },
-    {
-      accessorKey: 'religion',
-      meta: {
-        label: 'Tôn giáo',
-      },
-      header: ({ column }) => (
-        <div className="flex flex-row items-center gap-1 ">
-          <University className="mr-2 size-5 text-indigo-500" />
-          <DataTableColumnHeader column={column} title="Tôn giáo" />
-        </div>
-      ),
-      cell: ({ row }) => (
-        <Badge
-          roundedType="md"
-          variant="outline"
-          className="bg-indigo-500 text-white"
-        >
-          {row.getValue('religion')}
-        </Badge>
-      ),
-      enableSorting: false,
-      enableHiding: true,
-    },
-    {
-      accessorKey: 'rank',
-      meta: {
-        label: 'Trình độ',
-      },
-      header: ({ column }) => (
-        <div className="flex flex-row items-center gap-1 ">
-          <BookOpenText className="mr-2 size-5 text-green-500" />
-          <DataTableColumnHeader column={column} title="Trình độ" />
-        </div>
-      ),
-      cell: ({ row }) => (
-        <div className="flex items-center">
+      cell: ({}) => (
+        <div className="flex w-[6.25rem] items-center">
           <Badge
-            roundedType="md"
             variant="outline"
-            className="bg-green-500 text-white"
+            roundedType="md"
+            className="cursor-pointer text-blue-500 underline"
           >
-            {row.getValue('rank')}
+            Xem chi tiết
           </Badge>
         </div>
       ),
-      enableSorting: false,
-      enableHiding: true,
     },
+
     {
-      accessorKey: 'birthday',
+      accessorKey: 'username',
       meta: {
-        label: 'Ngày sinh',
+        label: 'Tài khoản',
       },
       header: ({ column }) => (
         <div className="flex flex-row items-center gap-1 ">
-          <Cake className="mr-2 size-5 text-red-500" />
-          <DataTableColumnHeader column={column} title="Ngày sinh" />
+          <CircleUser className="mr-2 size-5 text-muted-foreground " />
+          <DataTableColumnHeader column={column} title="Tài khoản" />
         </div>
       ),
       cell: ({ cell }) => (
         <div className="flex w-[6.25rem] items-center">
-          <span>{dayjs(cell.getValue() as Date).format('D-MM-YYYY')}</span>
+          <span>{cell.getValue()}</span>
         </div>
       ),
     },
     {
-      accessorKey: 'englishCertification',
+      accessorKey: 'publicMetadata.role',
       meta: {
-        label: 'Tiếng Anh',
+        label: 'Vai trò',
       },
       header: ({ column }) => (
         <div className="flex flex-row items-center gap-1 ">
-          <BookCheck className="mr-2 size-5 text-cyan-500" />
-          <DataTableColumnHeader column={column} title="Tiếng Anh" />
+          <ShieldPlus className="mr-2 size-5 text-indigo-500 " />
+          <DataTableColumnHeader column={column} title="Vai trò" />
         </div>
       ),
-      cell: ({ row }) => (
-        <Badge
-          roundedType="md"
-          variant="secondary"
-          className="bg-cyan-500 text-white"
-        >
-          {row.getValue('englishCertification')}
-        </Badge>
-      ),
-      enableSorting: false,
-      enableHiding: true,
-    },
-    {
-      accessorKey: 'technologyCertification',
-      meta: {
-        label: 'Tin học',
-      },
-      header: ({ column }) => (
-        <div className="flex flex-row items-center gap-1 ">
-          <Cpu className="mr-2 size-5 text-blue-500" />
-          <DataTableColumnHeader column={column} title="Tin học" />
-        </div>
-      ),
-      cell: ({ row }) => (
-        <Badge
-          roundedType="md"
-          variant="secondary"
-          className="bg-blue-500 text-white"
-        >
-          {row.getValue('technologyCertification')}
-        </Badge>
-      ),
-      enableSorting: false,
-      enableHiding: true,
-    },
-    {
-      accessorKey: 'bloodType',
-      meta: {
-        label: 'Nhóm máu',
-      },
-      header: ({ column }) => (
-        <div className="flex flex-row items-center gap-1 ">
-          <HeartPulse className="mr-2 size-5 text-red-500" />
-          <DataTableColumnHeader column={column} title="Nhóm máu" />
-        </div>
-      ),
-      cell: ({ row }) => (
+      cell: ({ cell }) => (
         <div className="flex w-[6.25rem] items-center">
-          <Badge
-            roundedType="md"
-            variant="destructive"
-            className="bg-red-500 text-white"
-          >
-            {row.getValue('bloodType')}
+          <Badge roundedType="md" className="flex w-full justify-center">
+            {cell.getValue()}
           </Badge>
         </div>
       ),
     },
+    // {
+    //   accessorKey: 'lastName',
+    //   meta: {
+    //     label: 'Họ',
+    //   },
+    //   header: ({ column }) => (
+    //     <div className="flex flex-row items-center gap-1 ">
+    //       <Heading className="mr-2 size-5 text-pink-500" />
+    //       <DataTableColumnHeader column={column} title="Họ" />
+    //     </div>
+    //   ),
+    //   cell: ({ cell }) => (
+    //     <div className="flex w-[6.25rem] items-center">
+    //       <span>{cell.getValue()}</span>
+    //     </div>
+    //   ),
+    // },
+    // {
+    //   accessorKey: 'firstName',
+    //   meta: {
+    //     label: 'Tên',
+    //   },
+    //   header: ({ column }) => (
+    //     <div className="flex flex-row items-center gap-1 ">
+    //       <Type className="mr-2 size-5 text-pink-400" />
+    //       <DataTableColumnHeader column={column} title="Tên" />
+    //     </div>
+    //   ),
+    //   cell: ({ cell }) => (
+    //     <div className="flex w-[6.25rem] items-center">
+    //       <span>{cell.getValue()}</span>
+    //     </div>
+    //   ),
+    // },
+
     {
-      accessorKey: 'isPartyMember',
+      accessorKey: 'updatedAt',
       meta: {
-        label: 'Đảng viên',
+        label: 'Cập nhật lúc',
       },
       header: ({ column }) => (
         <div className="flex flex-row items-center gap-1 ">
-          <Building className="mr-2 size-5 text-yellow-500" />
-          <DataTableColumnHeader column={column} title="Đảng viên" />
+          <History className="mr-2 size-5 text-orange-500" />
+          <DataTableColumnHeader column={column} title="Cập nhật lúc" />
         </div>
       ),
-      cell: ({ row }) => (
-        <div className="flex w-[6.25rem] items-center">
-          <Switch
-            id="terms1"
-            checked={row.getValue('isPartyMember')}
-            color="yellow"
-            disabled
-          />
+      cell: ({ cell }) => (
+        <div className="flex w-fit items-center">
+          <span className="flex flex-row items-center gap-2 whitespace-nowrap">
+            <Badge roundedType="md" variant="outline">
+              {dayjs(cell.getValue() as Date).format('D-MM-YYYY')}
+            </Badge>
+            {dayjs(cell.getValue() as Date).format('hh:mm:ss')}
+          </span>
         </div>
       ),
     },
@@ -274,8 +180,8 @@ export function getColumns({
         label: 'Ngày tạo',
       },
       header: ({ column }) => (
-        <div className="flex flex-row items-center gap-1 ">
-          <Timer className="mr-2 size-5 text-orange-500" />
+        <div className="flex flex-row items-center gap-1">
+          <Timer className="mr-2 size-5 text-orange-400" />
           <DataTableColumnHeader column={column} title="Ngày tạo" />
         </div>
       ),
@@ -293,95 +199,42 @@ export function getColumns({
     {
       id: 'actions',
       cell: function Cell({ row }) {
-        const [showUpdateRecordSheet, setShowUpdateRecordSheet] =
+        const [showUpdateUserSheet, setShowUpdateUserSheet] =
           React.useState(false);
-        const [showDeleteRecordDialog, setShowDeleteRecordDialog] =
+        const [showDeleteUserDialog, setShowDeleteUserDialog] =
           React.useState(false);
         React.useEffect(() => {});
-        const [isUpdatePending, startUpdateTransition] = React.useTransition();
+        // const [isUpdatePending, startUpdateTransition] = React.useTransition();
         return (
           <>
             <UpdateDataSheet<any>
-              open={showUpdateRecordSheet}
-              onOpenChange={setShowUpdateRecordSheet}
+              open={showUpdateUserSheet}
+              onOpenChange={setShowUpdateUserSheet}
               data={row.original}
-              form={UpdateRecordForm}
+              form={UpdateUserForm}
               name="tôn giáo"
               fieldConfig={{
-                fullName: {
+                username: {
                   inputProps: {
                     type: 'text',
-                    placeholder: row.original.fullName,
-                    defaultValue: row.original.fullName,
+                    placeholder: row.original.username,
                   },
-                  icon: CaseUpper,
+                  icon: UserCircle,
                 },
-                bloodType: {
-                  inputProps: {
-                    placeholder: row.original.bloodType,
-                    defaultValue: row.original.bloodType,
-                  },
-                  icon: Droplet,
-                },
-                birthday: {
-                  inputProps: {
-                    // date: row.original.birthday,
-                    placeholder: dayjs(row.original.birthday).format(
-                      'DD-MM-YYYY',
-                    ),
-                  },
-                },
-                code: {
+                password: {
                   inputProps: {
                     type: 'text',
-                    placeholder: row.original.code,
-                    defaultValue: row.original.code,
+                    placeholder: 'Mật khẩu',
                   },
-                  icon: Code,
-                },
-                englishCertification: {
-                  inputProps: {
-                    placeholder: row.original.englishCertification,
-                    defaultValue: row.original.englishCertification,
-                  },
-                },
-                technologyCertification: {
-                  inputProps: {
-                    placeholder: row.original.technologyCertification,
-                    defaultValue: row.original.technologyCertification,
-                  },
-                },
-                religionId: {
-                  inputProps: {
-                    placeholder: row.original.religion,
-                    defaultValue: row.original.religion,
-                  },
-                },
-                rankId: {
-                  inputProps: {
-                    placeholder: row.original.rank,
-                    defaultValue: row.original.rank,
-                  },
-                },
-
-                isPartyMember: {
-                  inputProps: {
-                    defaultChecked: row.original.isPartyMember,
-                  },
-                },
-                degree: {
-                  inputProps: {
-                    placeholder: row.original.degree,
-                    defaultValue: row.original.degree,
-                  },
+                  icon: Key,
                 },
               }}
             />
-            <DeleteRecordsDialog
+            <DeleteUsersDialog
               name="tôn giáo"
-              open={showDeleteRecordDialog}
-              onOpenChange={setShowDeleteRecordDialog}
-              records={[row.original]}
+              open={showDeleteUserDialog}
+              onOpenChange={setShowDeleteUserDialog}
+              users={[row.original]}
               showTrigger={false}
               onSuccess={() => row.toggleSelected(false)}
             />
@@ -399,14 +252,12 @@ export function getColumns({
                 <DropdownMenuLabel className="text-xs font-bold uppercase text-muted-foreground">
                   Thao tác
                 </DropdownMenuLabel>
-                <DropdownMenuItem
-                  onSelect={() => setShowUpdateRecordSheet(true)}
-                >
+                <DropdownMenuItem onSelect={() => setShowUpdateUserSheet(true)}>
                   Sửa
                 </DropdownMenuItem>
 
                 <DropdownMenuItem
-                  onSelect={() => setShowDeleteRecordDialog(true)}
+                  onSelect={() => setShowDeleteUserDialog(true)}
                 >
                   Xoá
                   {/* <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut> */}
@@ -416,7 +267,7 @@ export function getColumns({
                   Chỉnh sửa nhanh
                 </DropdownMenuLabel>
 
-                <DropdownMenuSub>
+                {/* <DropdownMenuSub>
                   <DropdownMenuSubTrigger>Tiếng Anh</DropdownMenuSubTrigger>
                   <DropdownMenuSubContent>
                     <DropdownMenuRadioGroup
@@ -425,7 +276,7 @@ export function getColumns({
                         startUpdateTransition(() => {
                           if (value) {
                             toast.promise(
-                              updateRecord({
+                              updateUser({
                                 id: row.original.id,
                                 englishCertification: value,
                               }),
@@ -439,7 +290,7 @@ export function getColumns({
                         });
                       }}
                     >
-                      {records.englishCertification.enumValues.map(
+                      {users.englishCertification.enumValues.map(
                         (label: string) => (
                           <DropdownMenuRadioItem
                             key={label}
@@ -470,7 +321,7 @@ export function getColumns({
                         startUpdateTransition(() => {
                           if (value) {
                             toast.promise(
-                              updateRecord({
+                              updateUser({
                                 id: row.original.id,
                                 technologyCertification: value,
                               }),
@@ -484,7 +335,7 @@ export function getColumns({
                         });
                       }}
                     >
-                      {records.technologyCertification.enumValues.map(
+                      {users.technologyCertification.enumValues.map(
                         (label: string) => (
                           <DropdownMenuRadioItem
                             key={label}
@@ -516,7 +367,7 @@ export function getColumns({
                         startUpdateTransition(() => {
                           if (value) {
                             toast.promise(
-                              updateRecord({
+                              updateUser({
                                 id: row.original.id,
                                 religionId: value,
                               }),
@@ -559,7 +410,7 @@ export function getColumns({
                         startUpdateTransition(() => {
                           if (value) {
                             toast.promise(
-                              updateRecord({
+                              updateUser({
                                 id: row.original.id,
                                 rankId: value,
                               }),
@@ -591,7 +442,7 @@ export function getColumns({
                       ))}
                     </DropdownMenuRadioGroup>
                   </DropdownMenuSubContent>
-                </DropdownMenuSub>
+                </DropdownMenuSub> */}
               </DropdownMenuContent>
             </DropdownMenu>
           </>

@@ -84,11 +84,11 @@ export function getMenuList(pathname: string): Group[] {
               label: 'Cấp bậc',
             },
             {
-              href: '#',
-              label: '4',
+              href: '/departments',
+              label: 'Quản lý đơn vị',
             },
             {
-              href: '#',
+              href: '/',
               label: '1',
             },
             {

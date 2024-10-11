@@ -28,7 +28,7 @@ export const RecordsTable = ({
   ranks,
 }: RecordsTableProps) => {
   const { data, pageCount } = use(_records);
-  const columns = React.useMemo(() => getColumns(), []);
+  const columns = React.useMemo(() => getColumns({ religions, ranks }), []);
   const { featureFlags } = useTable();
   const filterFieldsText: DataTableFilterField<any>[] = [
     {
@@ -49,7 +49,7 @@ export const RecordsTable = ({
       options: records.bloodType.enumValues.map(type => ({
         label: type[0]?.toUpperCase() + type.slice(1),
         value: type,
-        withCount: true,
+        withCount: false,
       })),
     },
     {
@@ -58,7 +58,7 @@ export const RecordsTable = ({
       options: records.englishCertification.enumValues.map(type => ({
         label: type[0]?.toUpperCase() + type.slice(1),
         value: type,
-        withCount: true,
+        withCount: false,
       })),
     },
     {
@@ -67,7 +67,7 @@ export const RecordsTable = ({
       options: records.technologyCertification.enumValues.map(type => ({
         label: type[0]?.toUpperCase() + type.slice(1),
         value: type,
-        withCount: true,
+        withCount: false,
       })),
     },
     {
@@ -78,7 +78,7 @@ export const RecordsTable = ({
         label: rel.name,
         value: rel.id,
 
-        withCount: true,
+        withCount: false,
       })),
     },
     {
@@ -89,8 +89,25 @@ export const RecordsTable = ({
         label: r.name,
         value: r.id,
 
-        withCount: true,
+        withCount: false,
       })),
+    },
+    {
+      label: 'Đảng viên',
+      value: 'isPartyMember',
+
+      options: [true, false].map(r => ({
+        label: r ? 'Có' : 'Không',
+        value: r.toString(),
+        isBoolean: true,
+
+        withCount: false,
+      })),
+    },
+    {
+      label: 'Ngày sinh',
+      value: 'birthday',
+      isDate: true,
     },
   ];
 
