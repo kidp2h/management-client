@@ -2,19 +2,19 @@ import { createJSONStorage, devtools, persist } from 'zustand/middleware';
 import { createStore } from 'zustand/vanilla';
 
 import {
+  createDepartmentSlice,
+  type DepartmentSlice,
+} from '@/lib/zustand/slices/department-slice';
+import {
   createRankSlice,
   type RankSlice,
 } from '@/lib/zustand/slices/rank-slice';
-import {
-  createReligionSlice,
-  type ReligionSlice,
-} from '@/lib/zustand/slices/religion-slice';
 import {
   createSidebarSlice,
   type SidebarSlice,
 } from '@/lib/zustand/slices/sidebar-slice';
 
-export type GlobalStore = SidebarSlice & ReligionSlice & RankSlice;
+export type GlobalStore = SidebarSlice & DepartmentSlice & RankSlice;
 
 export const createGlobalStore = () => {
   return createStore<GlobalStore>()(
@@ -22,7 +22,7 @@ export const createGlobalStore = () => {
       persist(
         (set, get, replace) => ({
           ...createSidebarSlice(set, get, replace),
-          ...createReligionSlice(set, get, replace),
+          ...createDepartmentSlice(set, get, replace),
           ...createRankSlice(set, get, replace),
         }),
 

@@ -16,11 +16,6 @@ export const getRanksSchema = z.object({
 export type GetRanksSchema = z.infer<typeof getRanksSchema>;
 
 export const createRankSchema = z.object({
-  code: z
-    .string({
-      required_error: 'Mã cấp bậc không được để trống',
-    })
-    .describe('Mã cấp bậc'),
   name: z
     .string({
       required_error: 'Tên cấp bậc không được để trống',

@@ -4,6 +4,7 @@ import {
   LayoutGrid,
   Newspaper,
   Settings,
+  User,
 } from 'lucide-react';
 
 import type { Group } from '@/components/common/sidebar/menu';
@@ -26,44 +27,49 @@ export function getMenuList(pathname: string): Group[] {
       groupLabel: 'Quản lý',
       menus: [
         {
-          href: '/records',
+          href: '#',
           label: 'Quản lý hồ sơ',
-          active: pathname.includes('/records'),
+          active: false,
           icon: Newspaper,
           submenus: [
             {
               href: '/records',
               label: 'Quản lý hồ sơ CBCCVC',
+              active: pathname === '/records',
+            },
+
+            {
+              href: '/records/commendations',
+              label: 'Thi đua khen thưởng',
+              active: pathname.includes('/records/commendations'),
             },
             {
-              href: '#',
-              label: '2',
+              href: '/records/disciplines',
+              label: 'Kỷ luật',
+              active: pathname.includes('/records/disciplines'),
             },
             {
-              href: '#',
-              label: '3',
+              href: '/records/remarks',
+              label: 'Đánh giá',
+              active: pathname.includes('/records/remarks'),
             },
             {
-              href: '#',
-              label: '4',
+              href: '/records/retire',
+              label: 'Nghỉ hưu',
+              active: pathname.includes('/records/retire'),
             },
             {
-              href: '#',
-              label: '1',
-            },
-            {
-              href: '#',
-              label: '2',
-            },
-            {
-              href: '#',
-              label: '3',
-            },
-            {
-              href: '#',
-              label: '4',
+              href: '/records/regular-salaries',
+              label: 'Nâng lương thường xuyên',
+              active: pathname.includes('/records/regular-salaries'),
             },
           ],
+        },
+        {
+          href: '/users',
+          label: 'Quản lý  tài khoản',
+          active: pathname.includes('/users'),
+          icon: User,
         },
         {
           href: '/categories',
@@ -71,10 +77,6 @@ export function getMenuList(pathname: string): Group[] {
           active: pathname.includes('/categories'),
           icon: Bookmark,
           submenus: [
-            {
-              href: '/religions',
-              label: 'Tôn giáo',
-            },
             {
               href: '/languages',
               label: 'Ngôn ngữ',
@@ -85,15 +87,15 @@ export function getMenuList(pathname: string): Group[] {
             },
             {
               href: '/departments',
-              label: 'Quản lý đơn vị',
+              label: 'Đơn vị',
             },
             {
-              href: '/',
-              label: '1',
+              href: '/roles',
+              label: 'Vai trò',
             },
             {
-              href: '#',
-              label: '2',
+              href: '/permissions',
+              label: 'Quyền',
             },
             {
               href: '#',

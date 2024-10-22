@@ -8,7 +8,7 @@ import { DataTableAdvancedToolbar } from '@/components/data-table/advanced/data-
 import { DataTable } from '@/components/data-table/data-table';
 import { DataTableToolbar } from '@/components/data-table/data-table-toolbar';
 import type { getRecords } from '@/db/queries/records';
-import { type Ranks, type Records, records, type Religions } from '@/db/schema';
+import { enumReligions, type Ranks, type Records, records } from '@/db/schema';
 import { useDataTable } from '@/hooks/use-data-table';
 import { useTable } from '@/providers/table-provider';
 import type { DataTableFilterField } from '@/types';
@@ -19,16 +19,14 @@ import { getColumns } from './records-table-column';
 
 interface RecordsTableProps {
   records: ReturnType<typeof getRecords>;
-  religions: Religions[];
   ranks: Ranks[];
 }
 export const RecordsTable = ({
   records: _records,
-  religions,
   ranks,
 }: RecordsTableProps) => {
   const { data, pageCount } = use(_records);
-  const columns = React.useMemo(() => getColumns({ religions, ranks }), []);
+  const columns = React.useMemo(() => getColumns({ ranks }), []);
   const { featureFlags } = useTable();
   const filterFieldsText: DataTableFilterField<any>[] = [
     {
@@ -74,9 +72,9 @@ export const RecordsTable = ({
       label: 'Tôn giáo',
       value: 'religion',
 
-      options: religions.map(rel => ({
-        label: rel.name,
-        value: rel.id,
+      options: enumReligions.map(rel => ({
+        label: rel,
+        value: rel,
 
         withCount: false,
       })),

@@ -144,7 +144,6 @@ export function DataTableFacetedFilter<TData, TValue>({
                     <CommandItem
                       key={option.value}
                       onSelect={() => {
-                        if (isSelected) selectedValues.delete(option.value);
                         if (option.isBoolean) {
                           if (isSelected) selectedValues.delete(option.value);
                           else {
@@ -152,7 +151,8 @@ export function DataTableFacetedFilter<TData, TValue>({
                             selectedValues.add(option.value);
                           }
                         } else {
-                          selectedValues.add(option.value);
+                          if (isSelected) selectedValues.delete(option.value);
+                          else selectedValues.add(option.value);
                         }
                         const filterValues = Array.from(selectedValues);
                         column?.setFilterValue(

@@ -7,7 +7,6 @@ import {
   Building,
   Cake,
   CaseUpper,
-  Code,
   Cpu,
   Droplet,
   HeartPulse,
@@ -40,21 +39,18 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Switch } from '@/components/ui/switch';
 import { updateRecord } from '@/db/actions/records';
-import type { Ranks, Religions } from '@/db/schema';
-import { records } from '@/db/schema';
+import type { Ranks } from '@/db/schema';
+import { enumReligions, records } from '@/db/schema';
+import { cn } from '@/lib/utils';
 
 import { DeleteRecordsDialog } from './delete-record-dialog';
 import UpdateRecordForm from './update-record-form';
 
 export interface DataColumnsRecords {
-  religions: Religions[];
   ranks: Ranks[];
 }
 
-export function getColumns({
-  religions,
-  ranks,
-}: DataColumnsRecords): ColumnDef<any>[] {
+export function getColumns({ ranks }: DataColumnsRecords): ColumnDef<any>[] {
   return [
     {
       id: 'select',
@@ -91,7 +87,7 @@ export function getColumns({
           <DataTableColumnHeader column={column} title="Mã hồ sơ" />
         </div>
       ),
-      cell: ({ row }) => <div className="w-20">{row.getValue('code')}</div>,
+      cell: ({ row }) => <div className="w-full">{row.getValue('code')}</div>,
       enableSorting: false,
       enableHiding: true,
     },
@@ -127,9 +123,12 @@ export function getColumns({
         <Badge
           roundedType="md"
           variant="outline"
-          className="bg-indigo-500 text-white"
+          className={cn(
+            ' text-card-foreground',
+            row.getValue('religion') ? 'bg-indigo-500 text-white' : 'bg-none',
+          )}
         >
-          {row.getValue('religion')}
+          {row.getValue('religion') || 'Chưa cập nhật'}
         </Badge>
       ),
       enableSorting: false,
@@ -151,9 +150,12 @@ export function getColumns({
           <Badge
             roundedType="md"
             variant="outline"
-            className="bg-green-500 text-white"
+            className={cn(
+              'text-card-foreground',
+              row.getValue('rank') ? 'bg-green-500 text-white' : 'bg-none',
+            )}
           >
-            {row.getValue('rank')}
+            {row.getValue('rank') || 'Chưa cập nhật'}
           </Badge>
         </div>
       ),
@@ -191,10 +193,15 @@ export function getColumns({
       cell: ({ row }) => (
         <Badge
           roundedType="md"
-          variant="secondary"
-          className="bg-cyan-500 text-white"
+          variant="outline"
+          className={cn(
+            'text-card-foreground',
+            row.getValue('englishCertification')
+              ? 'bg-cyan-500 text-white'
+              : 'bg-none',
+          )}
         >
-          {row.getValue('englishCertification')}
+          {row.getValue('englishCertification') || 'Chưa cập nhật'}
         </Badge>
       ),
       enableSorting: false,
@@ -214,10 +221,15 @@ export function getColumns({
       cell: ({ row }) => (
         <Badge
           roundedType="md"
-          variant="secondary"
-          className="bg-blue-500 text-white"
+          variant="outline"
+          className={cn(
+            'text-card-foreground',
+            row.getValue('technologyCertification')
+              ? 'bg-blue-500 text-white'
+              : 'bg-none',
+          )}
         >
-          {row.getValue('technologyCertification')}
+          {row.getValue('technologyCertification') || 'Chưa cập nhật'}
         </Badge>
       ),
       enableSorting: false,
@@ -235,13 +247,16 @@ export function getColumns({
         </div>
       ),
       cell: ({ row }) => (
-        <div className="flex w-[6.25rem] items-center">
+        <div className="flex w-full items-center">
           <Badge
             roundedType="md"
-            variant="destructive"
-            className="bg-red-500 text-white"
+            variant="outline"
+            className={cn(
+              'text-card-foreground',
+              row.getValue('bloodType') ? 'bg-red-500 text-white' : 'bg-none',
+            )}
           >
-            {row.getValue('bloodType')}
+            {row.getValue('bloodType') || 'Chưa cập nhật'}
           </Badge>
         </div>
       ),
@@ -331,14 +346,7 @@ export function getColumns({
                     ),
                   },
                 },
-                code: {
-                  inputProps: {
-                    type: 'text',
-                    placeholder: row.original.code,
-                    defaultValue: row.original.code,
-                  },
-                  icon: Code,
-                },
+
                 englishCertification: {
                   inputProps: {
                     placeholder: row.original.englishCertification,
@@ -351,7 +359,7 @@ export function getColumns({
                     defaultValue: row.original.technologyCertification,
                   },
                 },
-                religionId: {
+                religion: {
                   inputProps: {
                     placeholder: row.original.religion,
                     defaultValue: row.original.religion,
@@ -518,7 +526,7 @@ export function getColumns({
                             toast.promise(
                               updateRecord({
                                 id: row.original.id,
-                                religionId: value,
+                                religion: value,
                               }),
                               {
                                 loading: 'Đang cập nhật...',
@@ -530,18 +538,17 @@ export function getColumns({
                         });
                       }}
                     >
-                      {religions.map(rel => (
+                      {enumReligions.map(rel => (
                         <DropdownMenuRadioItem
-                          key={rel.id}
-                          value={rel.id}
+                          key={rel}
+                          value={rel}
                           disabled={
-                            isUpdatePending ||
-                            rel.id === row.original.religionId
+                            isUpdatePending || rel === row.original.religion
                           }
                         >
                           <div className="flex flex-row items-center justify-center gap-2">
-                            {rel.name}
-                            {rel.id === row.original.religionId && (
+                            {rel}
+                            {rel === row.original.religion && (
                               <Star className="size-4" />
                             )}
                           </div>

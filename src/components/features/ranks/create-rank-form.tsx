@@ -32,12 +32,6 @@ export default function CreateRankForm({ onSuccess }: CreateRankFormProps) {
             placeholder: 'Tên cấp bậc',
           },
         },
-        code: {
-          inputProps: {
-            type: 'text',
-            placeholder: 'Mã cấp bậc',
-          },
-        },
       }}
     >
       <AutoFormSubmit

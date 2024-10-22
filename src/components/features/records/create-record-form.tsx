@@ -1,5 +1,5 @@
 import { ReloadIcon } from '@radix-ui/react-icons';
-import { CaseUpper, Code } from 'lucide-react';
+import { CaseUpper } from 'lucide-react';
 import React, { useTransition } from 'react';
 import { toast } from 'sonner';
 
@@ -13,14 +13,18 @@ export interface CreateRecordFormProps {
 }
 export default function CreateRecordForm({ onSuccess }: CreateRecordFormProps) {
   const [isCreatePending, startCreateTransition] = useTransition();
-  const { religions, ranks } = useGlobalStore(state => state);
+  const { ranks } = useGlobalStore(state => state);
   return (
     <AutoForm
       onSubmit={async values => {
         startCreateTransition(async () => {
+          if (!values.religion || !values.rankId) {
+            toast.error('Vui lòng chọn tôn giáo và cấp bậc');
+            return;
+          }
           const { error } = await createRecord({
             ...values,
-            religionId: values.religionId.split('|')[0],
+            religion: values.religion.split('|')[0],
             rankId: values.rankId.split('|')[0],
           });
           if (error) {
@@ -31,14 +35,8 @@ export default function CreateRecordForm({ onSuccess }: CreateRecordFormProps) {
           toast.success('Hồ sơ đã được tạo');
         });
       }}
-      formSchema={createRecordSchema(
-        religions.map(rel => `${rel.id}|${rel.name}`),
-        ranks.map(r => `${r.id}|${r.name}`),
-      )}
+      formSchema={createRecordSchema(ranks.map(r => `${r.id}|${r.name}`))}
       fieldConfig={{
-        code: {
-          icon: Code,
-        },
         fullName: {
           icon: CaseUpper,
         },

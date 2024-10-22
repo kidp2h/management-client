@@ -16,11 +16,6 @@ export const getLanguagesSchema = z.object({
 export type GetLanguagesSchema = z.infer<typeof getLanguagesSchema>;
 
 export const createLanguageSchema = z.object({
-  code: z
-    .string({
-      required_error: 'Mã ngôn ngữ không được để trống',
-    })
-    .describe('Mã ngôn ngữ'),
   name: z
     .string({
       required_error: 'Ngôn ngữ không được để trống',

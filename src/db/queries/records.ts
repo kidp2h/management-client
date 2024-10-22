@@ -16,7 +16,7 @@ import { unstable_noStore as noStore } from 'next/cache';
 
 import { db } from '@/db';
 import type { Records } from '@/db/schema';
-import { ranks, records, religions } from '@/db/schema';
+import { ranks, records } from '@/db/schema';
 import { filterColumn } from '@/lib/filter-column';
 import type { GetRecordsSchema } from '@/lib/zod/schemas/record-schema';
 import type { DrizzleWhere } from '@/types';
@@ -49,7 +49,7 @@ export async function getRecords(input: Partial<GetRecordsSchema>) {
         : undefined,
       !!input.religion
         ? filterColumn({
-            column: records.religionId,
+            column: records.religion,
             value: input.religion,
             isSelectable: true,
           })
@@ -67,10 +67,11 @@ export async function getRecords(input: Partial<GetRecordsSchema>) {
             lte(records.birthday, new Date(input.birthday.split(',')[1])),
           )
         : undefined,
-      input.religionId
+      input.religion
         ? filterColumn({
-            column: records.religionId,
-            value: input.religionId,
+            column: records.religion,
+            value: input.religion,
+            isSelectable: true,
           })
         : undefined,
 
@@ -127,11 +128,9 @@ export async function getRecords(input: Partial<GetRecordsSchema>) {
       const data = await tx
         .select({
           ...getTableColumns(records),
-          religion: religions.name,
           rank: ranks.name,
         })
         .from(records)
-        .leftJoin(religions, eq(records.religionId, religions.id))
         .leftJoin(ranks, eq(records.rankId, ranks.id))
         .limit(input.per_page!)
         .offset(offset)
@@ -163,5 +162,23 @@ export async function getRecords(input: Partial<GetRecordsSchema>) {
   } catch (error) {
     console.error('Error getting records:', error);
     return { data: [], pageCount: 0 };
+  }
+}
+
+export async function _getRecords() {
+  noStore();
+  try {
+    const data = await db
+      .select({
+        ...getTableColumns(records),
+      })
+      .from(records);
+
+    return {
+      data,
+    };
+  } catch (error) {
+    console.error('Error getting records:', error);
+    return { data: [] };
   }
 }

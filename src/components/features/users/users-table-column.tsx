@@ -3,8 +3,8 @@ import type { ColumnDef } from '@tanstack/react-table';
 import dayjs from 'dayjs';
 import {
   CircleUser,
+  FileText,
   History,
-  ImageIcon,
   Key,
   ShieldPlus,
   Timer,
@@ -57,39 +57,39 @@ export function getColumns(): ColumnDef<any, any>[] {
       enableSorting: false,
       enableHiding: true,
     },
+
     {
-      accessorKey: 'imageUrl',
+      accessorKey: 'publicMetadata.record.code',
       meta: {
-        label: 'Ảnh đại diện',
+        label: 'Hồ sơ',
       },
       header: ({ column }) => (
         <div className="flex flex-row items-center gap-1 ">
-          <ImageIcon className="mr-2 size-5 text-blue-500 " />
-          <DataTableColumnHeader column={column} title="Ảnh đại diện" />
+          <FileText className="mr-2 size-5 text-pink-500 " />
+          <DataTableColumnHeader column={column} title="Hồ sơ" />
         </div>
       ),
-      cell: ({}) => (
-        <div className="flex w-[6.25rem] items-center">
+      cell: ({ cell }) => (
+        <div className="flex w-full items-center">
           <Badge
-            variant="outline"
             roundedType="md"
-            className="cursor-pointer text-blue-500 underline"
+            variant={cell.getValue() ? 'default' : 'outline'}
+            className="flex w-full justify-center"
           >
-            Xem chi tiết
+            {cell.getValue() || 'Chưa có'}
           </Badge>
         </div>
       ),
     },
-
     {
       accessorKey: 'username',
       meta: {
-        label: 'Tài khoản',
+        label: 'Mã cán bộ',
       },
       header: ({ column }) => (
         <div className="flex flex-row items-center gap-1 ">
           <CircleUser className="mr-2 size-5 text-muted-foreground " />
-          <DataTableColumnHeader column={column} title="Tài khoản" />
+          <DataTableColumnHeader column={column} title="Mã cán bộ" />
         </div>
       ),
       cell: ({ cell }) => (
@@ -111,12 +111,17 @@ export function getColumns(): ColumnDef<any, any>[] {
       ),
       cell: ({ cell }) => (
         <div className="flex w-[6.25rem] items-center">
-          <Badge roundedType="md" className="flex w-full justify-center">
-            {cell.getValue()}
+          <Badge
+            roundedType="md"
+            className="flex w-full justify-center"
+            variant={cell.getValue() ? 'default' : 'outline'}
+          >
+            {cell.getValue() || 'Chưa có'}
           </Badge>
         </div>
       ),
     },
+
     // {
     //   accessorKey: 'lastName',
     //   meta: {
@@ -266,183 +271,6 @@ export function getColumns(): ColumnDef<any, any>[] {
                 <DropdownMenuLabel className="text-xs font-bold uppercase text-muted-foreground">
                   Chỉnh sửa nhanh
                 </DropdownMenuLabel>
-
-                {/* <DropdownMenuSub>
-                  <DropdownMenuSubTrigger>Tiếng Anh</DropdownMenuSubTrigger>
-                  <DropdownMenuSubContent>
-                    <DropdownMenuRadioGroup
-                      value={row.original.label}
-                      onValueChange={value => {
-                        startUpdateTransition(() => {
-                          if (value) {
-                            toast.promise(
-                              updateUser({
-                                id: row.original.id,
-                                englishCertification: value,
-                              }),
-                              {
-                                loading: 'Đang cập nhật...',
-                                success: 'Cập nhật thành công',
-                                error: 'Cập nhật thất bại',
-                              },
-                            );
-                          }
-                        });
-                      }}
-                    >
-                      {users.englishCertification.enumValues.map(
-                        (label: string) => (
-                          <DropdownMenuRadioItem
-                            key={label}
-                            value={label}
-                            disabled={
-                              isUpdatePending ||
-                              label === row.original.englishCertification
-                            }
-                          >
-                            <div className="flex flex-row items-center justify-center gap-2">
-                              {label}
-                              {label === row.original.englishCertification && (
-                                <Star className="size-4" />
-                              )}
-                            </div>
-                          </DropdownMenuRadioItem>
-                        ),
-                      )}
-                    </DropdownMenuRadioGroup>
-                  </DropdownMenuSubContent>
-                </DropdownMenuSub>
-                <DropdownMenuSub>
-                  <DropdownMenuSubTrigger>Tin học</DropdownMenuSubTrigger>
-                  <DropdownMenuSubContent>
-                    <DropdownMenuRadioGroup
-                      value={row.original.label}
-                      onValueChange={value => {
-                        startUpdateTransition(() => {
-                          if (value) {
-                            toast.promise(
-                              updateUser({
-                                id: row.original.id,
-                                technologyCertification: value,
-                              }),
-                              {
-                                loading: 'Đang cập nhật...',
-                                success: 'Cập nhật thành công',
-                                error: 'Cập nhật thất bại',
-                              },
-                            );
-                          }
-                        });
-                      }}
-                    >
-                      {users.technologyCertification.enumValues.map(
-                        (label: string) => (
-                          <DropdownMenuRadioItem
-                            key={label}
-                            value={label}
-                            disabled={
-                              isUpdatePending ||
-                              label === row.original.technologyCertification
-                            }
-                          >
-                            <div className="flex flex-row items-center justify-center gap-2">
-                              {label}
-                              {label ===
-                                row.original.technologyCertification && (
-                                <Star className="size-4" />
-                              )}
-                            </div>
-                          </DropdownMenuRadioItem>
-                        ),
-                      )}
-                    </DropdownMenuRadioGroup>
-                  </DropdownMenuSubContent>
-                </DropdownMenuSub>
-                <DropdownMenuSub>
-                  <DropdownMenuSubTrigger>Tôn giáo</DropdownMenuSubTrigger>
-                  <DropdownMenuSubContent>
-                    <DropdownMenuRadioGroup
-                      value={row.original.label}
-                      onValueChange={value => {
-                        startUpdateTransition(() => {
-                          if (value) {
-                            toast.promise(
-                              updateUser({
-                                id: row.original.id,
-                                religionId: value,
-                              }),
-                              {
-                                loading: 'Đang cập nhật...',
-                                success: 'Cập nhật thành công',
-                                error: 'Cập nhật thất bại',
-                              },
-                            );
-                          }
-                        });
-                      }}
-                    >
-                      {religions.map(rel => (
-                        <DropdownMenuRadioItem
-                          key={rel.id}
-                          value={rel.id}
-                          disabled={
-                            isUpdatePending ||
-                            rel.id === row.original.religionId
-                          }
-                        >
-                          <div className="flex flex-row items-center justify-center gap-2">
-                            {rel.name}
-                            {rel.id === row.original.religionId && (
-                              <Star className="size-4" />
-                            )}
-                          </div>
-                        </DropdownMenuRadioItem>
-                      ))}
-                    </DropdownMenuRadioGroup>
-                  </DropdownMenuSubContent>
-                </DropdownMenuSub>
-                <DropdownMenuSub>
-                  <DropdownMenuSubTrigger>Cấp bậc</DropdownMenuSubTrigger>
-                  <DropdownMenuSubContent>
-                    <DropdownMenuRadioGroup
-                      value={row.original.label}
-                      onValueChange={value => {
-                        startUpdateTransition(() => {
-                          if (value) {
-                            toast.promise(
-                              updateUser({
-                                id: row.original.id,
-                                rankId: value,
-                              }),
-                              {
-                                loading: 'Đang cập nhật...',
-                                success: 'Cập nhật thành công',
-                                error: 'Cập nhật thất bại',
-                              },
-                            );
-                          }
-                        });
-                      }}
-                    >
-                      {ranks.map(r => (
-                        <DropdownMenuRadioItem
-                          key={r.id}
-                          value={r.id}
-                          disabled={
-                            isUpdatePending || r.id === row.original.rankId
-                          }
-                        >
-                          <div className="flex flex-row items-center justify-center gap-2">
-                            {r.name}
-                            {r.id === row.original.rankId && (
-                              <Star className="size-4" />
-                            )}
-                          </div>
-                        </DropdownMenuRadioItem>
-                      ))}
-                    </DropdownMenuRadioGroup>
-                  </DropdownMenuSubContent>
-                </DropdownMenuSub> */}
               </DropdownMenuContent>
             </DropdownMenu>
           </>
