@@ -19,20 +19,17 @@ export default function UpdateRecordForm({
   fieldConfig,
   data,
 }: UpdateRecordFormProps) {
-  const { religions, ranks } = useGlobalStore(state => state);
+  const { ranks } = useGlobalStore(state => state);
   const [isUpdatePending, startUpdateTransition] = useTransition();
   return (
     <AutoForm
-      formSchema={updateRecordSchema(
-        religions.map(rel => `${rel.id}|${rel.name}`),
-        ranks.map(r => `${r.id}|${r.name}`),
-      )}
+      formSchema={updateRecordSchema(ranks.map(r => `${r.id}|${r.name}`))}
       onSubmit={async values => {
         startUpdateTransition(async () => {
           const { error } = await updateRecord({
             id: data.id,
             ...values,
-            religionId: values.religionId?.split('|')[0] || data.religionId,
+            religion: values.religion?.split('|')[0] || data.religion,
             rankId: values.rankId?.split('|')[0] || data.rankId,
           });
           if (error) {

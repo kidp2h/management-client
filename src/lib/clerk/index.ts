@@ -2,6 +2,7 @@
 import { clerkClient, type User } from '@clerk/nextjs/server';
 import { revalidatePath } from 'next/cache';
 
+import { createRecord } from '@/db/actions/records';
 import type {
   CreateUserSchema,
   UpdateUserSchema,
@@ -9,15 +10,23 @@ import type {
 
 export const createUser = async (input: CreateUserSchema) => {
   try {
+    const record = await createRecord({
+      fullName: input.fullName,
+      birthday: input.birthday,
+    });
     const data = await clerkClient().users.createUser({
       username: input.username,
       password: input.password,
       publicMetadata: {
-        role: 'user',
+        role: null,
+        record: {
+          id: record.data?.id,
+          code: record.data?.code,
+        },
       },
     });
 
-    if (data) {
+    if (data && record.error === null) {
       revalidatePath('/users');
       return {
         data: null,

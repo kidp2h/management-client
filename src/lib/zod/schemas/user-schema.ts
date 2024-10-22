@@ -12,6 +12,16 @@ export const createUserSchema = z.object({
       message: 'Mật khẩu phải có ít nhất 8 ký tự',
     })
     .describe('Mật khẩu'),
+  fullName: z
+    .string({
+      required_error: 'Họ và tên không được để trống',
+    })
+    .describe('Họ và tên'),
+  birthday: z
+    .date({
+      required_error: 'Ngày sinh không được để trống',
+    })
+    .describe('Ngày sinh'),
 });
 export const updateUserSchema = createUserSchema.extend({});
 export type UpdateUserSchema = z.infer<typeof updateUserSchema>;

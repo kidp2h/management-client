@@ -20,6 +20,8 @@ export default function CreateUserForm({ onSuccess }: CreateUserFormProps) {
             await createUser({
               username: values.username,
               password: values.password,
+              birthday: values.birthday,
+              fullName: values.fullName,
             });
             onSuccess();
             toast.success('Tài khoản đã được tạo');

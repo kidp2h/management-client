@@ -86,6 +86,10 @@ export default antfu(
       'style/jsx-wrap-multilines': 'off',
       'unicorn/number-literal-case': 'off',
       'eslint-comments/no-unlimited-disable': 'off',
+      'no-restricted-globals': 'off',
+      'vars-on-top': 'off',
+      'no-var': 'off',
+      'react/no-unstable-context-value': 'off',
     },
   },
 );

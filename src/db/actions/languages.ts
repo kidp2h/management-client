@@ -2,6 +2,7 @@
 
 import { eq, inArray } from 'drizzle-orm';
 import { revalidatePath, unstable_noStore as noStore } from 'next/cache';
+import randomatic from 'randomatic';
 
 import { db } from '@/db';
 import { languages } from '@/db/schema';
@@ -18,7 +19,7 @@ export async function createLanguage(input: CreateLanguageSchema) {
     await db
       .insert(languages)
       .values({
-        code: input.code,
+        code: `LG${randomatic('A0A', 10)}${new Date().getSeconds()}${new Date().getFullYear()}`,
         name: input.name,
       })
       .returning({
@@ -79,7 +80,6 @@ export async function updateLanguage(
     await db
       .update(languages)
       .set({
-        code: input.code,
         name: input.name,
       })
       .where(eq(languages.id, input.id));

@@ -34,12 +34,6 @@ export default function CreateLanguageForm({
             placeholder: 'Ngôn ngữ',
           },
         },
-        code: {
-          inputProps: {
-            type: 'text',
-            placeholder: 'Mã ngôn ngữ',
-          },
-        },
       }}
     >
       <AutoFormSubmit

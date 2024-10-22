@@ -133,6 +133,9 @@ export function DateRangePicker({
             mode="range"
             defaultMonth={date?.from}
             selected={date}
+            captionLayout="dropdown-buttons"
+            fromYear={1960}
+            toYear={new Date().getFullYear() + 2}
             onSelect={newDateRange => {
               void setDateParams({
                 from: newDateRange?.from?.toISOString() ?? '',

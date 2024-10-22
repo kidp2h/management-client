@@ -2,6 +2,7 @@
 
 import { eq, inArray } from 'drizzle-orm';
 import { revalidatePath, unstable_noStore as noStore } from 'next/cache';
+import randomatic from 'randomatic';
 
 import { db } from '@/db';
 import { ranks } from '@/db/schema';
@@ -19,7 +20,7 @@ export async function createRank(input: CreateRankSchema) {
     await db
       .insert(ranks)
       .values({
-        code: input.code,
+        code: `RNK${randomatic('A0A', 10)}${new Date().getSeconds()}${new Date().getFullYear()}`,
         name: input.name,
       })
       .returning({
@@ -96,7 +97,6 @@ export async function updateRank(input: UpdateRankSchema & { id: string }) {
     await db
       .update(ranks)
       .set({
-        code: input.code,
         name: input.name,
       })
       .where(eq(ranks.id, input.id));

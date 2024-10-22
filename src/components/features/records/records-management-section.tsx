@@ -9,7 +9,6 @@ import {
   MenubarItem,
   MenubarMenu,
   MenubarSeparator,
-  MenubarShortcut,
   MenubarTrigger,
 } from '@/components/ui/menubar';
 import {
@@ -18,7 +17,7 @@ import {
   ResizablePanelGroup,
 } from '@/components/ui/resizable';
 import type { getRecords } from '@/db/queries/records';
-import type { Ranks, Religions } from '@/db/schema';
+import type { Ranks } from '@/db/schema';
 import { useMediaQuery } from '@/hooks/use-media-query';
 import { ContentLayout } from '@/layouts';
 import { cn } from '@/lib/utils';
@@ -30,18 +29,15 @@ import { RecordsTable } from './records-table';
 
 type RecordsManagementSectionProps = {
   records: ReturnType<typeof getRecords>;
-  religions: Religions[];
   ranks: Ranks[];
 };
 export const RecordsManagementSection = ({
   records,
-  religions,
   ranks,
 }: RecordsManagementSectionProps) => {
-  const { setReligions, setRanks } = useGlobalStore(state => state);
+  const { setRanks } = useGlobalStore(state => state);
   const isDesktop = useMediaQuery('(min-width: 1024px)');
   useEffect(() => {
-    setReligions(religions);
     setRanks(ranks);
   }, []);
   const items = [
@@ -72,34 +68,17 @@ export const RecordsManagementSection = ({
                       Nghiệp vụ
                     </MenubarTrigger>
                     <MenubarContent className="bg-card">
-                      <MenubarItem>
-                        Xuất file <MenubarShortcut>⌘T</MenubarShortcut>
-                      </MenubarItem>
+                      <MenubarItem>Điều động</MenubarItem>
                       <MenubarSeparator />
-                      <MenubarItem>In</MenubarItem>
-                    </MenubarContent>
-                  </MenubarMenu>
-                  <MenubarMenu>
-                    <MenubarTrigger className="cursor-pointer font-bold">
-                      Dữ liệu
-                    </MenubarTrigger>
-                    <MenubarContent className="bg-card">
-                      <MenubarItem>
-                        Xuất file <MenubarShortcut>⌘T</MenubarShortcut>
-                      </MenubarItem>
-                      <MenubarSeparator />
-                      <MenubarItem>In</MenubarItem>
+                      <MenubarItem>Thôi việc</MenubarItem>
+                      <MenubarItem>Đã mất</MenubarItem>
                     </MenubarContent>
                   </MenubarMenu>
                 </Menubar>
               </div>
               <div className="mt-1">
                 <TableProvider isHidden>
-                  <RecordsTable
-                    records={records}
-                    religions={religions}
-                    ranks={ranks}
-                  />
+                  <RecordsTable records={records} ranks={ranks} />
                 </TableProvider>
               </div>
             </ResizablePanel>

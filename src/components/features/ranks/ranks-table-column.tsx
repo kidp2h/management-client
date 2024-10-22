@@ -102,12 +102,6 @@ export function getColumns(): ColumnDef<any>[] {
                     placeholder: row.original.name,
                   },
                 },
-                code: {
-                  inputProps: {
-                    type: 'text',
-                    placeholder: row.original.code,
-                  },
-                },
               }}
             />
             <DeleteRanksDialog
