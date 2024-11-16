@@ -2,8 +2,8 @@ import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 import type { ColumnDef } from '@tanstack/react-table';
 import dayjs from 'dayjs';
 import {
+  Check,
   CircleUser,
-  FileText,
   History,
   Key,
   ShieldPlus,
@@ -22,16 +22,26 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
   DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
 import { DeleteUsersDialog } from './delete-user-dialog';
 import UpdateUserForm from './update-user-form';
+import { Roles } from '@/db/schema';
+import { toast } from 'sonner';
+import { updateMetadata } from '@/lib/clerk';
 
-export interface DataColumnsUsers {}
+export interface DataColumnsUsers {
+  roles: Roles[];
+}
 
-export function getColumns(): ColumnDef<any, any>[] {
+export function getColumns({ roles }: DataColumnsUsers): ColumnDef<any, any>[] {
   return [
     {
       id: 'select',
@@ -59,29 +69,6 @@ export function getColumns(): ColumnDef<any, any>[] {
     },
 
     {
-      accessorKey: 'publicMetadata.record.code',
-      meta: {
-        label: 'Hồ sơ',
-      },
-      header: ({ column }) => (
-        <div className="flex flex-row items-center gap-1 ">
-          <FileText className="mr-2 size-5 text-pink-500 " />
-          <DataTableColumnHeader column={column} title="Hồ sơ" />
-        </div>
-      ),
-      cell: ({ cell }) => (
-        <div className="flex w-full items-center">
-          <Badge
-            roundedType="md"
-            variant={cell.getValue() ? 'default' : 'outline'}
-            className="flex w-full justify-center"
-          >
-            {cell.getValue() || 'Chưa có'}
-          </Badge>
-        </div>
-      ),
-    },
-    {
       accessorKey: 'username',
       meta: {
         label: 'Mã cán bộ',
@@ -99,7 +86,7 @@ export function getColumns(): ColumnDef<any, any>[] {
       ),
     },
     {
-      accessorKey: 'publicMetadata.role',
+      accessorKey: 'publicMetadata.roleName',
       meta: {
         label: 'Vai trò',
       },
@@ -209,7 +196,7 @@ export function getColumns(): ColumnDef<any, any>[] {
         const [showDeleteUserDialog, setShowDeleteUserDialog] =
           React.useState(false);
         React.useEffect(() => {});
-        // const [isUpdatePending, startUpdateTransition] = React.useTransition();
+        const [isUpdatePending, startUpdateTransition] = React.useTransition();
         return (
           <>
             <UpdateDataSheet<any>
@@ -217,13 +204,14 @@ export function getColumns(): ColumnDef<any, any>[] {
               onOpenChange={setShowUpdateUserSheet}
               data={row.original}
               form={UpdateUserForm}
-              name="tôn giáo"
+              name="tài khoản"
               fieldConfig={{
                 username: {
                   inputProps: {
                     type: 'text',
                     placeholder: row.original.username,
                   },
+
                   icon: UserCircle,
                 },
                 password: {
@@ -236,7 +224,7 @@ export function getColumns(): ColumnDef<any, any>[] {
               }}
             />
             <DeleteUsersDialog
-              name="tôn giáo"
+              name="tài khoản"
               open={showDeleteUserDialog}
               onOpenChange={setShowDeleteUserDialog}
               users={[row.original]}
@@ -271,6 +259,49 @@ export function getColumns(): ColumnDef<any, any>[] {
                 <DropdownMenuLabel className="text-xs font-bold uppercase text-muted-foreground">
                   Chỉnh sửa nhanh
                 </DropdownMenuLabel>
+                <DropdownMenuSub>
+                  <DropdownMenuSubTrigger>Vai trò</DropdownMenuSubTrigger>
+                  <DropdownMenuSubContent>
+                    <DropdownMenuRadioGroup
+                      value={row.original.label}
+                      onValueChange={value => {
+                        startUpdateTransition(async () => {
+                          if (value) {
+                            toast.promise(
+                              updateMetadata(row.original.id, {
+                                roleId: value,
+                                roleName: roles.find(r => r.id === value)?.name,
+                              }),
+                              {
+                                loading: 'Đang cập nhật...',
+                                success: 'Cập nhật thành công',
+                                error: 'Cập nhật thất bại',
+                              },
+                            );
+                          }
+                        });
+                      }}
+                    >
+                      {roles?.map(r => (
+                        <DropdownMenuRadioItem
+                          key={r.id}
+                          value={r.id}
+                          disabled={
+                            isUpdatePending ||
+                            r.id === row.original.publicMetadata.roleId
+                          }
+                        >
+                          <div className="flex flex-row items-center justify-center gap-2">
+                            {r.name}
+                            {r.id === row.original.publicMetadata.roleId && (
+                              <Check className="size-4" />
+                            )}
+                          </div>
+                        </DropdownMenuRadioItem>
+                      ))}
+                    </DropdownMenuRadioGroup>
+                  </DropdownMenuSubContent>
+                </DropdownMenuSub>
               </DropdownMenuContent>
             </DropdownMenu>
           </>

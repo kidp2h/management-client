@@ -27,10 +27,11 @@ export function DataTableToolbarActions<T>({
         ? deleteDialog || null
         : null}
       {createDialog || null}
-      {customDialog &&
-        customDialog.map((dialog, index) => (
-          <React.Fragment key={index}>{dialog}</React.Fragment>
-        ))}
+      {table.getFilteredSelectedRowModel().rows.length > 0 && customDialog
+        ? customDialog.map((dialog, index) => (
+            <React.Fragment key={index}>{dialog}</React.Fragment>
+          ))
+        : null}
       {fileNameExport && (
         <Button
           variant="outline"

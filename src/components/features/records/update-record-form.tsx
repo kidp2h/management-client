@@ -29,7 +29,6 @@ export default function UpdateRecordForm({
           const { error } = await updateRecord({
             id: data.id,
             ...values,
-            religion: values.religion?.split('|')[0] || data.religion,
             rankId: values.rankId?.split('|')[0] || data.rankId,
           });
           if (error) {

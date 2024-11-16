@@ -18,13 +18,12 @@ export default function CreateRecordForm({ onSuccess }: CreateRecordFormProps) {
     <AutoForm
       onSubmit={async values => {
         startCreateTransition(async () => {
-          if (!values.religion || !values.rankId) {
-            toast.error('Vui lòng chọn tôn giáo và cấp bậc');
+          if (!values.rankId) {
+            toast.error('Vui lòng chọn cấp bậc');
             return;
           }
           const { error } = await createRecord({
             ...values,
-            religion: values.religion.split('|')[0],
             rankId: values.rankId.split('|')[0],
           });
           if (error) {

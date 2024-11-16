@@ -11,3 +11,9 @@ export function takeFirstOrThrow<T>(items: T[]) {
 
   return first;
 }
+
+export const calculateAge = (birthday: Date) => {
+  const ageDifMs = Date.now() - new Date(birthday).getTime();
+  const ageDate = new Date(ageDifMs);
+  return Math.abs(ageDate.getUTCFullYear() - 1970);
+};

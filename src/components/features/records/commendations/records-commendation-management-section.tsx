@@ -41,7 +41,7 @@ export const RecordsCommendationManagementSection = ({
         <Separator className="my-4" />
         <Collapsible onOpenChange={setOpenTable} defaultOpen className="mb-5">
           <CollapsibleTrigger className="mb-3 flex w-full flex-row items-center justify-between rounded-md bg-muted p-2 text-card-foreground">
-            Danh sách cán bộ bị kỷ luật
+            Danh sách khen thưởng cán bộ
             {openTable ? (
               <ChevronDown className="size-5" />
             ) : (

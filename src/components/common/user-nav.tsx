@@ -31,10 +31,23 @@ import {
   SheetTrigger,
 } from '../ui/sheet';
 import { Skeleton } from '../ui/skeleton';
+import { useRouter } from 'next/navigation';
+import { useLoading } from '@/providers/loading-provider';
 
 export function UserNav() {
   const { signOut } = useClerk();
   const { user, isLoaded } = useUser();
+  const router = useRouter();
+  const { setLoading } = useLoading();
+  const handleSignOut = async () => {
+    // const x = await signOut({ redirectUrl: '/auth' });
+
+    console.log('signOut');
+    setLoading(true);
+    await signOut({ redirectUrl: '/auth' });
+    router.push('/auth');
+    setLoading(false);
+  };
   return (
     <Sheet>
       <SheetContent className="w-full overflow-y-auto ">
@@ -93,7 +106,10 @@ export function UserNav() {
           <DropdownMenuSeparator />
           <DropdownMenuItem
             className="hover:cursor-pointer"
-            onClick={() => signOut({ redirectUrl: '/auth' })}
+            onClick={() => {
+              console.log('signOuts');
+              handleSignOut();
+            }}
           >
             <LogOut className="mr-3 size-4 text-muted-foreground" />
             Đăng xuất

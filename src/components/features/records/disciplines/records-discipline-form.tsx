@@ -189,7 +189,7 @@ export default function RecordsDisciplineForm({
           className="mb-5 overflow-visible"
         >
           <CollapsibleTrigger className="mb-3 flex w-full flex-row items-center justify-between rounded-md bg-muted p-2 text-card-foreground">
-            Danh sách khen thưởng
+            Danh sách kỷ luật
             {openList ? (
               <ChevronDown className="size-5" />
             ) : (

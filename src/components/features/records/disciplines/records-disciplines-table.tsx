@@ -18,7 +18,6 @@ export default function RecordsDisciplineTable({
   recordsDiscipline,
 }: RecordsDisciplineTableProps) {
   const { data, pageCount } = use(recordsDiscipline);
-  console.log(data);
 
   const columns = React.useMemo(() => getColumns(), []);
   const { featureFlags } = useTable();
@@ -28,7 +27,7 @@ export default function RecordsDisciplineTable({
     data,
     columns,
     enableAdvancedFilter: featureFlags.includes('advancedFilter'),
-    pageCount,
+    pageCount: pageCount || 1,
     filterFields,
     getRowId: (originalRow, index) => `${originalRow.id}-${index}`,
     initialState: {

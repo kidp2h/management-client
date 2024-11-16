@@ -59,7 +59,7 @@ export function DeleteDepartmentsDialog({
         return;
       }
       props.onOpenChange?.(false);
-      toast.success('Tôn giáo đã được xoá');
+      toast.success('Đơn vị đã được xoá');
       onSuccess?.();
     });
   }

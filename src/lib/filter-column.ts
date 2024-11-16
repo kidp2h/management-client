@@ -20,8 +20,8 @@ export function filterColumn({
   value: string | boolean;
   isSelectable?: boolean;
 }) {
-  let filterValue = null;
-  let filterOperator = null;
+  let filterValue: any = null;
+  let filterOperator: any = null;
 
   if (typeof value === 'boolean') {
     [filterValue, filterOperator] = [value, 'eq'];

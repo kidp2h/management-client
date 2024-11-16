@@ -12,21 +12,23 @@ import type { DataTableFilterField } from '@/types';
 import CreateUserForm from './create-user-form';
 import { DeleteUsersDialog } from './delete-user-dialog';
 import { getColumns } from './users-table-column';
+import { Roles } from '@/db/schema';
 
 interface UsersTableProps {
   users: User[];
   pageCount: number;
+  roles: Roles[];
 }
-export const UsersTable = ({ users, pageCount }: UsersTableProps) => {
+export const UsersTable = ({ users, pageCount, roles }: UsersTableProps) => {
   // const { data } = use(users);
-  const columns = React.useMemo(() => getColumns(), []);
+  const columns = React.useMemo(() => getColumns({ roles }), []);
   const { featureFlags } = useTable();
   const filterFields: DataTableFilterField<any>[] = [
     {
-      label: 'Tài khoản',
+      label: 'Mã cán bộ',
       value: 'username',
       description: 'Tài khoản phải lớn hơn 3 ký tự',
-      placeholder: 'Tìm kiếm theo tài khoản',
+      placeholder: 'Tìm kiếm mã cán bộ',
     },
   ];
   const { table } = useDataTable({
@@ -43,7 +45,6 @@ export const UsersTable = ({ users, pageCount }: UsersTableProps) => {
     shallow: false,
     clearOnDefault: true,
   });
-  console.log(users);
   // console.log(table);
   return (
     <DataTable table={table}>

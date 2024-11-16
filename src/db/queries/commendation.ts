@@ -119,3 +119,28 @@ export async function getRecordsCommendation(
     return { data: [], pageCount: 0 };
   }
 }
+
+export async function getRecordCommendationsById(id: string) {
+  noStore();
+  try {
+    const data = await db
+      .select({
+        ...getTableColumns(recordsCommendation),
+        record: records,
+      })
+      .from(recordsCommendation)
+      .leftJoin(records, eq(records.id, recordsCommendation.recordId))
+      .where(eq(records.id, id));
+
+    return {
+      data,
+      error: null,
+    };
+  } catch (err) {
+    console.error('Error getting record:', err);
+    return {
+      data: [],
+      error: err,
+    };
+  }
+}

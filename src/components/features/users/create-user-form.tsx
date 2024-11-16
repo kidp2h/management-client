@@ -1,5 +1,5 @@
 import { ReloadIcon } from '@radix-ui/react-icons';
-import { Key, User } from 'lucide-react';
+import { Key, TypeOutline, User } from 'lucide-react';
 import React, { useTransition } from 'react';
 import { toast } from 'sonner';
 
@@ -26,7 +26,7 @@ export default function CreateUserForm({ onSuccess }: CreateUserFormProps) {
             onSuccess();
             toast.success('Tài khoản đã được tạo');
           } catch (error) {
-            console.log(error);
+            console.error(error);
             toast.error('Tạo tài khoản thất bại');
           }
         });
@@ -35,9 +35,26 @@ export default function CreateUserForm({ onSuccess }: CreateUserFormProps) {
       fieldConfig={{
         username: {
           icon: User,
+          inputProps: {
+            placeholder: 'Mã cán bộ',
+          },
         },
         password: {
           icon: Key,
+          inputProps: {
+            placeholder: 'Mật khẩu',
+          },
+        },
+        fullName: {
+          inputProps: {
+            placeholder: 'Họ và tên',
+          },
+          icon: TypeOutline,
+        },
+        birthday: {
+          inputProps: {
+            placeholder: 'Ngày sinh',
+          },
         },
       }}
     >

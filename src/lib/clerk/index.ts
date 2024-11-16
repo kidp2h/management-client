@@ -81,7 +81,9 @@ export const deleteUsers = async (input: { ids: string[] }) => {
   }
 };
 
-export const updateUser = async (input: UpdateUserSchema & { id: string }) => {
+export const updateUser = async (
+  input: Partial<UpdateUserSchema> & { id: string },
+) => {
   try {
     const newData = {} as Record<string, string>;
     if (input.username) newData.username = input.username;
@@ -96,7 +98,6 @@ export const updateUser = async (input: UpdateUserSchema & { id: string }) => {
       ...newData,
       skipPasswordChecks: true,
     });
-    console.log('hih', data);
 
     if (data) {
       revalidatePath('/users');
@@ -109,6 +110,28 @@ export const updateUser = async (input: UpdateUserSchema & { id: string }) => {
     return {
       data: null,
       error,
+    };
+  }
+};
+
+export const updateMetadata = async (id: string, metadata: any) => {
+  try {
+    console.log(id, metadata);
+    const data = await clerkClient().users.updateUserMetadata(id, {
+      publicMetadata: metadata,
+    });
+
+    if (data) {
+      revalidatePath('/users');
+      return {
+        data: null,
+        error: null,
+      };
+    }
+  } catch (error) {
+    return {
+      data: null,
+      error: JSON.parse(JSON.stringify(error)),
     };
   }
 };

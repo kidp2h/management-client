@@ -1,7 +1,7 @@
 import { ReloadIcon } from '@radix-ui/react-icons';
 import React, { useTransition } from 'react';
 import { toast } from 'sonner';
-import type { z } from 'zod';
+import { z } from 'zod';
 
 import AutoForm, { AutoFormSubmit } from '@/components/ui/auto-form';
 import type { FieldConfig } from '@/components/ui/auto-form/types';
@@ -21,7 +21,9 @@ export default function UpdateUserForm({
   const [isUpdatePending, startUpdateTransition] = useTransition();
   return (
     <AutoForm
-      formSchema={updateUserSchema}
+      formSchema={updateUserSchema.extend({
+        password: z.string().optional(),
+      })}
       onSubmit={async values => {
         startUpdateTransition(async () => {
           try {
@@ -32,7 +34,7 @@ export default function UpdateUserForm({
             onSuccess();
             toast.success('Tài khoản đã được cập nhật');
           } catch (error) {
-            console.log(error);
+            console.error(error);
             toast.error('Cập nhật tài khoản thất bại');
           }
         });

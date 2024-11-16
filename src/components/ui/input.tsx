@@ -7,10 +7,11 @@ export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   startIcon?: LucideIcon;
   endIcon?: LucideIcon;
+  unit?: string;
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, startIcon, endIcon, ...props }, ref) => {
+  ({ className, type, startIcon, endIcon, unit, ...props }, ref) => {
     const StartIcon = startIcon;
     const EndIcon = endIcon;
     return (
@@ -34,6 +35,13 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         {EndIcon && (
           <div className="absolute right-2 top-1/2 transform -translate-y-1/2">
             <EndIcon className="text-muted-foreground" size={18} />
+          </div>
+        )}
+        {unit && (
+          <div className="absolute rounded-r-lg right-0  top-1/2 transform -translate-y-1/2  flex h-full items-center justify-center bg-muted-foreground/20">
+            <span className="text-muted-foreground text-sm flex items-center px-5 justify-center">
+              {unit}
+            </span>
           </div>
         )}
       </div>
