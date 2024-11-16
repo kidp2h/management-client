@@ -16,10 +16,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Combobox } from '@/components/ui/combobox';
-import {
-  House,
-  Scan,
-} from 'lucide-react';
+import { House, Scan } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { enumTypeHouse } from '@/db/schema';
 import { useUploadFile } from '@/hooks/use-upload-file';

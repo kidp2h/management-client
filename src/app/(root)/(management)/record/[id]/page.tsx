@@ -1,3 +1,5 @@
+import React from 'react';
+import { decode } from 'js-base64';
 import RecordDetailSection from '@/components/features/record/record-detail-section';
 import { getRecordCommendationsById } from '@/db/queries/commendation';
 import { getRecordDisciplinesById } from '@/db/queries/disciplines';
@@ -13,12 +15,11 @@ import {
   getTrainingsRecordById,
   getWorkExperiencesRecordById,
 } from '@/db/queries/records';
-import { decode } from 'js-base64';
-import React from 'react';
 
 type RecordDetailPageProps = {
   params: { id: string };
 };
+
 export default async function RecordDetailPage({
   params,
 }: RecordDetailPageProps) {
@@ -54,5 +55,4 @@ export default async function RecordDetailPage({
       />
     );
   }
-  // if (!recordId) return redirect('/records');
 }
