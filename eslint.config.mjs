@@ -48,8 +48,8 @@ export default antfu(
       'simple-import-sort': simpleImportSort,
     },
     rules: {
-      'simple-import-sort/imports': 'warn',
-      'simple-import-sort/exports': 'warn',
+      'simple-import-sort/imports': 'off',
+      'simple-import-sort/exports': 'off',
     },
   },
   {
@@ -60,6 +60,7 @@ export default antfu(
       'import/order': 'off', // Avoid conflicts with `simple-import-sort` plugin
       'sort-imports': 'off', // Avoid conflicts with `simple-import-sort` plugin
       'ts/consistent-type-definitions': ['off', 'type'], // Use `type` instead of `interface`
+      'ts/consistent-type-imports': 'off', // Avoid conflicts with `simple-import-sort` plugin
       'react/prefer-destructuring-assignment': 'off',
       'node/prefer-global/process': 'off', // Allow using `process.env`,
       'no-console': 'warn',
@@ -90,6 +91,9 @@ export default antfu(
       'vars-on-top': 'off',
       'no-var': 'off',
       'react/no-unstable-context-value': 'off',
+      'unused-imports/no-unused-imports': 'warn',
+      'unused-imports/no-unused-vars': 'warn',
+      'tailwindcss/classnames-order': 'off',
     },
   },
 );

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: 'Quản lý hồ sơ',
 };
 
-export default function __MainLayout__({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

@@ -3,7 +3,7 @@ import { z } from 'zod';
 export const createUserSchema = z.object({
   username: z
     .string({
-      required_error: 'Tên đăng nhập không được để trống',
+      required_error: 'Mã cán bộ không được để trống',
     })
     .describe('Mã cán bộ'),
   password: z
@@ -23,6 +23,9 @@ export const createUserSchema = z.object({
     })
     .describe('Ngày sinh'),
 });
-export const updateUserSchema = createUserSchema.extend({});
+export const updateUserSchema = createUserSchema.omit({
+  fullName: true,
+  birthday: true,
+});
 export type UpdateUserSchema = z.infer<typeof updateUserSchema>;
 export type CreateUserSchema = z.infer<typeof createUserSchema>;

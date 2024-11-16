@@ -1,21 +1,24 @@
 import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 import type { ColumnDef } from '@tanstack/react-table';
 import dayjs from 'dayjs';
+import { encode } from 'js-base64';
 import {
   BookCheck,
   BookOpenText,
   Building,
   Cake,
   CaseUpper,
+  Check,
   Cpu,
+  Dna,
   Droplet,
   HeartPulse,
   ScanBarcode,
-  Star,
   Timer,
   TypeOutline,
   University,
 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 import { toast } from 'sonner';
 
@@ -87,7 +90,9 @@ export function getColumns({ ranks }: DataColumnsRecords): ColumnDef<any>[] {
           <DataTableColumnHeader column={column} title="Mã hồ sơ" />
         </div>
       ),
-      cell: ({ row }) => <div className="w-full">{row.getValue('code')}</div>,
+      cell: ({ row }) => (
+        <div className="w-full font-mono">{row.getValue('code')}</div>
+      ),
       enableSorting: false,
       enableHiding: true,
     },
@@ -104,6 +109,32 @@ export function getColumns({ ranks }: DataColumnsRecords): ColumnDef<any>[] {
       ),
       cell: ({ row }) => (
         <div className="w-fit">{row.getValue('fullName')}</div>
+      ),
+      enableSorting: false,
+      enableHiding: true,
+    },
+    {
+      accessorKey: 'gender',
+      meta: {
+        label: 'Giới tính',
+      },
+      header: ({ column }) => (
+        <div className="flex flex-row items-center gap-1 ">
+          <Dna className="mr-2 size-5 text-pink-900" />
+          <DataTableColumnHeader column={column} title="Giới tính" />
+        </div>
+      ),
+      cell: ({ row }) => (
+        <Badge
+          roundedType="md"
+          variant="outline"
+          className={cn(
+            ' text-white',
+            row.getValue('gender') === 'Nam' ? 'bg-indigo-500' : 'bg-pink-500',
+          )}
+        >
+          {row.getValue('gender') || 'Chưa cập nhật'}
+        </Badge>
       ),
       enableSorting: false,
       enableHiding: true,
@@ -313,6 +344,7 @@ export function getColumns({ ranks }: DataColumnsRecords): ColumnDef<any>[] {
         const [showDeleteRecordDialog, setShowDeleteRecordDialog] =
           React.useState(false);
         React.useEffect(() => {});
+        const router = useRouter();
         const [isUpdatePending, startUpdateTransition] = React.useTransition();
         return (
           <>
@@ -321,7 +353,7 @@ export function getColumns({ ranks }: DataColumnsRecords): ColumnDef<any>[] {
               onOpenChange={setShowUpdateRecordSheet}
               data={row.original}
               form={UpdateRecordForm}
-              name="tôn giáo"
+              name="hồ sơ"
               fieldConfig={{
                 fullName: {
                   inputProps: {
@@ -377,6 +409,12 @@ export function getColumns({ ranks }: DataColumnsRecords): ColumnDef<any>[] {
                     defaultChecked: row.original.isPartyMember,
                   },
                 },
+                gender: {
+                  inputProps: {
+                    placeholder: row.original.gender,
+                    defaultValue: row.original.gender,
+                  },
+                },
                 degree: {
                   inputProps: {
                     placeholder: row.original.degree,
@@ -386,7 +424,7 @@ export function getColumns({ ranks }: DataColumnsRecords): ColumnDef<any>[] {
               }}
             />
             <DeleteRecordsDialog
-              name="tôn giáo"
+              name="hồ sơ"
               open={showDeleteRecordDialog}
               onOpenChange={setShowDeleteRecordDialog}
               records={[row.original]}
@@ -404,6 +442,13 @@ export function getColumns({ ranks }: DataColumnsRecords): ColumnDef<any>[] {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-40">
+                <DropdownMenuItem
+                  onSelect={() =>
+                    router.replace(`/record/${encode(row.original.id)}`)
+                  }
+                >
+                  Xem chi tiết
+                </DropdownMenuItem>
                 <DropdownMenuLabel className="text-xs font-bold uppercase text-muted-foreground">
                   Thao tác
                 </DropdownMenuLabel>
@@ -460,7 +505,7 @@ export function getColumns({ ranks }: DataColumnsRecords): ColumnDef<any>[] {
                             <div className="flex flex-row items-center justify-center gap-2">
                               {label}
                               {label === row.original.englishCertification && (
-                                <Star className="size-4" />
+                                <Check className="size-4" />
                               )}
                             </div>
                           </DropdownMenuRadioItem>
@@ -506,7 +551,7 @@ export function getColumns({ ranks }: DataColumnsRecords): ColumnDef<any>[] {
                               {label}
                               {label ===
                                 row.original.technologyCertification && (
-                                <Star className="size-4" />
+                                <Check className="size-4" />
                               )}
                             </div>
                           </DropdownMenuRadioItem>
@@ -549,7 +594,7 @@ export function getColumns({ ranks }: DataColumnsRecords): ColumnDef<any>[] {
                           <div className="flex flex-row items-center justify-center gap-2">
                             {rel}
                             {rel === row.original.religion && (
-                              <Star className="size-4" />
+                              <Check className="size-4" />
                             )}
                           </div>
                         </DropdownMenuRadioItem>
@@ -591,7 +636,7 @@ export function getColumns({ ranks }: DataColumnsRecords): ColumnDef<any>[] {
                           <div className="flex flex-row items-center justify-center gap-2">
                             {r.name}
                             {r.id === row.original.rankId && (
-                              <Star className="size-4" />
+                              <Check className="size-4" />
                             )}
                           </div>
                         </DropdownMenuRadioItem>

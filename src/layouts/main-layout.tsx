@@ -8,11 +8,13 @@ import { Sidebar } from '@/components/common/sidebar/';
 import { getMenuList } from '@/config/sidebar';
 import { cn } from '@/lib/utils';
 import { useGlobalStore } from '@/providers/global-store-provider';
+import { useUser } from '@clerk/nextjs';
 
 export function MainLayout({ children }: { children: React.ReactNode }) {
   const { isOpen } = useGlobalStore(state => state);
   const pathname = usePathname();
-  const menuList = getMenuList(pathname);
+  const { user } = useUser();
+  const menuList = getMenuList(pathname, user);
 
   return (
     <>

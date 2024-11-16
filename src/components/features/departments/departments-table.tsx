@@ -26,14 +26,14 @@ export const DepartmentsTable = ({ departments }: DepartmentsTableProps) => {
 
   const filterFields: DataTableFilterField<any>[] = [
     {
-      label: 'Tên tôn giáo',
+      label: 'Tên đơn vị',
       value: 'name',
-      placeholder: 'Tìm kiếm theo tên tôn giáo',
+      placeholder: 'Tìm kiếm theo tên đơn vị',
     },
     {
-      label: 'Mã tôn giáo',
+      label: 'Mã đơn vị',
       value: 'code',
-      placeholder: 'Tìm kiếm theo mã tôn giáo',
+      placeholder: 'Tìm kiếm theo mã đơn vị',
     },
   ];
   // const Toolbar = featureFlags.includes('advancedFilter')
@@ -62,13 +62,13 @@ export const DepartmentsTable = ({ departments }: DepartmentsTableProps) => {
           createDialog={
             <CreateDataDialog
               form={CreateDepartmentForm}
-              name="Tôn giáo"
-              description="Tạo mới tôn giáo"
+              name="Đơn vị"
+              description="Tạo mới đơn vị"
             />
           }
           deleteDialog={
             <DeleteDepartmentsDialog
-              name="tôn giáo"
+              name="đơn vị"
               departments={table
                 .getFilteredSelectedRowModel()
                 .rows.map(row => row.original)}

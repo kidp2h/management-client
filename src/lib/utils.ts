@@ -55,3 +55,62 @@ export function handleClerkException(err: any, callback: () => void) {
     }
   }
 }
+
+export function toSlug(str: string) {
+  // Chuyển hết sang chữ thường
+  str = str.toLowerCase();
+
+  // xóa dấu
+  str = str
+    .normalize('NFD') // chuyển chuỗi sang unicode tổ hợp
+    // eslint-disable-next-line unicorn/escape-case
+    .replace(/[\u0300-\u036f]/g, ''); // xóa các ký tự dấu sau khi tách tổ hợp
+
+  // Thay ký tự đĐ
+  // eslint-disable-next-line regexp/no-dupe-characters-character-class
+  str = str.replace(/[đĐ]/i, 'd');
+
+  // Xóa ký tự đặc biệt
+  str = str.replace(/([^0-9a-z-\s])/g, '');
+
+  // Xóa khoảng trắng thay bằng ký tự -
+  str = str.replace(/(\s+)/g, '-');
+
+  // Xóa ký tự - liên tiếp
+  str = str.replace(/-+/g, '-');
+
+  // xóa phần dư - ở đầu & cuối
+  str = str.replace(/^-+|-+$/g, '');
+
+  // return
+  return str;
+}
+
+export function formatBytes(
+  bytes: number,
+  opts: {
+    decimals?: number;
+    sizeType?: 'accurate' | 'normal';
+  } = {},
+) {
+  const { decimals = 0, sizeType = 'normal' } = opts;
+
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+  const accurateSizes = ['Bytes', 'KiB', 'MiB', 'GiB', 'TiB'];
+  if (bytes === 0) return '0 Byte';
+  const i = Math.floor(Math.log(bytes) / Math.log(1024));
+  return `${(bytes / 1024 ** i).toFixed(decimals)} ${
+    sizeType === 'accurate'
+      ? (accurateSizes[i] ?? 'Bytest')
+      : (sizes[i] ?? 'Bytes')
+  }`;
+}
+
+export function getFileExt(filename: string) {
+  return filename.split('.').pop();
+}
+
+export function isImage(filename: string) {
+  const ext = getFileExt(filename);
+  return ['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(ext ?? '');
+}

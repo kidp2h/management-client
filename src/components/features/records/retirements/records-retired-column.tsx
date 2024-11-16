@@ -3,34 +3,9 @@ import dayjs from 'dayjs';
 import React from 'react';
 
 import { DataTableColumnHeader } from '@/components/data-table/data-table-column-header';
-import { Checkbox } from '@/components/ui/checkbox';
 
 export function getColumns(): ColumnDef<any>[] {
   return [
-    {
-      id: 'select',
-      header: ({ table }) => (
-        <Checkbox
-          checked={
-            table.getIsAllPageRowsSelected() ||
-            (table.getIsSomePageRowsSelected() && 'indeterminate')
-          }
-          onCheckedChange={value => table.toggleAllPageRowsSelected(!!value)}
-          aria-label="Select all"
-          className="translate-y-0.5 border-none bg-card-foreground"
-        />
-      ),
-      cell: ({ row }) => (
-        <Checkbox
-          checked={row.getIsSelected()}
-          onCheckedChange={value => row.toggleSelected(!!value)}
-          aria-label="Select row"
-          className="translate-y-0.5 border-none bg-card-foreground"
-        />
-      ),
-      enableSorting: false,
-      enableHiding: false,
-    },
     {
       accessorKey: 'record.code',
       meta: {
@@ -74,26 +49,12 @@ export function getColumns(): ColumnDef<any>[] {
       enableHiding: true,
     },
     {
-      accessorKey: 'decisionDepartment',
+      accessorKey: 'retiredDate',
       meta: {
-        label: 'Cơ quan quyết định',
+        label: 'Ngày nghỉ hưu',
       },
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Cơ quan quyết định" />
-      ),
-      cell: ({ cell }) => (
-        <div className="w-20">{cell.getValue() as React.ReactNode}</div>
-      ),
-      enableSorting: false,
-      enableHiding: true,
-    },
-    {
-      accessorKey: 'decisionDate',
-      meta: {
-        label: 'Ngày quyết định',
-      },
-      header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Ngày quyết định" />
+        <DataTableColumnHeader column={column} title="Ngày nghỉ hưu" />
       ),
       cell: ({ cell }) => (
         <div className="w-20">

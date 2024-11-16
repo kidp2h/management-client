@@ -1,17 +1,43 @@
-import AutoBreadcrumb from '@/components/common/auto-breadcrumb';
-import MainContent from '@/components/common/main-content';
-import { ContentLayout } from '@/layouts';
+import DashboardSection from '@/components/features/dashboard/dashboard-section';
+import {
+  getCountRecords,
+  getCountRecordsDisciplined,
+  getCountRecordsRetired,
+  getRecordsDisciplinedRecent3Months,
+  getRecordsRecent7Days,
+  getRecordsRetiredRecent3Months,
+} from '@/db/queries/records';
 
 export default async function DashboardPage() {
-  const items = [
-    { name: 'Trang chủ', href: '/' },
-    { isSeparator: true },
-    { name: 'Bảng điều khiển' },
-  ];
+  const [
+    totalRecords,
+    totalRecordsDisciplined,
+    totalRecordsRetired,
+    recordsDisciplinedRecent3Months,
+    recordsRetiredRecent3Months,
+    recordsRecent7Days,
+  ] = await Promise.all([
+    getCountRecords(),
+    getCountRecordsDisciplined(),
+    getCountRecordsRetired(),
+    getRecordsDisciplinedRecent3Months(),
+    getRecordsRetiredRecent3Months(),
+    getRecordsRecent7Days(),
+  ]);
   return (
-    <ContentLayout title="Bảng điều khiển">
-      <AutoBreadcrumb items={items} />
-      <MainContent>x</MainContent>
-    </ContentLayout>
+    <DashboardSection
+      data={{
+        overview: {
+          totalRecords: totalRecords.data,
+          totalRecordsDisciplined: totalRecordsDisciplined.data,
+          totalRecordsRetired: totalRecordsRetired.data,
+        },
+        recent3Months: {
+          recordsDisciplinedRecent3Months,
+          recordsRetiredRecent3Months,
+        },
+        recent7Days: recordsRecent7Days,
+      }}
+    />
   );
 }

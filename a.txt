@@ -1,0 +1,460 @@
+Mã Tên
+0 Chưa xác định
+01.001 Chuyên viên cao cấp
+04.023 Thanh tra viên cao cấp
+06.036 Kiểm soát viên cao cấp thuế
+06.041 Kiểm toán viên cao cấp
+07.044 Kiểm soát viên cao cấp ngân hàng
+08.049 Kiểm tra viên cao cấp hải quan
+12.084 Thẩm kế viên cao cấp
+21.187 Kiểm soát viên cao cấp thị trường
+23.261 Thống kê viên cao cấp
+13.280 Kiểm soát viên cao cấp chất lượng sản phẩm, hàng hóa
+03.299 Chấp hành viên cao cấp
+03.230 Thẩm tra viên cao cấp
+06.029 Kế toán viên cao cấp
+09.066 Kiểm dịch viên cao cấp động thực vật
+01.002 Chuyên viên chính
+03.017 Chấp hành viên tỉnh, thành phố trực thuộc Trung ương
+04.024 Thanh tra viên chính
+06.037 Kiểm soát viên chính thuế
+06.042 Kiểm toán viên chính
+07.045 Kiểm soát viên chính ngân hàng
+08.050 Kiểm tra viên chính hải quan
+12.085 Thẩm kế viên chính
+21.188 Kiểm soát viên chính thị trường
+02.006 Văn thư chính
+23.262 Thống kê viên chính
+13.281 Kiểm soát viên chính chất lượng sản phẩm, hàng hoá
+03.231 Thẩm tra viên chính
+09.315 Kiểm dịch viên chính động vật
+09.318 Kiểm dịch viên chính thực vật
+25.309 Kiểm ngư viên chính
+25.312 Thuyền viên kiểm ngư chính
+06.030 Kế toán viên chính
+09.067 Kiểm dịch viên chính động - thực vật
+11.081 Kiểm soát viên chính đê điều
+01.003 Chuyên viên
+03.018 Chấp hành viên quận, huyện, thị xã, thành phố thuộc tỉnh
+03.019 Công chứng viên
+04.025 Thanh tra viên
+06.031 Kế toán viên
+06.038 Kiểm soát viên thuế
+06.043 Kiểm toán viên
+07.046 Kiểm soát viên ngân hàng
+08.051 Kiểm tra viên hải quan
+09.068 Kiểm dịch viên động - thực vật
+09.316 Kiểm dịch viên động vật
+09.319 Kiểm dịch viên thực vật
+25.310 Kiểm ngư viên
+25.313 Thuyền viên kiểm ngư
+23.263 Thống kê viên
+10.225 Kiểm lâm viên chính
+11.082 Kiểm soát viên đê điều
+12.086 Thẩm kế viên
+21.189 Kiểm soát viên thị trường
+02.007 Văn thư
+01.004 Cán sự
+06.032 Kế toán viên trung cấp
+06.039 Kiểm thu viên thuế
+13.282 Kiểm soát viên chất lượng sản phẩm, hàng hóa
+
+07.048 Thủ kho tiền, vàng bạc, đá quý (ngân hàng)
+08.052 Kiểm tra viên trung cấp hải quan
+09.069 Kỹ thuật viên kiểm dịch động - thực vật
+10.226 Kiểm lâm viên
+03.302 Thư ký thi hành án
+03.232 Thẩm tra viên
+19.221 Kỹ thuật viên bảo quản
+23.265 Thống kê viên trung cấp
+11.083 Kiểm soát viên trung cấp đê điều
+19.183 Kỹ thuật viên kiểm nghiệm bảo quản
+21.190 Kiểm soát viên trung cấp thị trường
+02.008 Văn thư trung cấp
+13.283 Kiểm soát viên trung cấp chất lượng sản phẩm, hàng hóa
+03.300 Chấp hành viên trung cấp
+03.303 Thư ký trung cấp thi hành án
+10.228 Kiểm lâm viên trung cấp
+19.222 Kỹ thuật viên bảo quản trung cấp
+23.264 Thống kê viên trình độ cao đẳng
+06a.038 Kiểm tra viên cao đẳng thuế
+08a.051 Kiểm tra viên cao đẳng hải quan
+06a.031 Kế toán viên cao đẳng
+10.227 Kiểm lâm viên trình độ cao đẳng
+09.317 Kỹ thuật viên kiểm dịch động vật
+09.320 Kỹ thuật viên kiểm dịch thực vật
+25.311 Kiểm ngư viên trung cấp
+25.314 Thuyền viên kiểm ngư trung cấp
+01.005 Nhân viên
+03.301 Chấp hành viên sơ cấp
+06.034 Thủ quỹ kho bạc, ngân hàng
+07.047 Kiểm ngân viên
+08.053 Nhân viên hải quan
+10.229 Kiểm lâm viên sơ cấp
+19.224 Nhân viên bảo vệ kho dự trữ
+19.184 Thủ kho bảo quản nhóm I
+19.185 Thủ kho bảo quản nhóm II
+19.186 Bảo vệ, tuần tra canh gác
+06.035 Thủ quỹ cơ quan, đơn vị
+06.040 Nhân viên thuế
+06.033 Ngạch kế toán viên sơ cấp
+V.04.01.01 Kiến trúc sư cao cấp
+V.05.01.01 Nghiên cứu viên cao cấp
+V.05.02.05 Kỹ sư cao cấp
+13.097 Định chuẩn viên cao cấp
+13.100 Giám định viên cao cấp
+14.103 Dự báo viên cao cấp
+V.07.01.01 Giáo sư - giảng viên cao cấp
+V.08.01.01 Bác sĩ cao cấp
+V.08.08.20 Dược sĩ cao cấp
+17.139 Biên tập - Biên kịch - Biên dịch viên cao cấp
+V.11.01.01 Biên tập viên - Biên kịch viên cao cấp
+V.11.03.07 Biên dịch viên cao cấp
+V.11.02.04 Phóng viên - Bình luận viên cao cấp
+17.154 Đạo diễn cao cấp
+V.11.04.10 Đạo diễn truyền hình hạng 1
+V.10.03.08 Đạo diễn nghệ thuật hạng 1
+V.10.04.12 Diễn viên hạng I
+V.10.08.25 Họa sĩ cao cấp
+V.10.01.01 Huấn luyện viên cao cấp
+V.08.02.04 Bác sĩ y học dự phòng cao cấp (hạng I)
+V.08.02.05 Bác sĩ y học dự phòng chính (hạng II)
+V.08.04.08 Y tế công cộng cao cấp (hạng I)
+V11.05.09 An toàn thông tin hạng I
+V11.06.12 Quản trị viên hệ thống hạng I
+V11.07.16 Kiểm định viên công nghệ thông tin hạng I
+V11.08.19 Phát triển phần mềm hạng I
+V.04.02.04 Thẩm kế viên hạng I
+02.012 Lưu trữ viên cao cấp
+09.054 Chẩn đoán viên cao cấp bệnh động vật
+09.058 Dự báo viên cao cấp bảo vệ thực vật
+09.062 Giám định viên cao cấp thuốc bảo vệ thực vật - thú y
+09.070 Kiểm nghiệm viên cao cấp giống cây trồng
+V11.10.27 Phát thanh viên cao cấp
+V11.12.35 Quay phim viên cao cấp
+17.164 Bảo tàng viên cao cấp
+V.10.02.30 Thư viện viên cao cấp
+17.172 Phương pháp viên cao cấp
+V11.09.23 Âm thanh viên cao cấp
+17.168 Thư mục viên cao cấp
+V.04.01.02 Kiến trúc sư chính
+V.05.01.02 Nghiên cứu viên chính
+
+17
+
+Mã Tên
+V.05.02.06 Kỹ sư chính
+13.098 Định chuẩn viên chính
+13.101 Giám định viên chính
+V.06.03.07 Dự báo viên chính
+V.07.01.02 Phó giáo sư - giảng viên chính
+V.08.01.02 Bác sĩ chính
+V.08.08.21 Dược sĩ chính
+17.140 Biên tập - Biên kịch - Biên dịch viên chính
+V.11.01.02 Biên tập viên - Biên kịch viên chính
+V.11.03.08 Biên dịch viên chính
+V.11.02.05 Phóng viên - Bình luận viên chính
+17.155 Đạo diễn chính
+V.11.04.11 Đạo diễn truyền hình hạng II
+V.10.03.09 Đạo diễn nghệ thuật hạng II
+V.10.08.26 Họa sĩ chính
+V.10.01.02 Huấn luyện viên chính
+V.01.02.01 Lưu trữ viên chính
+V.03.04.10 Chẩn đoán viên chính bệnh động vật
+V.03.01.01 Dự báo viên chính bảo vệ thực vật
+V.03.02.04 Giám định viên chính thuốc bảo vệ thực vật - thú y
+
+18
+
+Mã Tên
+V.03.03.07 Kiểm nghiệm viên chính giống cây trồng
+15.112 GIáo viên trung học cao cấp
+V.07.04.10 Giáo viên trung học cơ sở hạng I
+V.07.04.30 Giáo viên trung học cơ sở hạng I
+V.07.04.11 Giáo viên trung học cơ sở hạng II
+V.07.05.13 Giáo viên trung học phổ thông hạng I
+V.07.05.14 Giáo viên trung học phổ thông hạng II
+V.07.02.04 Giáo viên mầm non hạng II
+VC.A0 Giáo viên tiểu học hạng II
+V.05.01.04 Trợ lý nghiên cứu (hạng IV)
+V.09.03.01 Kiểm định viên chính kỹ thuật an toàn lao động (hạng II)
+V.09.04.01 Công tác xã hội viên chính (hạng II)
+V.03.05.13 Kiểm tra viên vệ sinh thú y hạng II
+V.03.06.16 Kiểm nghiệm viên thuốc thú y hạng II
+V.03.07.19 Kiểm nghiệm viên chăn nuôi hạng II
+V.03.08.22 Kiểm nghiệm viên thủy sản hạng II
+V.06.01.01 Địa chính viên hạng II
+V.06.02.04 Điều tra tài nguyên môi trường hạng II
+V.06.04.10 Kiểm soát viên khí tượng thủy văn hạng II
+V.06.06.16 Đo đạc bản đồ viên hạng II
+V.10.05.16 Di sản viên hạng II
+V.10.04.13 Diễn viên hạng II
+V.10.06.19 Phương pháp viên hạng II
+V.10.07.22 Hướng dẫn viên văn hóa hạng II
+V.08.10.27 Dân số viên hạng II
+V.08.05.11 Điều dưỡng hạng II
+V.08.06.14 Hộ sinh hạng II
+V.08.07.17 Kỹ thuật y hạng II
+V.08.09.24 Dinh dưỡng hạng II
+V.08.04.09 Y tế công cộng chính (hạng II)
+V11.05.10 An toàn thông tin hạng II
+V11.06.13 Quản trị viên hệ thống hạng II
+V11.07.17 Kiểm định viên công nghệ thông tin hạng II
+V11.08.20 Phát triển phần mềm hạng II
+V02.01.01 Trợ giúp viên pháp lý hạng II
+V.04.02.05 Thẩm kế viên hạng II
+V11.10.28 Phát thanh viên chính
+V11.12.36 Quay phim viên chính
+V11.11.32 Dựng phim viên cao cấp
+17.165 Bảo tàng viên chính
+V.10.02.05 Thư viện viên hạng II
+V.10.06.19 Phương pháp viên chính
+V11.09.24 Âm thanh viên chính
+17a.195 Thư mục viên chính
+V.01.02.02 Lưu trữ viên
+V.03.04.11 Chẩn đoán viên bệnh động vật
+V.03.01.02 Dự báo viên bảo vệ thực vật
+V.03.02.05 Giám định viên thuốc bảo vệ thực vật - thú y
+V.03.03.08 Kiểm nghiệm viên giống cây trồng
+V.04.01.03 Kiến trúc sư
+V.05.01.03 Nghiên cứu viên
+V.05.02.07 Kỹ sư
+13.099 Định chuẩn viên
+13.102 Giám định viên
+V.06.03.08 Dự báo viên
+V.06.05.13 Quan trắc viên chính
+V.07.01.03 Giảng viên
+15.113 Giáo viên trung học
+V.08.02.06 Bác sĩ
+16.120 Y tá cao cấp
+16.123 Nữ hộ sinh cao cấp
+16.126 Kỹ thuật viên cao cấp y
+V.08.08.22 Dược sĩ
+17.141 Biên tập - Biên kịch - Biên dịch viên
+V.11.01.03 Biên tập viên- Biên kịch hạng III
+V.11.03.09 Biên dịch viên hạng III
+V.11.02.06 Phóng viên - Bình luận viên
+V11.12.37 Quay phim viên
+V11.11.33 Dựng phim viên chính
+17.156 Đạo diễn
+V.11.04.12 Đạo diễn truyền hình hạng III
+V.10.03.10 Đạo diễn nghệ thuật hạng III
+V.10.08.27 Họa sĩ
+17.116 Bảo tàng viên
+V.10.02.06 Thư viện viên hạng III
+V.10.06.20 Phương pháp viên
+V.10.07.23 Hướng dẫn viên chính
+17.177 Tuyên truyền viên chính
+V.10.01.03 Huấn luyện viên
+V11.09.25 Âm thanh viên
+17a.196 Thư mục viên
+V.07.04.12 Giáo viên trung học cơ sở hạng III
+V.07.05.15 Giáo viên trung học phổ thông hạng III
+V.07.02.05 Giáo viên mầm non hạng III
+V.07.03.08 Giáo viên tiểu học hạng III
+V.09.03.02 Kiểm định viên kỹ thuật an toàn lao động (hạng III)
+V.09.04.02 Công tác xã hội viên (hạng III)
+V.03.05.14 Kiểm tra viên vệ sinh thú y hạng III
+V.03.06.17 Kiểm nghiệm viên thuốc thú y hạng III
+V.03.07.20 Kiểm nghiệm viên chăn nuôi hạng III
+V.03.08.23 Kiểm nghiệm viên thủy sản hạng III
+V.06.01.02 Địa chính viên hạng III
+V.06.02.05 Điều tra tài nguyên môi trường hạng III
+V.06.04.11 Kiểm soát viên khí tượng thủy văn hạng III
+V.06.06.17 Đo đạc bản đồ viên hạng III
+V.10.05.17 Di sản viên hạng III
+V.08.10.28 Dân số viên hạng III
+V.08.05.12 Điều dưỡng hạng III
+V.08.06.15 Hộ sinh hạng III
+V.08.07.18 Kỹ thuật y hạng III
+V.08.09.25 Dinh dưỡng hạng III
+V.08.01.03 Bác sĩ (hạng III)
+V.08.04.10 Y tế công cộng (hạng III)
+V11.05.11 An toàn thông tin hạng III
+V11.06.14 Quản trị viên hệ thống hạng III
+V11.07.18 Kiểm định viên công nghệ thông tin hạng III
+V11.08.21 Phát triển phần mềm hạng III
+V02.01.02 Trợ giúp viên pháp lý hạng III
+V.04.02.06 Thẩm kế viên hạng III
+V.07.04.32 Giáo viên trung học cơ sở hạng III
+17.147 Phát thanh viên
+V.01.02.03 Lưu trữ viên trung cấp
+02.016 Kỹ thuật viên lưu trữ
+V.03.04.12 Kỹ thuật viên chẩn đoán bệnh động vật
+09.061 Kỹ thuật viên dự báo bảo vệ thực vật
+09.065 Kỹ thuật viên giám định thuốc bảo vệ thực vật - thú y
+V.03.03.09 Kỹ thuật viên kiểm nghiệm viên giống cây trồng
+V.05.02.08 Kỹ thuật viên
+V.06.05.14 Quan trắc viên
+15.114 Giáo viên tiểu học
+15.115 Giáo viên mầm non
+V.08.03.07 Y sĩ
+16.121 Y tá chính
+16.124 Nữ hộ sinh chính
+16.127 Kỹ thuật viên chính y
+16.135 Dược sĩ trung cấp
+16.137 Kỹ thuật viên chính dược
+V11.11.34 Dựng phim viên
+V.10.04.14 Diễn viên hạng III
+V.10.08.28 Họa sỹ trung cấp
+17.167 Kỹ thuật viên bảo tồn, bảo tàng
+V.10.02.07 Thư viện viên hạng IV
+V.10.07.24 Hướng dẫn viên (ngành văn hóa - thông tin)
+17.178 Tuyên truyền viên
+V.10.01.04 Hướng dẫn viên (ngành thể dục thể thao)
+V.07.02.06 Giáo viên mầm non hạng IV
+V.07.03.09 Giáo viên tiểu học hạng IV
+V.09.03.03 Kỹ thuật viên kiểm định kỹ thuật an toàn lao động (hạng IV)
+V.09.04.03 Nhân viên công tác xã hội (hạng IV)
+V.03.01.03 Kỹ thuật viên bảo vệ thực vật hạng IV
+V.03.02.06 Kỹ thuật viên giám định thuốc bảo vệ thực vật hạng IV
+V.03.05.15 Kỹ thuật viên kiểm tra vệ sinh thú y hạng IV
+V.03.06.18 Kỹ thuật viên kiểm nghiệm thuốc thú y hạng IV
+V.03.07.21 Kỹ thuật viên kiểm nghiệm chăn nuôi hạng IV
+V.03.08.24 Kỹ thuật viên kiểm nghiệm thủy sản hạng IV
+V.06.01.03 Địa chính viên hạng IV
+V.06.02.06 Điều tra tài nguyên môi trường hạng IV
+V.06.03.09 Dự báo viên khí tượng thủy văn hạng IV
+V.06.04.12 Kiểm soát viên khí tượng thủy văn hạng IV
+V.06.05.15 Quan trắc viên tài nguyên môi trường hạng IV
+V.06.06.18 Đo đạc bản đồ viên hạng IV
+V.10.05.18 Di sản viên hạng IV
+V.10.03.11 Đạo diễn nghệ thuật hạng IV
+V.10.04.15 Diễn viên hạng IV
+V.10.06.21 Phương pháp viên hạng IV
+V.08.10.29 Dân số viên hạng IV
+V.08.05.13 Điều dưỡng hạng IV
+V.08.06.16 Hộ sinh hạng IV
+V.08.07.19 Kỹ thuật y hạng IV
+V.08.09.26 Dinh dưỡng hạng IV
+V.08.08.23 Dược hạng IV
+V11.06.15 Quản trị viên hệ thống hạng IV
+V11.08.22 Phát triển phần mềm hạng IV
+V.04.02.07 Thẩm kế viên hạng IV
+14.108 Quan trắc viên sơ cấp
+16.122 Y tá
+16.125 Nữ hộ sinh
+16.128 Kỹ thuật viên y
+16.130 Hộ lý
+16.136 Dược tá
+16.138 Kỹ thuật viên dược
+16.131 Ngạch nhân viên nhà xác
+16.129 Ngạch y công
+01.006 Nhân viên đánh máy
+01.007 Nhân viên kỹ thuật
+01.008 Nhân viên văn thư
+01.009 Nhân viên Phục vụ
+01.010 Lái xe cơ quan
+01.011 Nhân viên bảo vệ
+14.250 Dự báo viên trung cấp khí tượng thuỷ văn
+14.253 Kiểm soát viên khí tượng thuỷ văn
+14.256 Quan trắc viên chính tài nguyên môi trường
+14.257 Quan trắc viên tài nguyên môi trường
+17c.214 Phát thanh viên chưa đạt chuẩn (chưa đạt trình độ cao đẳng)
+19.223 Thủ kho bảo quản
+V.03.09.26 Khuyến nông viên (hạng III)
+V.03.09.27 Kỹ thuật viên khuyến nông (hạng IV)
+V.03.10.29 Quản lý bảo vệ rừng viên (hạng III)
+V.03.10.30 Kỹ thuật viên quản lý bảo vệ rừng (hạng IV)
+V.09.02.02 Giảng viên GDNN chính (hạng II)
+V.09.02.03 Giảng viên GDNN lý thuyết (hạng III)
+V.09.02.07 Giáo viên GDNN lý thuyết hạng III
+V.09.02.08 Giáo viên GDNN thực hành hạng III
+V.09.02.09 Giáo viên GDNN hạng IV
+V11.10.30 Phát thanh viên hạng IV
+V.11.06.12 Công nghệ thông tin (hạng I) - V.11.06.12
+04.024a Kiểm tra viên chính - 04.024a
+V.09.02.05 Giáo viên GDNN hạng I - V.09.02.05
+V.09.02.01 Giảng viên giáo dục nghề nghiệp cao cấp
+04.023A Kiểm tra viên cao cấp
+V.07.07.21 Nhân viên giáo vụ - V.07.07.21
+V11.12.38 Quay phim (hạng IV) - V11.12.38
+V.11.05.12 An toàn thông tin (hạng IV) - V.11.05.12
+V.11.06.15 Công nghệ thông tin (hạng IV) - V.11.06.15
+V.07.07.20 Nhân viên thiết bị, thí nghiệm - V.07.07.20
+V.11.06.14 Công nghệ thông tin (hạng III) - V.11.06.14
+V.02.01.02 Trợ giúp viên pháp lý hạng III - V.02.01.02
+V.07.06.16 Nhân viên hỗ trợ giáo dục người khuyết tật (hạng IV) - V.07.06.16
+V.09.02.04 Giảng viên giáo dục nghề nghiệp thực hành (hạng III)
+V.09.02.06 Giáo viên GDNN hạng II - V.09.02.06
+17a.211 Phát thanh viên (trình độ cao đẳng)
+16a.200 Điều dưỡng (cao đẳng)
+17a.213 Phương pháp viên (trình độ cao đẳng)
+17a.212 Quay phim viên (cao đẳng)
+17.159 Diễn viên (cao đẳng)
+02a.014 Lưu trữ viên (cao đẳng)
+16b.121 Điều dưỡng trung cấp (CŨ)
+16.295 Hộ sinh (CŨ)
+16a.199 Điều dưỡng chính (CŨ)
+16.297 Hộ sinh trung cấp (CŨ)
+16.286 Kỹ thuật viên cao đẳng y
+16.296 Hộ sinh cao đẳng
+16.294 Hộ sinh chính (CŨ)
+V.07.03.27 Giáo viên tiểu học hạng I - V.07.03.27
+15a.206 Giáo viên mầm non chính (trình độ cao đẳng)
+15a.205 Giáo viên mầm non cao cấp (trình độ đại học)
+15a.204 Giáo viên tiểu học chính (trình độ cao đẳng)
+15a.203 Giáo viên tiểu học cao cấp (trình độ đại học)
+15a.202 Giáo viên trung học cơ sở (trình độ cao đẳng)
+15a.201 Giáo viên trung học cơ sở chính (trình độ đại học)
+15c.207 Giáo viên trung học phổ thông chưa đạt chuẩn (chưa đạt trình độ đại học)
+15c.208 Giáo viên trung học cơ sở chưa đạt chuẩn (chưa đạt trình độ cao đẳng)
+15c.209 Giáo viên tiểu học chưa đạt chuẩn (chưa đạt trình độ trung học)
+15c.210 Giáo viên mầm non chưa đạt chuẩn (chưa đạt trình độ trung học)
+13.096 Kỹ Thuật Viên
+15.111 Giảng viên
+09.060 Dự báo viên bảo vệ thực vật
+17.175 Hướng dẫn viên chính
+17.144 Phóng viên - Bình luận viên
+17.143 Phóng viên - Bình luận viên chính
+V.07.08.21 Giảng viên cao đẳng sư phạm chính (hạng II)
+V.07.08.22 Giảng viên cao đẳng sư phạm (hạng III)
+17.173 Phương pháp viên chính
+V.07.02.24 Giáo viên mầm non hạng I
+V.07.04.31 Giáo viên trung học cơ sở hạng II
+V.07.02.25 Giáo viên mầm non hạng II
+V.07.02.26 Giáo viên mầm non hạng III
+V.07.03.28 Giáo viên tiểu học hạng II
+V.07.03.29 Giáo viên tiểu học hạng III
+17.171 Thư viện viên trung cấp
+16.119 Y sĩ
+17.170 Thư viện viên
+16.118 Bác sĩ
+09.056 Chuẩn đoán viên bệnh động vật
+V.02.01.00 Trợ giúp viên pháp lý hạng I
+13.095 Kỹ sư
+10.078 Kiểm lâm viên chính
+10.079 Kiểm lâm viên
+10.080 Kiểm lâm viên sơ cấp
+09.072 Kiểm nghiệm viên giống cây trồng
+09.073 Kỹ thuật viên kiểm nghiệm viên giống cây trồng
+02.015 Lưu trữ viên trung cấp
+CT01 Bí thư đảng ủy
+CT02 Phó Bí thư đảng ủy
+CT03 Chủ tịch Hội đồng nhân dân
+CT04 Chủ tịch Ủy ban nhân dân
+CT05 Thường trực Đảng ủy
+CT06 Chủ tịch Ủy ban Mặt trận tổ quốc Việt Nam
+CT07 Phó Chủ tịch Hội đồng nhân dân
+CT08 Phó Chủ tịch Ủy ban nhân dân
+CT09 Trưởng các đoàn thể
+CT10 Ủy viên Ủy ban nhân dân
+V.11.06.13 Công nghệ thông tin hạng II
+09.055 Chẩn đoán viên chính bệnh động vật
+14.105 Dự báo viên
+14.104 Dự báo viên chính
+09.059 Dự báo viên chính bảo vệ thực vật
+17.152 Dựng phim viên chính
+09.063 Giám định viên chính thuốc bảo vệ thực vật - thú y
+15.109 Giáo sư - giảng viên cao cấp
+09.071 Kiểm nghiệm viên chính giống cây trồng
+09.057 Kỹ thuật viên chẩn đoán bệnh động vật
+15.110 Phó giáo sư - giảng viên chính
+17.142 Phóng viên - Bình luận viên cao cấp
+14.106 Quan trắc viên chính
+01a.003 Chuyên viên trình độ cao đẳng
+16b.122 Điều dưỡng sơ cấp
+13a.095 Kỹ sư cao đẳng
+16b.120 Cử nhân điều dưỡng
+V11.10.29 Phát thanh viên hạng III
+17a.170 Thư viện viên cao đẳng

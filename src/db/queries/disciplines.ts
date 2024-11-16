@@ -117,3 +117,28 @@ export async function getRecordsDiscipline(
     return { data: [], pageCount: 0 };
   }
 }
+
+export async function getRecordDisciplinesById(id: string) {
+  noStore();
+  try {
+    const data = await db
+      .select({
+        ...getTableColumns(recordsDiscipline),
+        record: records,
+      })
+      .from(recordsDiscipline)
+      .leftJoin(records, eq(records.id, recordsDiscipline.recordId))
+      .where(eq(records.id, id));
+
+    return {
+      data,
+      error: null,
+    };
+  } catch (err) {
+    console.error('Error getting record:', err);
+    return {
+      data: [],
+      error: err,
+    };
+  }
+}

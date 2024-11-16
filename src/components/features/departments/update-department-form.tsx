@@ -30,11 +30,11 @@ export default function UpdateDepartmentForm({
             ...values,
           });
           if (error) {
-            toast.error('Cập nhật tôn giáo thất bại');
+            toast.error('Cập nhật đơn vị thất bại');
             return;
           }
           onSuccess();
-          toast.success('Tôn giáo đã được cập nhật');
+          toast.success('Đơn vị đã được cập nhật');
         });
       }}
       fieldConfig={fieldConfig}

@@ -21,10 +21,10 @@ export default function DepartmentsManagementSection({
     { isSeparator: true },
     { name: 'Quản lý danh mục' },
     { isSeparator: true },
-    { name: 'Tôn giáo' },
+    { name: 'Đơn vị' },
   ];
   return (
-    <ContentLayout title="Tôn giáo">
+    <ContentLayout title="Đơn vị">
       <AutoBreadcrumb items={items} />
       <MainContent hasCard={false}>
         <TableProvider isHidden>

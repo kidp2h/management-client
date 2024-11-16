@@ -23,7 +23,7 @@ export default function CreateDepartmentForm({
             return;
           }
           onSuccess();
-          toast.success('Tôn giáo đã được tạo');
+          toast.success('Đơn vị đã được tạo');
         });
       }}
       formSchema={createDepartmentSchema}
@@ -31,7 +31,7 @@ export default function CreateDepartmentForm({
         name: {
           inputProps: {
             type: 'text',
-            placeholder: 'Tên tôn giáo',
+            placeholder: 'Tên đơn vị',
           },
         },
       }}

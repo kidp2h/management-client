@@ -27,7 +27,7 @@ export default function RecordsCommendationTable({
     data,
     columns,
     enableAdvancedFilter: featureFlags.includes('advancedFilter'),
-    pageCount,
+    pageCount: pageCount || 1,
     filterFields,
     getRowId: (originalRow, index) => `${originalRow.id}-${index}`,
     initialState: {

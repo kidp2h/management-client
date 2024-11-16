@@ -46,10 +46,10 @@ export function getColumns(): ColumnDef<any>[] {
     {
       accessorKey: 'code',
       meta: {
-        label: 'Mã tôn giáo',
+        label: 'Mã đơn vị',
       },
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Mã tôn giáo" />
+        <DataTableColumnHeader column={column} title="Mã đơn vị" />
       ),
       cell: ({ row }) => <div className="w-20">{row.getValue('code')}</div>,
       enableSorting: false,
@@ -58,10 +58,10 @@ export function getColumns(): ColumnDef<any>[] {
     {
       accessorKey: 'name',
       meta: {
-        label: 'Tên tôn giáo',
+        label: 'Tên đơn vị',
       },
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Tên tôn giáo" />
+        <DataTableColumnHeader column={column} title="Tên đơn vị" />
       ),
       cell: ({ row }) => <div className="w-20">{row.getValue('name')}</div>,
       enableSorting: false,
@@ -94,7 +94,7 @@ export function getColumns(): ColumnDef<any>[] {
               onOpenChange={setShowUpdateDepartmentSheet}
               data={row.original}
               form={UpdateDepartmentForm}
-              name="tôn giáo"
+              name="đơn vị"
               fieldConfig={{
                 name: {
                   inputProps: {
@@ -105,7 +105,7 @@ export function getColumns(): ColumnDef<any>[] {
               }}
             />
             <DeleteDepartmentsDialog
-              name="tôn giáo"
+              name="đơn vị"
               open={showDeleteDepartmentDialog}
               onOpenChange={setShowDeleteDepartmentDialog}
               departments={[row.original]}

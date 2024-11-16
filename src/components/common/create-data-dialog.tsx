@@ -25,15 +25,18 @@ import {
   DrawerTrigger,
 } from '@/components/ui/drawer';
 import { useMediaQuery } from '@/hooks/use-media-query';
+import { ScrollArea } from '../ui/scroll-area';
 
 export interface CreateDataDialogProps {
-  form: ({ onSuccess }: { onSuccess: () => void }) => JSX.Element;
+  form: ({ onSuccess }: any) => JSX.Element;
   name: string;
   description: string;
+  data?: any;
 }
 export function CreateDataDialog({
   form: FormCreate,
   name,
+  data,
   description,
 }: CreateDataDialogProps) {
   const [open, setOpen] = React.useState(false);
@@ -54,6 +57,7 @@ export function CreateDataDialog({
             <DialogDescription>{description}</DialogDescription>
           </DialogHeader>
           <FormCreate
+            {...data}
             onSuccess={() => {
               setOpen(false);
             }}
@@ -83,13 +87,14 @@ export function CreateDataDialog({
           <DrawerTitle>Tạo {name}</DrawerTitle>
           <DrawerDescription>{description}</DrawerDescription>
         </DrawerHeader>
-        <div className="p-3">
+        <ScrollArea className="p-3 max-h-[60vh] overflow-auto">
           <FormCreate
+            {...data}
             onSuccess={() => {
               setOpen(false);
             }}
           />
-        </div>
+        </ScrollArea>
 
         <DrawerFooter className="gap-2 sm:space-x-0">
           <DrawerClose asChild>

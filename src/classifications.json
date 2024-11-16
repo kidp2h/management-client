@@ -1,0 +1,1802 @@
+[
+  {
+    "code": "0",
+    "name": "Chưa xác định"
+  },
+  {
+    "code": "01.001",
+    "name": "Chuyên viên cao cấp"
+  },
+  {
+    "code": "04.023",
+    "name": "Thanh tra viên cao cấp"
+  },
+  {
+    "code": "06.036",
+    "name": "Kiểm soát viên cao cấp thuế"
+  },
+  {
+    "code": "06.041",
+    "name": "Kiểm toán viên cao cấp"
+  },
+  {
+    "code": "07.044",
+    "name": "Kiểm soát viên cao cấp ngân hàng"
+  },
+  {
+    "code": "08.049",
+    "name": "Kiểm tra viên cao cấp hải quan"
+  },
+  {
+    "code": "12.084",
+    "name": "Thẩm kế viên cao cấp"
+  },
+  {
+    "code": "21.187",
+    "name": "Kiểm soát viên cao cấp thị trường"
+  },
+  {
+    "code": "23.261",
+    "name": "Thống kê viên cao cấp"
+  },
+  {
+    "code": "13.280",
+    "name": "Kiểm soát viên cao cấp chất lượng sản phẩm, hàng hóa"
+  },
+  {
+    "code": "03.299",
+    "name": "Chấp hành viên cao cấp"
+  },
+  {
+    "code": "03.230",
+    "name": "Thẩm tra viên cao cấp"
+  },
+  {
+    "code": "06.029",
+    "name": "Kế toán viên cao cấp"
+  },
+  {
+    "code": "09.066",
+    "name": "Kiểm dịch viên cao cấp động thực vật"
+  },
+  {
+    "code": "01.002",
+    "name": "Chuyên viên chính"
+  },
+  {
+    "code": "03.017",
+    "name": "Chấp hành viên tỉnh, thành phố trực thuộc Trung ương"
+  },
+  {
+    "code": "04.024",
+    "name": "Thanh tra viên chính"
+  },
+  {
+    "code": "06.037",
+    "name": "Kiểm soát viên chính thuế"
+  },
+  {
+    "code": "06.042",
+    "name": "Kiểm toán viên chính"
+  },
+  {
+    "code": "07.045",
+    "name": "Kiểm soát viên chính ngân hàng"
+  },
+  {
+    "code": "08.050",
+    "name": "Kiểm tra viên chính hải quan"
+  },
+  {
+    "code": "12.085",
+    "name": "Thẩm kế viên chính"
+  },
+  {
+    "code": "21.188",
+    "name": "Kiểm soát viên chính thị trường"
+  },
+  {
+    "code": "02.006",
+    "name": "Văn thư chính"
+  },
+  {
+    "code": "23.262",
+    "name": "Thống kê viên chính"
+  },
+  {
+    "code": "13.281",
+    "name": "Kiểm soát viên chính chất lượng sản phẩm, hàng hoá"
+  },
+  {
+    "code": "03.231",
+    "name": "Thẩm tra viên chính"
+  },
+  {
+    "code": "09.315",
+    "name": "Kiểm dịch viên chính động vật"
+  },
+  {
+    "code": "09.318",
+    "name": "Kiểm dịch viên chính thực vật"
+  },
+  {
+    "code": "25.309",
+    "name": "Kiểm ngư viên chính"
+  },
+  {
+    "code": "25.312",
+    "name": "Thuyền viên kiểm ngư chính"
+  },
+  {
+    "code": "06.030",
+    "name": "Kế toán viên chính"
+  },
+  {
+    "code": "09.067",
+    "name": "Kiểm dịch viên chính động - thực vật"
+  },
+  {
+    "code": "11.081",
+    "name": "Kiểm soát viên chính đê điều"
+  },
+  {
+    "code": "01.003",
+    "name": "Chuyên viên"
+  },
+  {
+    "code": "03.018",
+    "name": "Chấp hành viên quận, huyện, thị xã, thành phố thuộc tỉnh"
+  },
+  {
+    "code": "03.019",
+    "name": "Công chứng viên"
+  },
+  {
+    "code": "04.025",
+    "name": "Thanh tra viên"
+  },
+  {
+    "code": "06.031",
+    "name": "Kế toán viên"
+  },
+  {
+    "code": "06.038",
+    "name": "Kiểm soát viên thuế"
+  },
+  {
+    "code": "06.043",
+    "name": "Kiểm toán viên"
+  },
+  {
+    "code": "07.046",
+    "name": "Kiểm soát viên ngân hàng"
+  },
+  {
+    "code": "08.051",
+    "name": "Kiểm tra viên hải quan"
+  },
+  {
+    "code": "09.068",
+    "name": "Kiểm dịch viên động - thực vật"
+  },
+  {
+    "code": "09.316",
+    "name": "Kiểm dịch viên động vật"
+  },
+  {
+    "code": "09.319",
+    "name": "Kiểm dịch viên thực vật"
+  },
+  {
+    "code": "25.310",
+    "name": "Kiểm ngư viên"
+  },
+  {
+    "code": "25.313",
+    "name": "Thuyền viên kiểm ngư"
+  },
+  {
+    "code": "23.263",
+    "name": "Thống kê viên"
+  },
+  {
+    "code": "10.225",
+    "name": "Kiểm lâm viên chính"
+  },
+  {
+    "code": "11.082",
+    "name": "Kiểm soát viên đê điều"
+  },
+  {
+    "code": "12.086",
+    "name": "Thẩm kế viên"
+  },
+  {
+    "code": "21.189",
+    "name": "Kiểm soát viên thị trường"
+  },
+  {
+    "code": "02.007",
+    "name": "Văn thư"
+  },
+  {
+    "code": "01.004",
+    "name": "Cán sự"
+  },
+  {
+    "code": "06.032",
+    "name": "Kế toán viên trung cấp"
+  },
+  {
+    "code": "06.039",
+    "name": "Kiểm thu viên thuế"
+  },
+  {
+    "code": "13.282",
+    "name": "Kiểm soát viên chất lượng sản phẩm, hàng hóa"
+  },
+  {
+    "code": "07.048",
+    "name": "Thủ kho tiền, vàng bạc, đá quý (ngân hàng)"
+  },
+  {
+    "code": "08.052",
+    "name": "Kiểm tra viên trung cấp hải quan"
+  },
+  {
+    "code": "09.069",
+    "name": "Kỹ thuật viên kiểm dịch động - thực vật"
+  },
+  {
+    "code": "10.226",
+    "name": "Kiểm lâm viên"
+  },
+  {
+    "code": "03.302",
+    "name": "Thư ký thi hành án"
+  },
+  {
+    "code": "03.232",
+    "name": "Thẩm tra viên"
+  },
+  {
+    "code": "19.221",
+    "name": "Kỹ thuật viên bảo quản"
+  },
+  {
+    "code": "23.265",
+    "name": "Thống kê viên trung cấp"
+  },
+  {
+    "code": "11.083",
+    "name": "Kiểm soát viên trung cấp đê điều"
+  },
+  {
+    "code": "19.183",
+    "name": "Kỹ thuật viên kiểm nghiệm bảo quản"
+  },
+  {
+    "code": "21.190",
+    "name": "Kiểm soát viên trung cấp thị trường"
+  },
+  {
+    "code": "02.008",
+    "name": "Văn thư trung cấp"
+  },
+  {
+    "code": "13.283",
+    "name": "Kiểm soát viên trung cấp chất lượng sản phẩm, hàng hóa"
+  },
+  {
+    "code": "03.300",
+    "name": "Chấp hành viên trung cấp"
+  },
+  {
+    "code": "03.303",
+    "name": "Thư ký trung cấp thi hành án"
+  },
+  {
+    "code": "10.228",
+    "name": "Kiểm lâm viên trung cấp"
+  },
+  {
+    "code": "19.222",
+    "name": "Kỹ thuật viên bảo quản trung cấp"
+  },
+  {
+    "code": "23.264",
+    "name": "Thống kê viên trình độ cao đẳng"
+  },
+  {
+    "code": "06a.038",
+    "name": "Kiểm tra viên cao đẳng thuế"
+  },
+  {
+    "code": "08a.051",
+    "name": "Kiểm tra viên cao đẳng hải quan"
+  },
+  {
+    "code": "06a.031",
+    "name": "Kế toán viên cao đẳng"
+  },
+  {
+    "code": "10.227",
+    "name": "Kiểm lâm viên trình độ cao đẳng"
+  },
+  {
+    "code": "09.317",
+    "name": "Kỹ thuật viên kiểm dịch động vật"
+  },
+  {
+    "code": "09.320",
+    "name": "Kỹ thuật viên kiểm dịch thực vật"
+  },
+  {
+    "code": "25.311",
+    "name": "Kiểm ngư viên trung cấp"
+  },
+  {
+    "code": "25.314",
+    "name": "Thuyền viên kiểm ngư trung cấp"
+  },
+  {
+    "code": "01.005",
+    "name": "Nhân viên"
+  },
+  {
+    "code": "03.301",
+    "name": "Chấp hành viên sơ cấp"
+  },
+  {
+    "code": "06.034",
+    "name": "Thủ quỹ kho bạc, ngân hàng"
+  },
+  {
+    "code": "07.047",
+    "name": "Kiểm ngân viên"
+  },
+  {
+    "code": "08.053",
+    "name": "Nhân viên hải quan"
+  },
+  {
+    "code": "10.229",
+    "name": "Kiểm lâm viên sơ cấp"
+  },
+  {
+    "code": "19.224",
+    "name": "Nhân viên bảo vệ kho dự trữ"
+  },
+  {
+    "code": "19.184",
+    "name": "Thủ kho bảo quản nhóm I"
+  },
+  {
+    "code": "19.185",
+    "name": "Thủ kho bảo quản nhóm II"
+  },
+  {
+    "code": "19.186",
+    "name": "Bảo vệ, tuần tra canh gác"
+  },
+  {
+    "code": "06.035",
+    "name": "Thủ quỹ cơ quan, đơn vị"
+  },
+  {
+    "code": "06.040",
+    "name": "Nhân viên thuế"
+  },
+  {
+    "code": "06.033",
+    "name": "Ngạch kế toán viên sơ cấp"
+  },
+  {
+    "code": "V.04.01.01",
+    "name": "Kiến trúc sư cao cấp"
+  },
+  {
+    "code": "V.05.01.01",
+    "name": "Nghiên cứu viên cao cấp"
+  },
+  {
+    "code": "V.05.02.05",
+    "name": "Kỹ sư cao cấp"
+  },
+  {
+    "code": "13.097",
+    "name": "Định chuẩn viên cao cấp"
+  },
+  {
+    "code": "13.100",
+    "name": "Giám định viên cao cấp"
+  },
+  {
+    "code": "14.103",
+    "name": "Dự báo viên cao cấp"
+  },
+  {
+    "code": "V.07.01.01",
+    "name": "Giáo sư - giảng viên cao cấp"
+  },
+  {
+    "code": "V.08.01.01",
+    "name": "Bác sĩ cao cấp"
+  },
+  {
+    "code": "V.08.08.20",
+    "name": "Dược sĩ cao cấp"
+  },
+  {
+    "code": "17.139",
+    "name": "Biên tập - Biên kịch - Biên dịch viên cao cấp"
+  },
+  {
+    "code": "V.11.01.01",
+    "name": "Biên tập viên - Biên kịch viên cao cấp"
+  },
+  {
+    "code": "V.11.03.07",
+    "name": "Biên dịch viên cao cấp"
+  },
+  {
+    "code": "V.11.02.04",
+    "name": "Phóng viên - Bình luận viên cao cấp"
+  },
+  {
+    "code": "17.154",
+    "name": "Đạo diễn cao cấp"
+  },
+  {
+    "code": "V.11.04.10",
+    "name": "Đạo diễn truyền hình hạng 1"
+  },
+  {
+    "code": "V.10.03.08",
+    "name": "Đạo diễn nghệ thuật hạng 1"
+  },
+  {
+    "code": "V.10.04.12",
+    "name": "Diễn viên hạng I"
+  },
+  {
+    "code": "V.10.08.25",
+    "name": "Họa sĩ cao cấp"
+  },
+  {
+    "code": "V.10.01.01",
+    "name": "Huấn luyện viên cao cấp"
+  },
+  {
+    "code": "V.08.02.04",
+    "name": "Bác sĩ y học dự phòng cao cấp (hạng I)"
+  },
+  {
+    "code": "V.08.02.05",
+    "name": "Bác sĩ y học dự phòng chính (hạng II)"
+  },
+  {
+    "code": "V.08.04.08",
+    "name": "Y tế công cộng cao cấp (hạng I)"
+  },
+  {
+    "code": "V11.05.09",
+    "name": "An toàn thông tin hạng I"
+  },
+  {
+    "code": "V11.06.12",
+    "name": "Quản trị viên hệ thống hạng I"
+  },
+  {
+    "code": "V11.07.16",
+    "name": "Kiểm định viên công nghệ thông tin hạng I"
+  },
+  {
+    "code": "V11.08.19",
+    "name": "Phát triển phần mềm hạng I"
+  },
+  {
+    "code": "V.04.02.04",
+    "name": "Thẩm kế viên hạng I"
+  },
+  {
+    "code": "02.012",
+    "name": "Lưu trữ viên cao cấp"
+  },
+  {
+    "code": "09.054",
+    "name": "Chẩn đoán viên cao cấp bệnh động vật"
+  },
+  {
+    "code": "09.058",
+    "name": "Dự báo viên cao cấp bảo vệ thực vật"
+  },
+  {
+    "code": "09.062",
+    "name": "Giám định viên cao cấp thuốc bảo vệ thực vật - thú y"
+  },
+  {
+    "code": "09.070",
+    "name": "Kiểm nghiệm viên cao cấp giống cây trồng"
+  },
+  {
+    "code": "V11.10.27",
+    "name": "Phát thanh viên cao cấp"
+  },
+  {
+    "code": "V11.12.35",
+    "name": "Quay phim viên cao cấp"
+  },
+  {
+    "code": "17.164",
+    "name": "Bảo tàng viên cao cấp"
+  },
+  {
+    "code": "V.10.02.30",
+    "name": "Thư viện viên cao cấp"
+  },
+  {
+    "code": "17.172",
+    "name": "Phương pháp viên cao cấp"
+  },
+  {
+    "code": "V11.09.23",
+    "name": "Âm thanh viên cao cấp"
+  },
+  {
+    "code": "17.168",
+    "name": "Thư mục viên cao cấp"
+  },
+  {
+    "code": "V.04.01.02",
+    "name": "Kiến trúc sư chính"
+  },
+  {
+    "code": "V.05.01.02",
+    "name": "Nghiên cứu viên chính"
+  },
+  {
+    "code": "V.05.02.06",
+    "name": "Kỹ sư chính"
+  },
+  {
+    "code": "13.098",
+    "name": "Định chuẩn viên chính"
+  },
+  {
+    "code": "13.101",
+    "name": "Giám định viên chính"
+  },
+  {
+    "code": "V.06.03.07",
+    "name": "Dự báo viên chính"
+  },
+  {
+    "code": "V.07.01.02",
+    "name": "Phó giáo sư - giảng viên chính"
+  },
+  {
+    "code": "V.08.01.02",
+    "name": "Bác sĩ chính"
+  },
+  {
+    "code": "V.08.08.21",
+    "name": "Dược sĩ chính"
+  },
+  {
+    "code": "17.140",
+    "name": "Biên tập - Biên kịch - Biên dịch viên chính"
+  },
+  {
+    "code": "V.11.01.02",
+    "name": "Biên tập viên - Biên kịch viên chính"
+  },
+  {
+    "code": "V.11.03.08",
+    "name": "Biên dịch viên chính"
+  },
+  {
+    "code": "V.11.02.05",
+    "name": "Phóng viên - Bình luận viên chính"
+  },
+  {
+    "code": "17.155",
+    "name": "Đạo diễn chính"
+  },
+  {
+    "code": "V.11.04.11",
+    "name": "Đạo diễn truyền hình hạng II"
+  },
+  {
+    "code": "V.10.03.09",
+    "name": "Đạo diễn nghệ thuật hạng II"
+  },
+  {
+    "code": "V.10.08.26",
+    "name": "Họa sĩ chính"
+  },
+  {
+    "code": "V.10.01.02",
+    "name": "Huấn luyện viên chính"
+  },
+  {
+    "code": "V.01.02.01",
+    "name": "Lưu trữ viên chính"
+  },
+  {
+    "code": "V.03.04.10",
+    "name": "Chẩn đoán viên chính bệnh động vật"
+  },
+  {
+    "code": "V.03.01.01",
+    "name": "Dự báo viên chính bảo vệ thực vật"
+  },
+  {
+    "code": "V.03.02.04",
+    "name": "Giám định viên chính thuốc bảo vệ thực vật - thú y"
+  },
+  {
+    "code": "V.03.03.07",
+    "name": "Kiểm nghiệm viên chính giống cây trồng"
+  },
+  {
+    "code": "15.112",
+    "name": "GIáo viên trung học cao cấp"
+  },
+  {
+    "code": "V.07.04.10",
+    "name": "Giáo viên trung học cơ sở hạng I"
+  },
+  {
+    "code": "V.07.04.30",
+    "name": "Giáo viên trung học cơ sở hạng I"
+  },
+  {
+    "code": "V.07.04.11",
+    "name": "Giáo viên trung học cơ sở hạng II"
+  },
+  {
+    "code": "V.07.05.13",
+    "name": "Giáo viên trung học phổ thông hạng I"
+  },
+  {
+    "code": "V.07.05.14",
+    "name": "Giáo viên trung học phổ thông hạng II"
+  },
+  {
+    "code": "V.07.02.04",
+    "name": "Giáo viên mầm non hạng II"
+  },
+  {
+    "code": "VC.A0",
+    "name": "Giáo viên tiểu học hạng II"
+  },
+  {
+    "code": "V.05.01.04",
+    "name": "Trợ lý nghiên cứu (hạng IV)"
+  },
+  {
+    "code": "V.09.03.01",
+    "name": "Kiểm định viên chính kỹ thuật an toàn lao động (hạng II)"
+  },
+  {
+    "code": "V.09.04.01",
+    "name": "Công tác xã hội viên chính (hạng II)"
+  },
+  {
+    "code": "V.03.05.13",
+    "name": "Kiểm tra viên vệ sinh thú y hạng II"
+  },
+  {
+    "code": "V.03.06.16",
+    "name": "Kiểm nghiệm viên thuốc thú y hạng II"
+  },
+  {
+    "code": "V.03.07.19",
+    "name": "Kiểm nghiệm viên chăn nuôi hạng II"
+  },
+  {
+    "code": "V.03.08.22",
+    "name": "Kiểm nghiệm viên thủy sản hạng II"
+  },
+  {
+    "code": "V.06.01.01",
+    "name": "Địa chính viên hạng II"
+  },
+  {
+    "code": "V.06.02.04",
+    "name": "Điều tra tài nguyên môi trường hạng II"
+  },
+  {
+    "code": "V.06.04.10",
+    "name": "Kiểm soát viên khí tượng thủy văn hạng II"
+  },
+  {
+    "code": "V.06.06.16",
+    "name": "Đo đạc bản đồ viên hạng II"
+  },
+  {
+    "code": "V.10.05.16",
+    "name": "Di sản viên hạng II"
+  },
+  {
+    "code": "V.10.04.13",
+    "name": "Diễn viên hạng II"
+  },
+  {
+    "code": "V.10.06.19",
+    "name": "Phương pháp viên hạng II"
+  },
+  {
+    "code": "V.10.07.22",
+    "name": "Hướng dẫn viên văn hóa hạng II"
+  },
+  {
+    "code": "V.08.10.27",
+    "name": "Dân số viên hạng II"
+  },
+  {
+    "code": "V.08.05.11",
+    "name": "Điều dưỡng hạng II"
+  },
+  {
+    "code": "V.08.06.14",
+    "name": "Hộ sinh hạng II"
+  },
+  {
+    "code": "V.08.07.17",
+    "name": "Kỹ thuật y hạng II"
+  },
+  {
+    "code": "V.08.09.24",
+    "name": "Dinh dưỡng hạng II"
+  },
+  {
+    "code": "V.08.04.09",
+    "name": "Y tế công cộng chính (hạng II)"
+  },
+  {
+    "code": "V11.05.10",
+    "name": "An toàn thông tin hạng II"
+  },
+  {
+    "code": "V11.06.13",
+    "name": "Quản trị viên hệ thống hạng II"
+  },
+  {
+    "code": "V11.07.17",
+    "name": "Kiểm định viên công nghệ thông tin hạng II"
+  },
+  {
+    "code": "V11.08.20",
+    "name": "Phát triển phần mềm hạng II"
+  },
+  {
+    "code": "V02.01.01",
+    "name": "Trợ giúp viên pháp lý hạng II"
+  },
+  {
+    "code": "V.04.02.05",
+    "name": "Thẩm kế viên hạng II"
+  },
+  {
+    "code": "V11.10.28",
+    "name": "Phát thanh viên chính"
+  },
+  {
+    "code": "V11.12.36",
+    "name": "Quay phim viên chính"
+  },
+  {
+    "code": "V11.11.32",
+    "name": "Dựng phim viên cao cấp"
+  },
+  {
+    "code": "17.165",
+    "name": "Bảo tàng viên chính"
+  },
+  {
+    "code": "V.10.02.05",
+    "name": "Thư viện viên hạng II"
+  },
+  {
+    "code": "V.10.06.19",
+    "name": "Phương pháp viên chính"
+  },
+  {
+    "code": "V11.09.24",
+    "name": "Âm thanh viên chính"
+  },
+  {
+    "code": "17a.195",
+    "name": "Thư mục viên chính"
+  },
+  {
+    "code": "V.01.02.02",
+    "name": "Lưu trữ viên"
+  },
+  {
+    "code": "V.03.04.11",
+    "name": "Chẩn đoán viên bệnh động vật"
+  },
+  {
+    "code": "V.03.01.02",
+    "name": "Dự báo viên bảo vệ thực vật"
+  },
+  {
+    "code": "V.03.02.05",
+    "name": "Giám định viên thuốc bảo vệ thực vật - thú y"
+  },
+  {
+    "code": "V.03.03.08",
+    "name": "Kiểm nghiệm viên giống cây trồng"
+  },
+  {
+    "code": "V.04.01.03",
+    "name": "Kiến trúc sư"
+  },
+  {
+    "code": "V.05.01.03",
+    "name": "Nghiên cứu viên"
+  },
+  {
+    "code": "V.05.02.07",
+    "name": "Kỹ sư"
+  },
+  {
+    "code": "13.099",
+    "name": "Định chuẩn viên"
+  },
+  {
+    "code": "13.102",
+    "name": "Giám định viên"
+  },
+  {
+    "code": "V.06.03.08",
+    "name": "Dự báo viên"
+  },
+  {
+    "code": "V.06.05.13",
+    "name": "Quan trắc viên chính"
+  },
+  {
+    "code": "V.07.01.03",
+    "name": "Giảng viên"
+  },
+  {
+    "code": "15.113",
+    "name": "Giáo viên trung học"
+  },
+  {
+    "code": "V.08.02.06",
+    "name": "Bác sĩ"
+  },
+  {
+    "code": "16.120",
+    "name": "Y tá cao cấp"
+  },
+  {
+    "code": "16.123",
+    "name": "Nữ hộ sinh cao cấp"
+  },
+  {
+    "code": "16.126",
+    "name": "Kỹ thuật viên cao cấp y"
+  },
+  {
+    "code": "V.08.08.22",
+    "name": "Dược sĩ"
+  },
+  {
+    "code": "17.141",
+    "name": "Biên tập - Biên kịch - Biên dịch viên"
+  },
+  {
+    "code": "V.11.01.03",
+    "name": "Biên tập viên- Biên kịch hạng III"
+  },
+  {
+    "code": "V.11.03.09",
+    "name": "Biên dịch viên hạng III"
+  },
+  {
+    "code": "V.11.02.06",
+    "name": "Phóng viên - Bình luận viên"
+  },
+  {
+    "code": "V11.12.37",
+    "name": "Quay phim viên"
+  },
+  {
+    "code": "V11.11.33",
+    "name": "Dựng phim viên chính"
+  },
+  {
+    "code": "17.156",
+    "name": "Đạo diễn"
+  },
+  {
+    "code": "V.11.04.12",
+    "name": "Đạo diễn truyền hình hạng III"
+  },
+  {
+    "code": "V.10.03.10",
+    "name": "Đạo diễn nghệ thuật hạng III"
+  },
+  {
+    "code": "V.10.08.27",
+    "name": "Họa sĩ"
+  },
+  {
+    "code": "17.116",
+    "name": "Bảo tàng viên"
+  },
+  {
+    "code": "V.10.02.06",
+    "name": "Thư viện viên hạng III"
+  },
+  {
+    "code": "V.10.06.20",
+    "name": "Phương pháp viên"
+  },
+  {
+    "code": "V.10.07.23",
+    "name": "Hướng dẫn viên chính"
+  },
+  {
+    "code": "17.177",
+    "name": "Tuyên truyền viên chính"
+  },
+  {
+    "code": "V.10.01.03",
+    "name": "Huấn luyện viên"
+  },
+  {
+    "code": "V11.09.25",
+    "name": "Âm thanh viên"
+  },
+  {
+    "code": "17a.196",
+    "name": "Thư mục viên"
+  },
+  {
+    "code": "V.07.04.12",
+    "name": "Giáo viên trung học cơ sở hạng III"
+  },
+  {
+    "code": "V.07.05.15",
+    "name": "Giáo viên trung học phổ thông hạng III"
+  },
+  {
+    "code": "V.07.02.05",
+    "name": "Giáo viên mầm non hạng III"
+  },
+  {
+    "code": "V.07.03.08",
+    "name": "Giáo viên tiểu học hạng III"
+  },
+  {
+    "code": "V.09.03.02",
+    "name": "Kiểm định viên kỹ thuật an toàn lao động (hạng III)"
+  },
+  {
+    "code": "V.09.04.02",
+    "name": "Công tác xã hội viên (hạng III)"
+  },
+  {
+    "code": "V.03.05.14",
+    "name": "Kiểm tra viên vệ sinh thú y hạng III"
+  },
+  {
+    "code": "V.03.06.17",
+    "name": "Kiểm nghiệm viên thuốc thú y hạng III"
+  },
+  {
+    "code": "V.03.07.20",
+    "name": "Kiểm nghiệm viên chăn nuôi hạng III"
+  },
+  {
+    "code": "V.03.08.23",
+    "name": "Kiểm nghiệm viên thủy sản hạng III"
+  },
+  {
+    "code": "V.06.01.02",
+    "name": "Địa chính viên hạng III"
+  },
+  {
+    "code": "V.06.02.05",
+    "name": "Điều tra tài nguyên môi trường hạng III"
+  },
+  {
+    "code": "V.06.04.11",
+    "name": "Kiểm soát viên khí tượng thủy văn hạng III"
+  },
+  {
+    "code": "V.06.06.17",
+    "name": "Đo đạc bản đồ viên hạng III"
+  },
+  {
+    "code": "V.10.05.17",
+    "name": "Di sản viên hạng III"
+  },
+  {
+    "code": "V.08.10.28",
+    "name": "Dân số viên hạng III"
+  },
+  {
+    "code": "V.08.05.12",
+    "name": "Điều dưỡng hạng III"
+  },
+  {
+    "code": "V.08.06.15",
+    "name": "Hộ sinh hạng III"
+  },
+  {
+    "code": "V.08.07.18",
+    "name": "Kỹ thuật y hạng III"
+  },
+  {
+    "code": "V.08.09.25",
+    "name": "Dinh dưỡng hạng III"
+  },
+  {
+    "code": "V.08.01.03",
+    "name": "Bác sĩ (hạng III)"
+  },
+  {
+    "code": "V.08.04.10",
+    "name": "Y tế công cộng (hạng III)"
+  },
+  {
+    "code": "V11.05.11",
+    "name": "An toàn thông tin hạng III"
+  },
+  {
+    "code": "V11.06.14",
+    "name": "Quản trị viên hệ thống hạng III"
+  },
+  {
+    "code": "V11.07.18",
+    "name": "Kiểm định viên công nghệ thông tin hạng III"
+  },
+  {
+    "code": "V11.08.21",
+    "name": "Phát triển phần mềm hạng III"
+  },
+  {
+    "code": "V02.01.02",
+    "name": "Trợ giúp viên pháp lý hạng III"
+  },
+  {
+    "code": "V.04.02.06",
+    "name": "Thẩm kế viên hạng III"
+  },
+  {
+    "code": "V.07.04.32",
+    "name": "Giáo viên trung học cơ sở hạng III"
+  },
+  {
+    "code": "17.147",
+    "name": "Phát thanh viên"
+  },
+  {
+    "code": "V.01.02.03",
+    "name": "Lưu trữ viên trung cấp"
+  },
+  {
+    "code": "02.016",
+    "name": "Kỹ thuật viên lưu trữ"
+  },
+  {
+    "code": "V.03.04.12",
+    "name": "Kỹ thuật viên chẩn đoán bệnh động vật"
+  },
+  {
+    "code": "09.061",
+    "name": "Kỹ thuật viên dự báo bảo vệ thực vật"
+  },
+  {
+    "code": "09.065",
+    "name": "Kỹ thuật viên giám định thuốc bảo vệ thực vật - thú y"
+  },
+  {
+    "code": "V.03.03.09",
+    "name": "Kỹ thuật viên kiểm nghiệm viên giống cây trồng"
+  },
+  {
+    "code": "V.05.02.08",
+    "name": "Kỹ thuật viên"
+  },
+  {
+    "code": "V.06.05.14",
+    "name": "Quan trắc viên"
+  },
+  {
+    "code": "15.114",
+    "name": "Giáo viên tiểu học"
+  },
+  {
+    "code": "15.115",
+    "name": "Giáo viên mầm non"
+  },
+  {
+    "code": "V.08.03.07",
+    "name": "Y sĩ"
+  },
+  {
+    "code": "16.121",
+    "name": "Y tá chính"
+  },
+  {
+    "code": "16.124",
+    "name": "Nữ hộ sinh chính"
+  },
+  {
+    "code": "16.127",
+    "name": "Kỹ thuật viên chính y"
+  },
+  {
+    "code": "16.135",
+    "name": "Dược sĩ trung cấp"
+  },
+  {
+    "code": "16.137",
+    "name": "Kỹ thuật viên chính dược"
+  },
+  {
+    "code": "V11.11.34",
+    "name": "Dựng phim viên"
+  },
+  {
+    "code": "V.10.04.14",
+    "name": "Diễn viên hạng III"
+  },
+  {
+    "code": "V.10.08.28",
+    "name": "Họa sỹ trung cấp"
+  },
+  {
+    "code": "17.167",
+    "name": "Kỹ thuật viên bảo tồn, bảo tàng"
+  },
+  {
+    "code": "V.10.02.07",
+    "name": "Thư viện viên hạng IV"
+  },
+  {
+    "code": "V.10.07.24",
+    "name": "Hướng dẫn viên (ngành văn hóa - thông tin)"
+  },
+  {
+    "code": "17.178",
+    "name": "Tuyên truyền viên"
+  },
+  {
+    "code": "V.10.01.04",
+    "name": "Hướng dẫn viên (ngành thể dục thể thao)"
+  },
+  {
+    "code": "V.07.02.06",
+    "name": "Giáo viên mầm non hạng IV"
+  },
+  {
+    "code": "V.07.03.09",
+    "name": "Giáo viên tiểu học hạng IV"
+  },
+  {
+    "code": "V.09.03.03",
+    "name": "Kỹ thuật viên kiểm định kỹ thuật an toàn lao động (hạng IV)"
+  },
+  {
+    "code": "V.09.04.03",
+    "name": "Nhân viên công tác xã hội (hạng IV)"
+  },
+  {
+    "code": "V.03.01.03",
+    "name": "Kỹ thuật viên bảo vệ thực vật hạng IV"
+  },
+  {
+    "code": "V.03.02.06",
+    "name": "Kỹ thuật viên giám định thuốc bảo vệ thực vật hạng IV"
+  },
+  {
+    "code": "V.03.05.15",
+    "name": "Kỹ thuật viên kiểm tra vệ sinh thú y hạng IV"
+  },
+  {
+    "code": "V.03.06.18",
+    "name": "Kỹ thuật viên kiểm nghiệm thuốc thú y hạng IV"
+  },
+  {
+    "code": "V.03.07.21",
+    "name": "Kỹ thuật viên kiểm nghiệm chăn nuôi hạng IV"
+  },
+  {
+    "code": "V.03.08.24",
+    "name": "Kỹ thuật viên kiểm nghiệm thủy sản hạng IV"
+  },
+  {
+    "code": "V.06.01.03",
+    "name": "Địa chính viên hạng IV"
+  },
+  {
+    "code": "V.06.02.06",
+    "name": "Điều tra tài nguyên môi trường hạng IV"
+  },
+  {
+    "code": "V.06.03.09",
+    "name": "Dự báo viên khí tượng thủy văn hạng IV"
+  },
+  {
+    "code": "V.06.04.12",
+    "name": "Kiểm soát viên khí tượng thủy văn hạng IV"
+  },
+  {
+    "code": "V.06.05.15",
+    "name": "Quan trắc viên tài nguyên môi trường hạng IV"
+  },
+  {
+    "code": "V.06.06.18",
+    "name": "Đo đạc bản đồ viên hạng IV"
+  },
+  {
+    "code": "V.10.05.18",
+    "name": "Di sản viên hạng IV"
+  },
+  {
+    "code": "V.10.03.11",
+    "name": "Đạo diễn nghệ thuật hạng IV"
+  },
+  {
+    "code": "V.10.04.15",
+    "name": "Diễn viên hạng IV"
+  },
+  {
+    "code": "V.10.06.21",
+    "name": "Phương pháp viên hạng IV"
+  },
+  {
+    "code": "V.08.10.29",
+    "name": "Dân số viên hạng IV"
+  },
+  {
+    "code": "V.08.05.13",
+    "name": "Điều dưỡng hạng IV"
+  },
+  {
+    "code": "V.08.06.16",
+    "name": "Hộ sinh hạng IV"
+  },
+  {
+    "code": "V.08.07.19",
+    "name": "Kỹ thuật y hạng IV"
+  },
+  {
+    "code": "V.08.09.26",
+    "name": "Dinh dưỡng hạng IV"
+  },
+  {
+    "code": "V.08.08.23",
+    "name": "Dược hạng IV"
+  },
+  {
+    "code": "V11.06.15",
+    "name": "Quản trị viên hệ thống hạng IV"
+  },
+  {
+    "code": "V11.08.22",
+    "name": "Phát triển phần mềm hạng IV"
+  },
+  {
+    "code": "V.04.02.07",
+    "name": "Thẩm kế viên hạng IV"
+  },
+  {
+    "code": "14.108",
+    "name": "Quan trắc viên sơ cấp"
+  },
+  {
+    "code": "16.122",
+    "name": "Y tá"
+  },
+  {
+    "code": "16.125",
+    "name": "Nữ hộ sinh"
+  },
+  {
+    "code": "16.128",
+    "name": "Kỹ thuật viên y"
+  },
+  {
+    "code": "16.130",
+    "name": "Hộ lý"
+  },
+  {
+    "code": "16.136",
+    "name": "Dược tá"
+  },
+  {
+    "code": "16.138",
+    "name": "Kỹ thuật viên dược"
+  },
+  {
+    "code": "16.131",
+    "name": "Ngạch nhân viên nhà xác"
+  },
+  {
+    "code": "16.129",
+    "name": "Ngạch y công"
+  },
+  {
+    "code": "01.006",
+    "name": "Nhân viên đánh máy"
+  },
+  {
+    "code": "01.007",
+    "name": "Nhân viên kỹ thuật"
+  },
+  {
+    "code": "01.008",
+    "name": "Nhân viên văn thư"
+  },
+  {
+    "code": "01.009",
+    "name": "Nhân viên Phục vụ"
+  },
+  {
+    "code": "01.010",
+    "name": "Lái xe cơ quan"
+  },
+  {
+    "code": "01.011",
+    "name": "Nhân viên bảo vệ"
+  },
+  {
+    "code": "14.250",
+    "name": "Dự báo viên trung cấp khí tượng thuỷ văn"
+  },
+  {
+    "code": "14.253",
+    "name": "Kiểm soát viên khí tượng thuỷ văn"
+  },
+  {
+    "code": "14.256",
+    "name": "Quan trắc viên chính tài nguyên môi trường"
+  },
+  {
+    "code": "14.257",
+    "name": "Quan trắc viên tài nguyên môi trường"
+  },
+  {
+    "code": "17c.214",
+    "name": "Phát thanh viên chưa đạt chuẩn (chưa đạt trình độ cao đẳng)"
+  },
+  {
+    "code": "19.223",
+    "name": "Thủ kho bảo quản"
+  },
+  {
+    "code": "V.03.09.26",
+    "name": "Khuyến nông viên (hạng III)"
+  },
+  {
+    "code": "V.03.09.27",
+    "name": "Kỹ thuật viên khuyến nông (hạng IV)"
+  },
+  {
+    "code": "V.03.10.29",
+    "name": "Quản lý bảo vệ rừng viên (hạng III)"
+  },
+  {
+    "code": "V.03.10.30",
+    "name": "Kỹ thuật viên quản lý bảo vệ rừng (hạng IV)"
+  },
+  {
+    "code": "V.09.02.02",
+    "name": "Giảng viên GDNN chính (hạng II)"
+  },
+  {
+    "code": "V.09.02.03",
+    "name": "Giảng viên GDNN lý thuyết (hạng III)"
+  },
+  {
+    "code": "V.09.02.07",
+    "name": "Giáo viên GDNN lý thuyết hạng III"
+  },
+  {
+    "code": "V.09.02.08",
+    "name": "Giáo viên GDNN thực hành hạng III"
+  },
+  {
+    "code": "V.09.02.09",
+    "name": "Giáo viên GDNN hạng IV"
+  },
+  {
+    "code": "V11.10.30",
+    "name": "Phát thanh viên hạng IV"
+  },
+  {
+    "code": "V.11.06.12",
+    "name": "Công nghệ thông tin (hạng I) - V.11.06.12"
+  },
+  {
+    "code": "04.024a",
+    "name": "Kiểm tra viên chính - 04.024a"
+  },
+  {
+    "code": "V.09.02.05",
+    "name": "Giáo viên GDNN hạng I - V.09.02.05"
+  },
+  {
+    "code": "V.09.02.01",
+    "name": "Giảng viên giáo dục nghề nghiệp cao cấp"
+  },
+  {
+    "code": "04.023",
+    "name": "A Kiểm tra viên cao cấp"
+  },
+  {
+    "code": "V.07.07.21",
+    "name": "Nhân viên giáo vụ - V.07.07.21"
+  },
+  {
+    "code": "V11.12.38",
+    "name": "Quay phim (hạng IV) - V11.12.38"
+  },
+  {
+    "code": "V.11.05.12",
+    "name": "An toàn thông tin (hạng IV) - V.11.05.12"
+  },
+  {
+    "code": "V.11.06.15",
+    "name": "Công nghệ thông tin (hạng IV) - V.11.06.15"
+  },
+  {
+    "code": "V.07.07.20",
+    "name": "Nhân viên thiết bị, thí nghiệm - V.07.07.20"
+  },
+  {
+    "code": "V.11.06.14",
+    "name": "Công nghệ thông tin (hạng III) - V.11.06.14"
+  },
+  {
+    "code": "V.02.01.02",
+    "name": "Trợ giúp viên pháp lý hạng III - V.02.01.02"
+  },
+  {
+    "code": "V.07.06.16",
+    "name": "Nhân viên hỗ trợ giáo dục người khuyết tật (hạng IV) - V.07.06.16"
+  },
+  {
+    "code": "V.09.02.04",
+    "name": "Giảng viên giáo dục nghề nghiệp thực hành (hạng III)"
+  },
+  {
+    "code": "V.09.02.06",
+    "name": "Giáo viên GDNN hạng II - V.09.02.06"
+  },
+  {
+    "code": "17a.211",
+    "name": "Phát thanh viên (trình độ cao đẳng)"
+  },
+  {
+    "code": "16a.200",
+    "name": "Điều dưỡng (cao đẳng)"
+  },
+  {
+    "code": "17a.213",
+    "name": "Phương pháp viên (trình độ cao đẳng)"
+  },
+  {
+    "code": "17a.212",
+    "name": "Quay phim viên (cao đẳng)"
+  },
+  {
+    "code": "17.159",
+    "name": "Diễn viên (cao đẳng)"
+  },
+  {
+    "code": "02a.014",
+    "name": "Lưu trữ viên (cao đẳng)"
+  },
+  {
+    "code": "16b.121",
+    "name": "Điều dưỡng trung cấp (CŨ)"
+  },
+  {
+    "code": "16.295",
+    "name": "Hộ sinh (CŨ)"
+  },
+  {
+    "code": "16a.199",
+    "name": "Điều dưỡng chính (CŨ)"
+  },
+  {
+    "code": "16.297",
+    "name": "Hộ sinh trung cấp (CŨ)"
+  },
+  {
+    "code": "16.286",
+    "name": "Kỹ thuật viên cao đẳng y"
+  },
+  {
+    "code": "16.296",
+    "name": "Hộ sinh cao đẳng"
+  },
+  {
+    "code": "16.294",
+    "name": "Hộ sinh chính (CŨ)"
+  },
+  {
+    "code": "V.07.03.27",
+    "name": "Giáo viên tiểu học hạng I"
+  },
+  {
+    "code": "15a.206",
+    "name": "Giáo viên mầm non chính (trình độ cao đẳng)"
+  },
+  {
+    "code": "15a.205",
+    "name": "Giáo viên mầm non cao cấp (trình độ đại học)"
+  },
+  {
+    "code": "15a.204",
+    "name": "Giáo viên tiểu học chính (trình độ cao đẳng)"
+  },
+  {
+    "code": "15a.203",
+    "name": "Giáo viên tiểu học cao cấp (trình độ đại học)"
+  },
+  {
+    "code": "15a.202",
+    "name": "Giáo viên trung học cơ sở (trình độ cao đẳng)"
+  },
+  {
+    "code": "15a.201",
+    "name": "Giáo viên trung học cơ sở chính (trình độ đại học)"
+  },
+  {
+    "code": "15c.207",
+    "name": "Giáo viên trung học phổ thông chưa đạt chuẩn (chưa đạt trình độ đại học)"
+  },
+  {
+    "code": "15c.208",
+    "name": "Giáo viên trung học cơ sở chưa đạt chuẩn (chưa đạt trình độ cao đẳng)"
+  },
+  {
+    "code": "15c.209",
+    "name": "Giáo viên tiểu học chưa đạt chuẩn (chưa đạt trình độ trung học)"
+  },
+  {
+    "code": "15c.210",
+    "name": "Giáo viên mầm non chưa đạt chuẩn (chưa đạt trình độ trung học)"
+  },
+  {
+    "code": "13.096",
+    "name": "Kỹ Thuật Viên"
+  },
+  {
+    "code": "15.111",
+    "name": "Giảng viên"
+  },
+  {
+    "code": "09.060",
+    "name": "Dự báo viên bảo vệ thực vật"
+  },
+  {
+    "code": "17.175",
+    "name": "Hướng dẫn viên chính"
+  },
+  {
+    "code": "17.144",
+    "name": "Phóng viên - Bình luận viên"
+  },
+  {
+    "code": "17.143",
+    "name": "Phóng viên - Bình luận viên chính"
+  },
+  {
+    "code": "V.07.08.21",
+    "name": "Giảng viên cao đẳng sư phạm chính (hạng II)"
+  },
+  {
+    "code": "V.07.08.22",
+    "name": "Giảng viên cao đẳng sư phạm (hạng III)"
+  },
+  {
+    "code": "17.173",
+    "name": "Phương pháp viên chính"
+  },
+  {
+    "code": "V.07.02.24",
+    "name": "Giáo viên mầm non hạng I"
+  },
+  {
+    "code": "V.07.04.31",
+    "name": "Giáo viên trung học cơ sở hạng II"
+  },
+  {
+    "code": "V.07.02.25",
+    "name": "Giáo viên mầm non hạng II"
+  },
+  {
+    "code": "V.07.02.26",
+    "name": "Giáo viên mầm non hạng III"
+  },
+  {
+    "code": "V.07.03.28",
+    "name": "Giáo viên tiểu học hạng II"
+  },
+  {
+    "code": "V.07.03.29",
+    "name": "Giáo viên tiểu học hạng III"
+  },
+  {
+    "code": "17.171",
+    "name": "Thư viện viên trung cấp"
+  },
+  {
+    "code": "16.119",
+    "name": "Y sĩ"
+  },
+  {
+    "code": "17.170",
+    "name": "Thư viện viên"
+  },
+  {
+    "code": "16.118",
+    "name": "Bác sĩ"
+  },
+  {
+    "code": "09.056",
+    "name": "Chuẩn đoán viên bệnh động vật"
+  },
+  {
+    "code": "V.02.01.00",
+    "name": "Trợ giúp viên pháp lý hạng I"
+  },
+  {
+    "code": "13.095",
+    "name": "Kỹ sư"
+  },
+  {
+    "code": "10.078",
+    "name": "Kiểm lâm viên chính"
+  },
+  {
+    "code": "10.079",
+    "name": "Kiểm lâm viên"
+  },
+  {
+    "code": "10.080",
+    "name": "Kiểm lâm viên sơ cấp"
+  },
+  {
+    "code": "09.072",
+    "name": "Kiểm nghiệm viên giống cây trồng"
+  },
+  {
+    "code": "09.073",
+    "name": "Kỹ thuật viên kiểm nghiệm viên giống cây trồng"
+  },
+  {
+    "code": "02.015",
+    "name": "Lưu trữ viên trung cấp"
+  },
+  {
+    "code": "CT01",
+    "name": "Bí thư đảng ủy"
+  },
+  {
+    "code": "CT02",
+    "name": "Phó Bí thư đảng ủy"
+  },
+  {
+    "code": "CT03",
+    "name": "Chủ tịch Hội đồng nhân dân"
+  },
+  {
+    "code": "CT04",
+    "name": "Chủ tịch Ủy ban nhân dân"
+  },
+  {
+    "code": "CT05",
+    "name": "Thường trực Đảng ủy"
+  },
+  {
+    "code": "CT06",
+    "name": "Chủ tịch Ủy ban Mặt trận tổ quốc Việt Nam"
+  },
+  {
+    "code": "CT07",
+    "name": "Phó Chủ tịch Hội đồng nhân dân"
+  },
+  {
+    "code": "CT08",
+    "name": "Phó Chủ tịch Ủy ban nhân dân"
+  },
+  {
+    "code": "CT09",
+    "name": "Trưởng các đoàn thể"
+  },
+  {
+    "code": "CT10",
+    "name": "Ủy viên Ủy ban nhân dân"
+  },
+  {
+    "code": "V.11.06.13",
+    "name": "Công nghệ thông tin hạng II"
+  },
+  {
+    "code": "09.055",
+    "name": "Chẩn đoán viên chính bệnh động vật"
+  },
+  {
+    "code": "14.105",
+    "name": "Dự báo viên"
+  },
+  {
+    "code": "14.104",
+    "name": "Dự báo viên chính"
+  },
+  {
+    "code": "09.059",
+    "name": "Dự báo viên chính bảo vệ thực vật"
+  },
+  {
+    "code": "17.152",
+    "name": "Dựng phim viên chính"
+  },
+  {
+    "code": "09.063",
+    "name": "Giám định viên chính thuốc bảo vệ thực vật - thú y"
+  },
+  {
+    "code": "15.109",
+    "name": "Giáo sư - giảng viên cao cấp"
+  },
+  {
+    "code": "09.071",
+    "name": "Kiểm nghiệm viên chính giống cây trồng"
+  },
+  {
+    "code": "09.057",
+    "name": "Kỹ thuật viên chẩn đoán bệnh động vật"
+  },
+  {
+    "code": "15.110",
+    "name": "Phó giáo sư - giảng viên chính"
+  },
+  {
+    "code": "17.142",
+    "name": "Phóng viên - Bình luận viên cao cấp"
+  },
+  {
+    "code": "14.106",
+    "name": "Quan trắc viên chính"
+  },
+  {
+    "code": "01a.003",
+    "name": "Chuyên viên trình độ cao đẳng"
+  },
+  {
+    "code": "16b.122",
+    "name": "Điều dưỡng sơ cấp"
+  },
+  {
+    "code": "13a.095",
+    "name": "Kỹ sư cao đẳng"
+  },
+  {
+    "code": "16b.120",
+    "name": "Cử nhân điều dưỡng"
+  },
+  {
+    "code": "V11.10.29",
+    "name": "Phát thanh viên hạng III"
+  },
+  {
+    "code": "17a.170",
+    "name": "Thư viện viên cao đẳng"
+  }
+]

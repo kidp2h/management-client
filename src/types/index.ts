@@ -1,6 +1,7 @@
 import type { SQL } from 'drizzle-orm';
 
 import type { DataTableConfig } from '@/config/data-table';
+import { ClientUploadedFileData } from 'uploadthing/types';
 
 export interface SearchParams {
   [key: string]: string | string[] | undefined;
@@ -47,3 +48,5 @@ export type DrizzleWhere<T> =
   | SQL<unknown>
   | ((aliases: T) => SQL<T> | undefined)
   | undefined;
+
+export interface UploadedFile<T = unknown> extends ClientUploadedFileData<T> {}
