@@ -5,7 +5,6 @@ import { DatePicker } from '@/components/ui/date-picker';
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -1020,11 +1019,6 @@ export default function UpdateInformationForm({
           Cập nhật
         </Button>
       </form>
-      <pre className="mt-5 block">
-        <FormDescription>
-          <code>{JSON.stringify(form.getValues(), null, 2)}</code>
-        </FormDescription>
-      </pre>
     </Form>
   );
 }

@@ -56,6 +56,7 @@ export interface RecordDetailSectionProps {
   houses: ReturnType<typeof getHousesRecordById>;
   lands: ReturnType<typeof getLandsRecordById>;
 }
+
 export default function RecordDetailSection({
   record,
   contracts,
@@ -78,6 +79,7 @@ export default function RecordDetailSection({
     { isSeparator: true },
     { name: data?.fullName || '' },
   ];
+
   return (
     <ContentLayout title="Chi tiết hồ sơ">
       <AutoBreadcrumb items={items} />
