@@ -16,35 +16,16 @@ import type {
 export async function createDepartment(input: CreateDepartmentSchema) {
   noStore();
   try {
-    // await db.transaction(async tx => {
     await db
       .insert(departments)
       .values({
-        code: `RLG${randomatic('AA0A', 10)}${new Date().getSeconds()}${new Date().getFullYear()}`,
+        code: `DPM${randomatic('AA0A', 10)}${new Date().getSeconds()}${new Date().getFullYear()}`,
         name: input.name,
       })
       .returning({
         id: departments.id,
       })
       .then(takeFirstOrThrow);
-
-    // Delete a task to keep the total number of tasks constant
-    // await tx.delete(departments).where(
-    //   eq(
-    //     departments.id,
-    //     (
-    //       await tx
-    //         .select({
-    //           id: departments.id,
-    //         })
-    //         .from(departments)
-    //         .limit(1)
-    //         .where(not(eq(departments.id, newDepartment.id)))
-    //         .orderBy(asc(departments.createdAt))
-    //         .then(takeFirstOrThrow)
-    //     ).id,
-    //   ),
-    // );;
 
     revalidatePath('/departments');
 

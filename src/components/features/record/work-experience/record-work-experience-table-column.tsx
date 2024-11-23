@@ -15,8 +15,13 @@ import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 import React from 'react';
 import { DeleteWorkExperiencesDialog } from './delete-work-experience-dialog';
 import UpdateWorkExperienceForm from './update-work-experience-form';
+import { getAllDepartments } from '@/db/queries/departments';
+import { getAllDuties } from '@/db/queries/duties';
 
-export function getColumns(): ColumnDef<any>[] {
+export function getColumns(
+  departments: ReturnType<typeof getAllDepartments>,
+  duties: ReturnType<typeof getAllDuties>,
+): ColumnDef<any>[] {
   return [
     {
       id: 'select',
@@ -75,7 +80,7 @@ export function getColumns(): ColumnDef<any>[] {
       enableHiding: true,
     },
     {
-      accessorKey: 'workPlace',
+      accessorKey: 'department.name',
       meta: {
         label: 'Đơn vị công tác',
       },
@@ -89,7 +94,7 @@ export function getColumns(): ColumnDef<any>[] {
       enableHiding: true,
     },
     {
-      accessorKey: 'position',
+      accessorKey: 'duty.name',
       meta: {
         label: 'Chức vụ',
       },
@@ -114,6 +119,8 @@ export function getColumns(): ColumnDef<any>[] {
           setShowDeleteWorkExperienceDialog,
         ] = React.useState(false);
         React.useEffect(() => {});
+        const { data: dataDepartments } = React.use(departments);
+        const { data: dataDuties } = React.use(duties);
         return (
           <>
             <UpdateDataSheet
@@ -122,6 +129,10 @@ export function getColumns(): ColumnDef<any>[] {
               data={row.original}
               form={UpdateWorkExperienceForm}
               name="quá trình công tác"
+              dataset={{
+                departments: dataDepartments,
+                duties: dataDuties,
+              }}
               fieldConfig={{
                 from: {
                   inputProps: {

@@ -3,7 +3,7 @@ import React, { useTransition } from 'react';
 import { toast } from 'sonner';
 
 import AutoForm, { AutoFormSubmit } from '@/components/ui/auto-form';
-import { createProfession } from '@/db/actions/profession';
+import { createProfession } from '@/db/actions/professions';
 import { createProfessionSchema } from '@/lib/zod/schemas/record-schema';
 
 export interface CreateProfessionFormProps {

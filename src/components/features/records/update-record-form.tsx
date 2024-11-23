@@ -29,7 +29,6 @@ export default function UpdateRecordForm({
           const { error } = await updateRecord({
             id: data.id,
             ...values,
-            rankId: values.rankId?.split('|')[0] || data.rankId,
           });
           if (error) {
             toast.error('Cập nhật hồ sơ thất bại');

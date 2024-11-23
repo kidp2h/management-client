@@ -82,6 +82,7 @@ export default antfu(
       'style/operator-linebreak': 'off',
       'style/jsx-curly-newline': 'off',
       'no-extra-boolean-cast': 'off',
+      'react/no-useless-fragment': 'off',
       curly: 'off',
       'style/quote-props': 'off',
       'style/jsx-wrap-multilines': 'off',

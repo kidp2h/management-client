@@ -51,7 +51,7 @@ export function getColumns(): ColumnDef<any>[] {
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Mã vai trò" />
       ),
-      cell: ({ row }) => <div className="w-20">{row.getValue('code')}</div>,
+      cell: ({ row }) => <div className="w-full">{row.getValue('code')}</div>,
       enableSorting: false,
       enableHiding: true,
     },
@@ -63,7 +63,7 @@ export function getColumns(): ColumnDef<any>[] {
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Tên vai trò" />
       ),
-      cell: ({ row }) => <div className="w-20">{row.getValue('name')}</div>,
+      cell: ({ row }) => <div className="w-full">{row.getValue('name')}</div>,
       enableSorting: false,
       enableHiding: true,
     },

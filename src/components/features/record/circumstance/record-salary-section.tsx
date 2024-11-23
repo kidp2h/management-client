@@ -9,12 +9,18 @@ import {
 } from '@/db/queries/records';
 import RecordAllowanceTable from './record-allowance-table';
 import RecordHouseTable from './record-house-table';
+import { getAllSalaryGrades } from '@/db/queries/salary-grades';
+import { getAllCivilServantRanks } from '@/db/queries/civil-servant-ranks';
+import { getAllPublicEmployeeRanks } from '@/db/queries/public-employee-ranks';
 
 export interface RecordSalarySectionProps {
   salaries: ReturnType<typeof getSalariesRecordById>;
   allowances: ReturnType<typeof getAllowancesRecordById>;
   houses: ReturnType<typeof getHousesRecordById>;
   lands: ReturnType<typeof getLandsRecordById>;
+  salaryGrades: ReturnType<typeof getAllSalaryGrades>;
+  civilServantRanks: ReturnType<typeof getAllCivilServantRanks>;
+  publicEmployeeRanks: ReturnType<typeof getAllPublicEmployeeRanks>;
   id: string;
 }
 
@@ -22,7 +28,9 @@ export default function RecordSalarySection({
   salaries,
   allowances,
   houses,
-  lands,
+  salaryGrades,
+  civilServantRanks,
+  publicEmployeeRanks,
   id,
 }: RecordSalarySectionProps) {
   return (
@@ -33,7 +41,13 @@ export default function RecordSalarySection({
       <span className="block text-xl font-bold mb-5">Quá trình lương</span>
       <Separator />
       <div className="my-5">
-        <RecordSalaryTable salaries={salaries} id={id} />
+        <RecordSalaryTable
+          salaries={salaries}
+          id={id}
+          civilServantRanks={civilServantRanks}
+          publicEmployeeRanks={publicEmployeeRanks}
+          salaryGrades={salaryGrades}
+        />
       </div>
       <span className="block text-xl font-bold mb-5">Quá trình phụ cấp</span>
       <Separator />
@@ -45,9 +59,6 @@ export default function RecordSalarySection({
       <div className="my-5">
         <RecordHouseTable houses={houses} id={id} />
       </div>
-      <span className="block text-xl font-bold mb-5">Đất ở</span>
-      <Separator />
-      <div className="my-5"></div>
     </div>
   );
 }

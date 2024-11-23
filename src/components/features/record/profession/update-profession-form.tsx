@@ -5,7 +5,7 @@ import type { z } from 'zod';
 
 import AutoForm, { AutoFormSubmit } from '@/components/ui/auto-form';
 import type { FieldConfig } from '@/components/ui/auto-form/types';
-import { updateProfession } from '@/db/actions/profession';
+import { updateProfession } from '@/db/actions/professions';
 import { updateProfessionSchema } from '@/lib/zod/schemas/record-schema';
 
 export interface UpdateProfessionFormProps {

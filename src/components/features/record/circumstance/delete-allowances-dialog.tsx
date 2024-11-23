@@ -27,7 +27,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer';
-import { deleteAllowances } from '@/db/actions/allowance';
+import { deleteAllowances } from '@/db/actions/allowances';
 import type { RecordsAllowance } from '@/db/schema';
 import { useMediaQuery } from '@/hooks/use-media-query';
 

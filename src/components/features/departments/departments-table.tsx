@@ -13,7 +13,7 @@ import { useTable } from '@/providers/table-provider';
 import type { DataTableFilterField } from '@/types';
 
 import CreateDepartmentForm from './create-department-form';
-import { DeleteDepartmentsDialog } from './delete-department-dialog';
+import { DeleteDepartmentsDialog } from './delete-departments-dialog';
 import { getColumns } from './departments-table-column';
 
 interface DepartmentsTableProps {

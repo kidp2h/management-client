@@ -18,13 +18,8 @@ export default function CreateRecordForm({ onSuccess }: CreateRecordFormProps) {
     <AutoForm
       onSubmit={async values => {
         startCreateTransition(async () => {
-          if (!values.rankId) {
-            toast.error('Vui lòng chọn cấp bậc');
-            return;
-          }
           const { error } = await createRecord({
             ...values,
-            rankId: values.rankId.split('|')[0],
           });
           if (error) {
             toast.error(error);

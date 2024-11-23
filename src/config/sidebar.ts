@@ -29,60 +29,144 @@ export function getMenuList(pathname: string, user?: any): Group[] {
             submenus: [
               {
                 href: '/records',
-                label: 'Quản lý hồ sơ CBCCVC',
+                label: 'Hồ sơ CBCCVC',
                 active: pathname === '/records',
               },
 
-              {
-                href: '/records/commendations',
-                label: 'Thi đua khen thưởng',
-                active: pathname.includes('/records/commendations'),
-              },
-              {
-                href: '/records/disciplines',
-                label: 'Kỷ luật',
-                active: pathname.includes('/records/disciplines'),
-              },
-              {
-                href: '/records/remarks',
-                label: 'Đánh giá',
-                active: pathname.includes('/records/remarks'),
-              },
-              {
-                href: '/records/retire',
-                label: 'Nghỉ hưu',
-                active: pathname.includes('/records/retire'),
-              },
+              // {
+              //   href: '/records/commendations',
+              //   label: 'Khen thưởng',
+              //   active: pathname.includes('/records/commendations'),
+              // },
+              // {
+              //   href: '/records/disciplines',
+              //   label: 'Kỷ luật',
+              //   active: pathname.includes('/records/disciplines'),
+              // },
+              // {
+              //   href: '/records/remarks',
+              //   label: 'Đánh giá',
+              //   active: pathname.includes('/records/remarks'),
+              // },
+              // {
+              //   href: '/records/retire',
+              //   label: 'Nghỉ hưu',
+              //   active: pathname.includes('/records/retire'),
+              // },
             ],
           },
 
           {
-            href: '/categories',
-            label: 'Quản lý khác',
-            active: pathname.includes('/categories'),
+            href: '#',
+            label: 'Cấu hình',
+            active: pathname.includes(''),
             icon: Bookmark,
             submenus: [
-              {
-                href: '/ranks',
-                label: 'Cấp bậc',
-              },
+              // {
+              //   href: '/ranks',
+              //   label: 'Cấp bậc',
+              // },
               {
                 href: '/departments',
-                label: 'Đơn vị',
+                label: 'Cơ quan, Đơn vị',
               },
               {
                 href: '/roles',
                 label: 'Vai trò',
               },
-              // {
-              //   href: '/permissions',
-              //   label: 'Quyền',
-              // },
+              {
+                href: '/duties',
+                label: 'Chức vụ',
+              },
+              {
+                href: '/positions',
+                label: 'Vị trí việc làm',
+              },
+              {
+                href: '/religions',
+                label: 'Tôn giáo',
+              },
+              {
+                href: '/ethnicities',
+                label: 'Dân tộc',
+              },
+              {
+                href: '/academic-qualifications',
+                label: 'Học hàm',
+              },
+              {
+                href: '/military-ranks',
+                label: 'Quân hàm',
+              },
+              {
+                href: '/qualifications',
+                label: 'Trình độ chuyên môn',
+              },
+              {
+                href: '/public-employee-ranks',
+                label: 'Ngạch viên chức',
+              },
+              {
+                href: '/civil-servant-ranks',
+                label: 'Ngạch công chức',
+              },
+              {
+                href: '/family-backgrounds',
+                label: 'Thành phần gia đình',
+              },
+              {
+                href: '/language-certifications',
+                label: 'Chứng chỉ ngoại ngữ',
+              },
+              {
+                href: '/technology-certifications',
+                label: 'Chứng chỉ tin học',
+              },
+              {
+                href: '/appellations',
+                label: 'Danh hiệu, Huân chương, Huy chương',
+              },
+              {
+                href: '/form-disciplines',
+                label: 'Hình thức kỷ luật',
+              },
+              {
+                href: '/form-remarks',
+                label: 'Hình thức đánh giá',
+              },
+              {
+                href: '/form-retires',
+                label: 'Hình thức nghỉ hưu',
+              },
+              {
+                href: '/form-recruitments',
+                label: 'Hình thức tuyển dụng',
+              },
+              {
+                href: '/form-trainings',
+                label: 'Hình thức đào tạo',
+              },
+              {
+                href: '/salary-grades',
+                label: 'Bậc lương',
+              },
+              {
+                href: '/policy-objects',
+                label: 'Đối tượng chính sách',
+              },
+              {
+                href: '/salaries',
+                label: 'Bảng lương',
+              },
+              {
+                href: '/party-committees',
+                label: 'Cấp uỷ',
+              },
             ],
           },
           {
             href: '/users',
-            label: 'Quản lý  tài khoản',
+            label: 'Quản lý tài khoản',
             active: pathname.includes('/users'),
             icon: User,
           },

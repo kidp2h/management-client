@@ -5,25 +5,22 @@ import AutoBreadcrumb from '@/components/common/auto-breadcrumb';
 import MainContent from '@/components/common/main-content';
 
 import type { getRecords } from '@/db/queries/records';
-import type { Ranks } from '@/db/schema';
 import { ContentLayout } from '@/layouts';
 import { TableProvider } from '@/providers/table-provider';
 
 import { RecordsTable } from './records-table';
+import { getAllReligions } from '@/db/queries/religions';
 
 type RecordsManagementSectionProps = {
   records: ReturnType<typeof getRecords>;
-  ranks: Ranks[];
+  religions: ReturnType<typeof getAllReligions>;
 };
 export const RecordsManagementSection = ({
   records,
-  ranks,
+  religions,
 }: RecordsManagementSectionProps) => {
-  // const { setRanks } = useGlobalStore(state => state);
-  // // const isDesktop = useMediaQuery('(min-width: 1024px)');
-  // useEffect(() => {
-  //   setRanks(ranks);
-  // }, []);
+  // const isDesktop = useMediaQuery('(min-width: 1024px)');
+
   const items = [
     { name: 'Trang chủ', href: '/' },
     { isSeparator: true },
@@ -35,7 +32,7 @@ export const RecordsManagementSection = ({
       <MainContent>
         <div className="mt-1">
           <TableProvider isHidden>
-            <RecordsTable records={records} ranks={ranks} />
+            <RecordsTable records={records} religions={religions} />
           </TableProvider>
         </div>
         {/* </ResizablePanel>

@@ -3,13 +3,9 @@ import type { ColumnDef } from '@tanstack/react-table';
 import dayjs from 'dayjs';
 import { encode } from 'js-base64';
 import {
-  BookCheck,
-  BookOpenText,
-  Building,
   Cake,
   CaseUpper,
   Check,
-  Cpu,
   Dna,
   Droplet,
   HeartPulse,
@@ -40,20 +36,18 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Switch } from '@/components/ui/switch';
 import { updateRecord } from '@/db/actions/records';
-import type { Ranks } from '@/db/schema';
-import { enumReligions, records } from '@/db/schema';
 import { cn } from '@/lib/utils';
 
 import { DeleteRecordsDialog } from './delete-record-dialog';
 import UpdateRecordForm from './update-record-form';
+import { getAllReligions } from '@/db/queries/religions';
 
-export interface DataColumnsRecords {
-  ranks: Ranks[];
-}
+export interface DataColumnsRecords {}
 
-export function getColumns({ ranks }: DataColumnsRecords): ColumnDef<any>[] {
+export function getColumns(
+  religions: ReturnType<typeof getAllReligions>,
+): ColumnDef<any>[] {
   return [
     {
       id: 'select',
@@ -140,7 +134,7 @@ export function getColumns({ ranks }: DataColumnsRecords): ColumnDef<any>[] {
       enableHiding: true,
     },
     {
-      accessorKey: 'religion',
+      accessorKey: 'religion.name',
       meta: {
         label: 'Tôn giáo',
       },
@@ -150,45 +144,17 @@ export function getColumns({ ranks }: DataColumnsRecords): ColumnDef<any>[] {
           <DataTableColumnHeader column={column} title="Tôn giáo" />
         </div>
       ),
-      cell: ({ row }) => (
+      cell: ({ row, cell }) => (
         <Badge
           roundedType="md"
           variant="outline"
           className={cn(
             ' text-card-foreground',
-            row.getValue('religion') ? 'bg-indigo-500 text-white' : 'bg-none',
+            cell.getValue() ? 'bg-indigo-500 text-white' : 'bg-none',
           )}
         >
-          {row.getValue('religion') || 'Chưa cập nhật'}
+          {(cell.getValue() as string) || 'Chưa cập nhật'}
         </Badge>
-      ),
-      enableSorting: false,
-      enableHiding: true,
-    },
-    {
-      accessorKey: 'rank',
-      meta: {
-        label: 'Trình độ',
-      },
-      header: ({ column }) => (
-        <div className="flex flex-row items-center gap-1 ">
-          <BookOpenText className="mr-2 size-5 text-green-500" />
-          <DataTableColumnHeader column={column} title="Trình độ" />
-        </div>
-      ),
-      cell: ({ row }) => (
-        <div className="flex items-center">
-          <Badge
-            roundedType="md"
-            variant="outline"
-            className={cn(
-              'text-card-foreground',
-              row.getValue('rank') ? 'bg-green-500 text-white' : 'bg-none',
-            )}
-          >
-            {row.getValue('rank') || 'Chưa cập nhật'}
-          </Badge>
-        </div>
       ),
       enableSorting: false,
       enableHiding: true,
@@ -205,67 +171,12 @@ export function getColumns({ ranks }: DataColumnsRecords): ColumnDef<any>[] {
         </div>
       ),
       cell: ({ cell }) => (
-        <div className="flex w-[6.25rem] items-center">
+        <div className="flex w-full items-center">
           <span>{dayjs(cell.getValue() as Date).format('D-MM-YYYY')}</span>
         </div>
       ),
     },
-    {
-      accessorKey: 'englishCertification',
-      meta: {
-        label: 'Tiếng Anh',
-      },
-      header: ({ column }) => (
-        <div className="flex flex-row items-center gap-1 ">
-          <BookCheck className="mr-2 size-5 text-cyan-500" />
-          <DataTableColumnHeader column={column} title="Tiếng Anh" />
-        </div>
-      ),
-      cell: ({ row }) => (
-        <Badge
-          roundedType="md"
-          variant="outline"
-          className={cn(
-            'text-card-foreground',
-            row.getValue('englishCertification')
-              ? 'bg-cyan-500 text-white'
-              : 'bg-none',
-          )}
-        >
-          {row.getValue('englishCertification') || 'Chưa cập nhật'}
-        </Badge>
-      ),
-      enableSorting: false,
-      enableHiding: true,
-    },
-    {
-      accessorKey: 'technologyCertification',
-      meta: {
-        label: 'Tin học',
-      },
-      header: ({ column }) => (
-        <div className="flex flex-row items-center gap-1 ">
-          <Cpu className="mr-2 size-5 text-blue-500" />
-          <DataTableColumnHeader column={column} title="Tin học" />
-        </div>
-      ),
-      cell: ({ row }) => (
-        <Badge
-          roundedType="md"
-          variant="outline"
-          className={cn(
-            'text-card-foreground',
-            row.getValue('technologyCertification')
-              ? 'bg-blue-500 text-white'
-              : 'bg-none',
-          )}
-        >
-          {row.getValue('technologyCertification') || 'Chưa cập nhật'}
-        </Badge>
-      ),
-      enableSorting: false,
-      enableHiding: true,
-    },
+
     {
       accessorKey: 'bloodType',
       meta: {
@@ -292,28 +203,7 @@ export function getColumns({ ranks }: DataColumnsRecords): ColumnDef<any>[] {
         </div>
       ),
     },
-    {
-      accessorKey: 'isPartyMember',
-      meta: {
-        label: 'Đảng viên',
-      },
-      header: ({ column }) => (
-        <div className="flex flex-row items-center gap-1 ">
-          <Building className="mr-2 size-5 text-yellow-500" />
-          <DataTableColumnHeader column={column} title="Đảng viên" />
-        </div>
-      ),
-      cell: ({ row }) => (
-        <div className="flex w-[6.25rem] items-center">
-          <Switch
-            id="terms1"
-            checked={row.getValue('isPartyMember')}
-            color="yellow"
-            disabled
-          />
-        </div>
-      ),
-    },
+
     {
       accessorKey: 'createdAt',
       meta: {
@@ -346,9 +236,10 @@ export function getColumns({ ranks }: DataColumnsRecords): ColumnDef<any>[] {
         React.useEffect(() => {});
         const router = useRouter();
         const [isUpdatePending, startUpdateTransition] = React.useTransition();
+        const { data: dataReligions } = React.use(religions);
         return (
           <>
-            <UpdateDataSheet<any>
+            <UpdateDataSheet
               open={showUpdateRecordSheet}
               onOpenChange={setShowUpdateRecordSheet}
               data={row.original}
@@ -397,12 +288,6 @@ export function getColumns({ ranks }: DataColumnsRecords): ColumnDef<any>[] {
                     defaultValue: row.original.religion,
                   },
                 },
-                rankId: {
-                  inputProps: {
-                    placeholder: row.original.rank,
-                    defaultValue: row.original.rank,
-                  },
-                },
 
                 isPartyMember: {
                   inputProps: {
@@ -415,10 +300,10 @@ export function getColumns({ ranks }: DataColumnsRecords): ColumnDef<any>[] {
                     defaultValue: row.original.gender,
                   },
                 },
-                degree: {
+                qualification: {
                   inputProps: {
-                    placeholder: row.original.degree,
-                    defaultValue: row.original.degree,
+                    placeholder: row.original.qualification,
+                    defaultValue: row.original.qualification,
                   },
                 },
               }}
@@ -470,97 +355,6 @@ export function getColumns({ ranks }: DataColumnsRecords): ColumnDef<any>[] {
                 </DropdownMenuLabel>
 
                 <DropdownMenuSub>
-                  <DropdownMenuSubTrigger>Tiếng Anh</DropdownMenuSubTrigger>
-                  <DropdownMenuSubContent>
-                    <DropdownMenuRadioGroup
-                      value={row.original.label}
-                      onValueChange={value => {
-                        startUpdateTransition(() => {
-                          if (value) {
-                            toast.promise(
-                              updateRecord({
-                                id: row.original.id,
-                                englishCertification: value,
-                              }),
-                              {
-                                loading: 'Đang cập nhật...',
-                                success: 'Cập nhật thành công',
-                                error: 'Cập nhật thất bại',
-                              },
-                            );
-                          }
-                        });
-                      }}
-                    >
-                      {records.englishCertification.enumValues.map(
-                        (label: string) => (
-                          <DropdownMenuRadioItem
-                            key={label}
-                            value={label}
-                            disabled={
-                              isUpdatePending ||
-                              label === row.original.englishCertification
-                            }
-                          >
-                            <div className="flex flex-row items-center justify-center gap-2">
-                              {label}
-                              {label === row.original.englishCertification && (
-                                <Check className="size-4" />
-                              )}
-                            </div>
-                          </DropdownMenuRadioItem>
-                        ),
-                      )}
-                    </DropdownMenuRadioGroup>
-                  </DropdownMenuSubContent>
-                </DropdownMenuSub>
-                <DropdownMenuSub>
-                  <DropdownMenuSubTrigger>Tin học</DropdownMenuSubTrigger>
-                  <DropdownMenuSubContent>
-                    <DropdownMenuRadioGroup
-                      value={row.original.label}
-                      onValueChange={value => {
-                        startUpdateTransition(() => {
-                          if (value) {
-                            toast.promise(
-                              updateRecord({
-                                id: row.original.id,
-                                technologyCertification: value,
-                              }),
-                              {
-                                loading: 'Đang cập nhật...',
-                                success: 'Cập nhật thành công',
-                                error: 'Cập nhật thất bại',
-                              },
-                            );
-                          }
-                        });
-                      }}
-                    >
-                      {records.technologyCertification.enumValues.map(
-                        (label: string) => (
-                          <DropdownMenuRadioItem
-                            key={label}
-                            value={label}
-                            disabled={
-                              isUpdatePending ||
-                              label === row.original.technologyCertification
-                            }
-                          >
-                            <div className="flex flex-row items-center justify-center gap-2">
-                              {label}
-                              {label ===
-                                row.original.technologyCertification && (
-                                <Check className="size-4" />
-                              )}
-                            </div>
-                          </DropdownMenuRadioItem>
-                        ),
-                      )}
-                    </DropdownMenuRadioGroup>
-                  </DropdownMenuSubContent>
-                </DropdownMenuSub>
-                <DropdownMenuSub>
                   <DropdownMenuSubTrigger>Tôn giáo</DropdownMenuSubTrigger>
                   <DropdownMenuSubContent>
                     <DropdownMenuRadioGroup
@@ -583,67 +377,28 @@ export function getColumns({ ranks }: DataColumnsRecords): ColumnDef<any>[] {
                         });
                       }}
                     >
-                      {enumReligions.map(rel => (
+                      {dataReligions?.map(rel => (
                         <DropdownMenuRadioItem
-                          key={rel}
-                          value={rel}
+                          key={rel.id}
+                          value={rel.id}
                           disabled={
-                            isUpdatePending || rel === row.original.religion
+                            isUpdatePending || rel.id === row.original.religion
                           }
                         >
                           <div className="flex flex-row items-center justify-center gap-2">
-                            {rel}
-                            {rel === row.original.religion && (
+                            {rel.name}
+                            {rel.id === row.original.religion && (
                               <Check className="size-4" />
                             )}
                           </div>
                         </DropdownMenuRadioItem>
-                      ))}
+                      )) || []}
                     </DropdownMenuRadioGroup>
                   </DropdownMenuSubContent>
                 </DropdownMenuSub>
-                <DropdownMenuSub>
+                {/* <DropdownMenuSub>
                   <DropdownMenuSubTrigger>Cấp bậc</DropdownMenuSubTrigger>
-                  <DropdownMenuSubContent>
-                    <DropdownMenuRadioGroup
-                      value={row.original.label}
-                      onValueChange={value => {
-                        startUpdateTransition(() => {
-                          if (value) {
-                            toast.promise(
-                              updateRecord({
-                                id: row.original.id,
-                                rankId: value,
-                              }),
-                              {
-                                loading: 'Đang cập nhật...',
-                                success: 'Cập nhật thành công',
-                                error: 'Cập nhật thất bại',
-                              },
-                            );
-                          }
-                        });
-                      }}
-                    >
-                      {ranks.map(r => (
-                        <DropdownMenuRadioItem
-                          key={r.id}
-                          value={r.id}
-                          disabled={
-                            isUpdatePending || r.id === row.original.rankId
-                          }
-                        >
-                          <div className="flex flex-row items-center justify-center gap-2">
-                            {r.name}
-                            {r.id === row.original.rankId && (
-                              <Check className="size-4" />
-                            )}
-                          </div>
-                        </DropdownMenuRadioItem>
-                      ))}
-                    </DropdownMenuRadioGroup>
-                  </DropdownMenuSubContent>
-                </DropdownMenuSub>
+                </DropdownMenuSub> */}
               </DropdownMenuContent>
             </DropdownMenu>
           </>

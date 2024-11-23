@@ -15,8 +15,13 @@ import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 import React from 'react';
 import { DeleteTrainingsDialog } from './delete-trainings-dialog';
 import UpdateTrainingForm from './update-training-form';
+import { getAllQualifications } from '@/db/queries/qualifications';
+import { getAllFormTrainings } from '@/db/queries/form-trainings';
 
-export function getColumns(): ColumnDef<any>[] {
+export function getColumns(
+  qualifications: ReturnType<typeof getAllQualifications>,
+  formTrainings: ReturnType<typeof getAllFormTrainings>,
+): ColumnDef<any>[] {
   return [
     {
       id: 'select',
@@ -41,6 +46,38 @@ export function getColumns(): ColumnDef<any>[] {
       ),
       enableSorting: false,
       enableHiding: false,
+    },
+
+    {
+      accessorKey: 'nameOfTrainingInstitution',
+      meta: {
+        label: 'Tên trường',
+      },
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="Tên trường" />
+      ),
+      cell: ({ cell }) => (
+        <div className="w-full">{cell.getValue() as string}</div>
+      ),
+      enableSorting: false,
+      enableHiding: true,
+    },
+    {
+      accessorKey: 'majors',
+      meta: {
+        label: 'Ngành học hoặc tên lớp học',
+      },
+      header: ({ column }) => (
+        <DataTableColumnHeader
+          column={column}
+          title="Ngành học hoặc tên lớp học"
+        />
+      ),
+      cell: ({ cell }) => (
+        <div className="w-full">{cell.getValue() as string}</div>
+      ),
+      enableSorting: false,
+      enableHiding: true,
     },
     {
       accessorKey: 'from',
@@ -75,12 +112,12 @@ export function getColumns(): ColumnDef<any>[] {
       enableHiding: true,
     },
     {
-      accessorKey: 'nameOfTrainingInstitution',
+      accessorKey: 'formTraining.name',
       meta: {
-        label: 'Tên cơ sở đào tạo',
+        label: 'Hình thức học',
       },
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Tên cơ sở đào tạo" />
+        <DataTableColumnHeader column={column} title="Hình thức học" />
       ),
       cell: ({ cell }) => (
         <div className="w-full">{cell.getValue() as string}</div>
@@ -89,7 +126,7 @@ export function getColumns(): ColumnDef<any>[] {
       enableHiding: true,
     },
     {
-      accessorKey: 'degree',
+      accessorKey: 'qualification.name',
       meta: {
         label: 'Trình độ',
       },
@@ -103,48 +140,34 @@ export function getColumns(): ColumnDef<any>[] {
       enableHiding: true,
     },
 
-    {
-      accessorKey: 'form',
-      meta: {
-        label: 'Hình thức',
-      },
-      header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Hình thức" />
-      ),
-      cell: ({ cell }) => (
-        <div className="w-full">{cell.getValue() as string}</div>
-      ),
-      enableSorting: false,
-      enableHiding: true,
-    },
-    {
-      accessorKey: 'level',
-      meta: {
-        label: 'Loại',
-      },
-      header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Loại" />
-      ),
-      cell: ({ cell }) => (
-        <div className="w-full">{cell.getValue() as string}</div>
-      ),
-      enableSorting: false,
-      enableHiding: true,
-    },
-    {
-      accessorKey: 'majors',
-      meta: {
-        label: 'Chuyên ngành',
-      },
-      header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Chuyên ngành" />
-      ),
-      cell: ({ cell }) => (
-        <div className="w-full">{cell.getValue() as string}</div>
-      ),
-      enableSorting: false,
-      enableHiding: true,
-    },
+    // {
+    //   accessorKey: 'level',
+    //   meta: {
+    //     label: 'Loại',
+    //   },
+    //   header: ({ column }) => (
+    //     <DataTableColumnHeader column={column} title="Loại" />
+    //   ),
+    //   cell: ({ cell }) => (
+    //     <div className="w-full">{cell.getValue() as string}</div>
+    //   ),
+    //   enableSorting: false,
+    //   enableHiding: true,
+    // },
+    // {
+    //   accessorKey: 'majors',
+    //   meta: {
+    //     label: 'Chuyên ngành',
+    //   },
+    //   header: ({ column }) => (
+    //     <DataTableColumnHeader column={column} title="Chuyên ngành" />
+    //   ),
+    //   cell: ({ cell }) => (
+    //     <div className="w-full">{cell.getValue() as string}</div>
+    //   ),
+    //   enableSorting: false,
+    //   enableHiding: true,
+    // },
     {
       id: 'actions',
       cell: function Cell({ row }) {
@@ -155,6 +178,8 @@ export function getColumns(): ColumnDef<any>[] {
         React.useEffect(() => {
           // document.body.classList.remove('pointer-events-none');
         });
+        const { data: dataQualifications } = React.use(qualifications);
+        const { data: dataFormTrainings } = React.use(formTrainings);
         return (
           <>
             <UpdateDataSheet
@@ -163,6 +188,10 @@ export function getColumns(): ColumnDef<any>[] {
               data={row.original}
               form={UpdateTrainingForm}
               name="quá trình đào tạo chuyên môn"
+              dataset={{
+                qualifications: dataQualifications,
+                formTrainings: dataFormTrainings,
+              }}
               fieldConfig={{
                 from: {
                   inputProps: {

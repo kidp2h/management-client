@@ -3,21 +3,30 @@ import React, { use } from 'react';
 import { DataTableToolbarActions } from '@/components/common/data-table-toolbar-actions';
 import { DataTableAdvancedToolbar } from '@/components/data-table/advanced/data-table-advanced-toolbar';
 import { DataTable } from '@/components/data-table/data-table';
-import type { getRecordCommendationsById } from '@/db/queries/commendation';
+import type { getRecordCommendationsById } from '@/db/queries/commendations';
 import { useDataTable } from '@/hooks/use-data-table';
 import { useTable } from '@/providers/table-provider';
 import type { DataTableFilterField } from '@/types';
-import { getColumns } from '@/components/features/records/commendations/records-commendation-table-column';
+import { getColumns } from '@/components/features/record/commendation/record-commendation-table-column';
+import { CreateDataDialog } from '@/components/common/create-data-dialog';
+import CreateCommendationForm from './create-commendation-form';
+import { getRecordById } from '@/db/queries/records';
+import { getAllAppellations } from '@/db/queries/appellations';
+import { DeleteCommendationsDialog } from './delete-commendations-dialog';
 
 export interface RecordsCommendationTableProps {
   recordCommendations: ReturnType<typeof getRecordCommendationsById>;
+  record: Awaited<ReturnType<typeof getRecordById>>['data'];
+  appellations: ReturnType<typeof getAllAppellations>;
 }
 export default function RecordCommendationsTable({
   recordCommendations,
+  record,
+  appellations,
 }: RecordsCommendationTableProps) {
   const { data } = use(recordCommendations);
-
-  const columns = React.useMemo(() => getColumns(), []);
+  console.log(appellations);
+  const columns = React.useMemo(() => getColumns(appellations), []);
   const { featureFlags } = useTable();
 
   const filterFields: DataTableFilterField<any>[] = [];
@@ -42,7 +51,31 @@ export default function RecordCommendationsTable({
         filterFields={filterFields}
         btnView={false}
       >
-        <DataTableToolbarActions table={table} />
+        <DataTableToolbarActions
+          table={table}
+          deleteDialog={
+            <DeleteCommendationsDialog
+              name="khen thưởng"
+              commendations={table
+                .getFilteredSelectedRowModel()
+                .rows.map(row => row.original)}
+              onSuccess={() => table.toggleAllRowsSelected(false)}
+            />
+          }
+          createDialog={
+            record?.id ? (
+              <CreateDataDialog
+                name="khen thưởng"
+                form={CreateCommendationForm}
+                description="Tạo khen thưởng mới"
+                data={{
+                  recordId: record.id,
+                  appellations,
+                }}
+              />
+            ) : null
+          }
+        />
       </DataTableAdvancedToolbar>
     </DataTable>
   );

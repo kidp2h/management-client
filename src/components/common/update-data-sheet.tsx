@@ -17,22 +17,19 @@ export interface UpdateDataFormProps {
 }
 export interface UpdateDataSheetProps<T extends Record<string, any>>
   extends React.ComponentPropsWithRef<typeof Sheet> {
-  form: ({
-    onSuccess,
-    fieldConfig,
-    data,
-  }: UpdateDataFormProps & Record<any, any>) => JSX.Element;
+  form: ({ onSuccess, fieldConfig, data, ...props }) => JSX.Element;
   name: string;
   data: T;
+  dataset?: any;
   fieldConfig: FieldConfig<T>;
 }
-export function UpdateDataSheet<T extends Record<string, any>>({
+export function UpdateDataSheet({
   form: FormUpdate,
   name,
   fieldConfig,
   data,
   ...props
-}: UpdateDataSheetProps<T>) {
+}) {
   return (
     <Sheet {...props}>
       <SheetContent className="flex flex-col gap-6 overflow-auto sm:max-w-md">
@@ -46,6 +43,7 @@ export function UpdateDataSheet<T extends Record<string, any>>({
           onSuccess={() => {
             props.onOpenChange?.(false);
           }}
+          {...props.dataset}
           data={data}
           fieldConfig={fieldConfig}
         />

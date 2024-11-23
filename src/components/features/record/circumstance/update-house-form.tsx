@@ -5,7 +5,7 @@ import type { z } from 'zod';
 
 import AutoForm, { AutoFormSubmit } from '@/components/ui/auto-form';
 import type { FieldConfig } from '@/components/ui/auto-form/types';
-import { updateHouse } from '@/db/actions/house';
+import { updateHouse } from '@/db/actions/houses';
 import { updateHouseSchema } from '@/lib/zod/schemas/record-schema';
 
 export interface UpdateHouseFormProps {

@@ -2,7 +2,7 @@ import { ReloadIcon } from '@radix-ui/react-icons';
 import React, { useTransition } from 'react';
 import { toast } from 'sonner';
 
-import { createHouse } from '@/db/actions/house';
+import { createHouse } from '@/db/actions/houses';
 import { createHouseSchema } from '@/lib/zod/schemas/record-schema';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -16,10 +16,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Combobox } from '@/components/ui/combobox';
-import {
-  House,
-  Scan,
-} from 'lucide-react';
+import { House, Scan } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { enumTypeHouse } from '@/db/schema';
 import { useUploadFile } from '@/hooks/use-upload-file';

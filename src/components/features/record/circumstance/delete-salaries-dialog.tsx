@@ -27,7 +27,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer';
-import { deleteSalaries } from '@/db/actions/salary';
+import { deleteSalaries } from '@/db/actions/progress-salaries';
 import type { RecordsTraining } from '@/db/schema';
 import { useMediaQuery } from '@/hooks/use-media-query';
 

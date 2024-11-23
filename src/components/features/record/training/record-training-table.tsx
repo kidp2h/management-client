@@ -10,17 +10,26 @@ import { getTrainingsRecordById } from '@/db/queries/records';
 import { CreateDataDialog } from '@/components/common/create-data-dialog';
 import CreateTrainingForm from './create-training-form';
 import { DeleteTrainingsDialog } from './delete-trainings-dialog';
+import { getAllFormTrainings } from '@/db/queries/form-trainings';
+import { getAllQualifications } from '@/db/queries/qualifications';
 
 export interface RecordTrainingTableProps {
   trainings: ReturnType<typeof getTrainingsRecordById>;
   id: string;
+  formTrainings: ReturnType<typeof getAllFormTrainings>;
+  qualifications: ReturnType<typeof getAllQualifications>;
 }
 export default function RecordTrainingTable({
   trainings,
+  formTrainings,
+  qualifications,
   id,
 }: RecordTrainingTableProps) {
   const { data } = React.use(trainings);
-  const columns = React.useMemo(() => getColumns(), []);
+  const columns = React.useMemo(
+    () => getColumns(qualifications, formTrainings),
+    [],
+  );
   const { featureFlags } = useTable();
   const { table } = useDataTable({
     pageCount: 1,
@@ -48,6 +57,8 @@ export default function RecordTrainingTable({
               description="Tạo quá trình đào tạo chuyên môn mới"
               data={{
                 recordId: id,
+                formTrainings,
+                qualifications,
               }}
             />
           }

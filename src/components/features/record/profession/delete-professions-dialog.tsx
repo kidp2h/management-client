@@ -27,7 +27,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer';
-import { deleteProfessions } from '@/db/actions/profession';
+import { deleteProfessions } from '@/db/actions/professions';
 import type { RecordsProfession } from '@/db/schema';
 import { useMediaQuery } from '@/hooks/use-media-query';
 

@@ -15,8 +15,15 @@ import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 import React from 'react';
 import { DeleteSalariesDialog } from './delete-salaries-dialog';
 import UpdateSalaryForm from './update-salary-form';
+import { getAllSalaryGrades } from '@/db/queries/salary-grades';
+import { getAllCivilServantRanks } from '@/db/queries/civil-servant-ranks';
+import { getAllPublicEmployeeRanks } from '@/db/queries/public-employee-ranks';
 
-export function getColumns(): ColumnDef<any>[] {
+export function getColumns(
+  salaryGrades: ReturnType<typeof getAllSalaryGrades>,
+  civilServantRanks: ReturnType<typeof getAllCivilServantRanks>,
+  publicEmployeeRanks: ReturnType<typeof getAllPublicEmployeeRanks>,
+): ColumnDef<any>[] {
   return [
     {
       id: 'select',
@@ -42,13 +49,14 @@ export function getColumns(): ColumnDef<any>[] {
       enableSorting: false,
       enableHiding: false,
     },
+
     {
-      accessorKey: 'from',
+      accessorKey: 'at',
       meta: {
-        label: 'Từ',
+        label: 'Tháng/Năm',
       },
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Từ" />
+        <DataTableColumnHeader column={column} title="Tháng/Năm" />
       ),
       cell: ({ cell }) => (
         <div className="w-full">
@@ -59,37 +67,25 @@ export function getColumns(): ColumnDef<any>[] {
       enableHiding: true,
     },
     {
-      accessorKey: 'to',
-      meta: {
-        label: 'Đến',
-      },
-      header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Đến" />
-      ),
-      cell: ({ cell }) => (
-        <div className="w-full">
-          {dayjs(cell.getValue() as Date).format('MM-YYYY')}
-        </div>
-      ),
-      enableSorting: false,
-      enableHiding: true,
-    },
-    {
-      accessorKey: 'classification',
+      accessorKey: 'classification.name',
       meta: {
         label: 'Ngạch',
       },
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Ngạch" />
       ),
-      cell: ({ cell }) => (
-        <div className="w-full">{cell.getValue() as string}</div>
+      cell: ({ row, cell }) => (
+        <div className="w-full">
+          {typeof cell.getValue() === 'string'
+            ? (cell.getValue() as string)
+            : (row.original.namePublicRank as string)}
+        </div>
       ),
       enableSorting: false,
       enableHiding: true,
     },
     {
-      accessorKey: 'salaryGrade',
+      accessorKey: 'salaryGrade.name',
       meta: {
         label: 'Bậc lương',
       },
@@ -116,20 +112,7 @@ export function getColumns(): ColumnDef<any>[] {
       enableSorting: false,
       enableHiding: true,
     },
-    {
-      accessorKey: 'salary',
-      meta: {
-        label: 'Tiền lương',
-      },
-      header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Tiền lương" />
-      ),
-      cell: ({ cell }) => (
-        <div className="w-full">{cell.getValue() as string}</div>
-      ),
-      enableSorting: false,
-      enableHiding: true,
-    },
+
     {
       id: 'actions',
       cell: function Cell({ row }) {
@@ -140,26 +123,21 @@ export function getColumns(): ColumnDef<any>[] {
         React.useEffect(() => {
           // document.body.classList.remove('pointer-events-none');
         });
+
         return (
           <>
             <UpdateDataSheet
               open={showUpdateSalarySheet}
               onOpenChange={setShowUpdateSalarySheet}
               data={row.original}
+              dataset={{
+                salaryGrades,
+                civilServantRanks,
+                publicEmployeeRanks,
+              }}
               form={UpdateSalaryForm}
               name="quá trình lương"
-              fieldConfig={{
-                from: {
-                  inputProps: {
-                    placeholder: dayjs(row.original.from).format('DD-MM-YYYY'),
-                  },
-                },
-                to: {
-                  inputProps: {
-                    placeholder: dayjs(row.original.to).format('DD-MM-YYYY'),
-                  },
-                },
-              }}
+              fieldConfig={{}}
             />
             <DeleteSalariesDialog
               name="quá trình đào tạo chuyên môn"
