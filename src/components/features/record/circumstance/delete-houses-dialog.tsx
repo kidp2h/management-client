@@ -27,7 +27,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer';
-import { deleteHouses } from '@/db/actions/house';
+import { deleteHouses } from '@/db/actions/houses';
 import type { RecordsHouse } from '@/db/schema';
 import { useMediaQuery } from '@/hooks/use-media-query';
 

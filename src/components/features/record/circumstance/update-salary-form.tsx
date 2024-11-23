@@ -5,7 +5,7 @@ import type { z } from 'zod';
 
 import AutoForm, { AutoFormSubmit } from '@/components/ui/auto-form';
 import type { FieldConfig } from '@/components/ui/auto-form/types';
-import { updateSalary } from '@/db/actions/salary';
+import { updateSalary } from '@/db/actions/progress-salaries';
 import { updateSalarySchema } from '@/lib/zod/schemas/record-schema';
 
 export interface UpdateSalaryFormProps {
@@ -17,9 +17,13 @@ export default function UpdateSalaryForm({
   onSuccess,
   fieldConfig,
   data,
+  ...props
 }: UpdateSalaryFormProps) {
   const [isUpdatePending, startUpdateTransition] = useTransition();
 
+  const { salaryGrades } = (props as any).salaryGrades;
+  const { civilServantRanks } = (props as any).civilServantRanks;
+  const { publicEmployeeRanks } = (props as any).publicEmployeeRanks;
   return (
     <AutoForm
       formSchema={updateSalarySchema}

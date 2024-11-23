@@ -14,7 +14,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
-import { DeleteDepartmentsDialog } from './delete-department-dialog';
+import { DeleteDepartmentsDialog } from './delete-departments-dialog';
 import UpdateDepartmentForm from './update-department-form';
 
 export function getColumns(): ColumnDef<any>[] {
@@ -49,9 +49,9 @@ export function getColumns(): ColumnDef<any>[] {
         label: 'Mã đơn vị',
       },
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Mã đơn vị" />
+        <DataTableColumnHeader column={column} title="Mã" />
       ),
-      cell: ({ row }) => <div className="w-20">{row.getValue('code')}</div>,
+      cell: ({ row }) => <div className="w-full">{row.getValue('code')}</div>,
       enableSorting: false,
       enableHiding: true,
     },
@@ -61,9 +61,9 @@ export function getColumns(): ColumnDef<any>[] {
         label: 'Tên đơn vị',
       },
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Tên đơn vị" />
+        <DataTableColumnHeader column={column} title="Tên" />
       ),
-      cell: ({ row }) => <div className="w-20">{row.getValue('name')}</div>,
+      cell: ({ row }) => <div className="w-full">{row.getValue('name')}</div>,
       enableSorting: false,
       enableHiding: true,
     },

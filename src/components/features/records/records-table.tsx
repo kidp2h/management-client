@@ -8,7 +8,7 @@ import { DataTableAdvancedToolbar } from '@/components/data-table/advanced/data-
 import { DataTable } from '@/components/data-table/data-table';
 import { DataTableToolbar } from '@/components/data-table/data-table-toolbar';
 import type { getRecords } from '@/db/queries/records';
-import { enumReligions, type Ranks, type Records, records } from '@/db/schema';
+import { enumReligions, type Records, records } from '@/db/schema';
 import { useDataTable } from '@/hooks/use-data-table';
 import { useTable } from '@/providers/table-provider';
 import type { DataTableFilterField } from '@/types';
@@ -16,17 +16,18 @@ import type { DataTableFilterField } from '@/types';
 import CreateRecordForm from './create-record-form';
 import { DeleteRecordsDialog } from './delete-record-dialog';
 import { getColumns } from './records-table-column';
+import { getAllReligions } from '@/db/queries/religions';
 
 interface RecordsTableProps {
   records: ReturnType<typeof getRecords>;
-  ranks: Ranks[];
+  religions: ReturnType<typeof getAllReligions>;
 }
 export const RecordsTable = ({
   records: _records,
-  ranks,
+  religions,
 }: RecordsTableProps) => {
   const { data, pageCount } = use(_records);
-  const columns = React.useMemo(() => getColumns({ ranks }), []);
+  const columns = React.useMemo(() => getColumns(religions), []);
   const { featureFlags } = useTable();
   const filterFieldsText: DataTableFilterField<any>[] = [
     {
@@ -79,17 +80,7 @@ export const RecordsTable = ({
         withCount: false,
       })),
     },
-    {
-      label: 'Trình độ',
-      value: 'rank',
 
-      options: ranks.map(r => ({
-        label: r.name,
-        value: r.id,
-
-        withCount: false,
-      })),
-    },
     {
       label: 'Đảng viên',
       value: 'isPartyMember',

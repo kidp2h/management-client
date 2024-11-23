@@ -1,29 +1,22 @@
 'use client';
-import {
-  BookCheck,
-  BookOpen,
-  BriefcaseBusiness,
-  Building,
-  Cpu,
-  Dna,
-  HeartPulse,
-  TypeOutline,
-  University,
-} from 'lucide-react';
+
 import React from 'react';
 
 import AutoBreadcrumb from '@/components/common/auto-breadcrumb';
 import MainContent from '@/components/common/main-content';
-import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import type {
   getAllowancesRecordById,
   getContractsRecordById,
   getHousesRecordById,
+  getImprisionedsRecordById,
   getLandsRecordById,
+  getOldRegimesRecordById,
+  getOrganizationsRecordById,
   getProfessionsRecordById,
   getRecordById,
   getRelationshipRecordById,
+  getRelativesRecordById,
   getSalariesRecordById,
   getTrainingsRecordById,
   getWorkExperiencesRecordById,
@@ -36,11 +29,29 @@ import { Separator } from '@/components/ui/separator';
 import RecordEducationSection from './record-education-section';
 import RecordDisciplinesTable from './discipline/record-discipline-table';
 import { getRecordDisciplinesById } from '@/db/queries/disciplines';
-import { getRecordCommendationsById } from '@/db/queries/commendation';
+import { getRecordCommendationsById } from '@/db/queries/commendations';
 import RecordCommendationsTable from './commendation/record-commendation-table';
 import RecordWorkExperienceTable from './work-experience/record-work-experience-table';
 import RecordRelationshipSection from './relationship/record-relationship-section';
 import RecordSalarySection from './circumstance/record-salary-section';
+import { getAllReligions } from '@/db/queries/religions';
+import { getAllPublicEmployeeRanks } from '@/db/queries/public-employee-ranks';
+import { getAllCivilServantRanks } from '@/db/queries/civil-servant-ranks';
+import { getAllPolicyObjects } from '@/db/queries/policy-objects';
+import { getAllMilitaryRanks } from '@/db/queries/military-ranks';
+import { getAllAcademicQualifications } from '@/db/queries/academic-qualifications';
+import { getAllAppellations } from '@/db/queries/appellations';
+import { getAllEthnicities } from '@/db/queries/ethnicities';
+import { getAllSalaryGrades } from '@/db/queries/salary-grades';
+import { getAllQualifications } from '@/db/queries/qualifications';
+import { getAllFamilyBackgrounds } from '@/db/queries/family-backgrounds';
+import { getAllPartyCommittees } from '@/db/queries/party-committees';
+import { getAllDuties } from '@/db/queries/duties';
+import { getAllFormDisciplines } from '@/db/queries/form-disciplines';
+import { getAllDepartments } from '@/db/queries/departments';
+import { getAllFormTrainings } from '@/db/queries/form-trainings';
+import RecordHistorySection from './history/record-history-section';
+import RecordAbroadSection from './abroad/record-abroad-section';
 
 export interface RecordDetailSectionProps {
   record: ReturnType<typeof getRecordById>;
@@ -55,12 +66,31 @@ export interface RecordDetailSectionProps {
   allowances: ReturnType<typeof getAllowancesRecordById>;
   houses: ReturnType<typeof getHousesRecordById>;
   lands: ReturnType<typeof getLandsRecordById>;
+  imprisioneds: ReturnType<typeof getImprisionedsRecordById>;
+  oldRegimes: ReturnType<typeof getOldRegimesRecordById>;
+  organizations: ReturnType<typeof getOrganizationsRecordById>;
+  relatives: ReturnType<typeof getRelativesRecordById>;
+  religions: ReturnType<typeof getAllReligions>;
+  publicEmployeeRanks: ReturnType<typeof getAllPublicEmployeeRanks>;
+  civilServantRanks: ReturnType<typeof getAllCivilServantRanks>;
+  policyObjects: ReturnType<typeof getAllPolicyObjects>;
+  militaryRanks: ReturnType<typeof getAllMilitaryRanks>;
+  academicQualifications: ReturnType<typeof getAllAcademicQualifications>;
+  qualifications: ReturnType<typeof getAllQualifications>;
+  appellations: ReturnType<typeof getAllAppellations>;
+  ethnicities: ReturnType<typeof getAllEthnicities>;
+  salaryGrades: ReturnType<typeof getAllSalaryGrades>;
+  familyBackgrounds: ReturnType<typeof getAllFamilyBackgrounds>;
+  partyCommittees: ReturnType<typeof getAllPartyCommittees>;
+  duties: ReturnType<typeof getAllDuties>;
+  formDisciplines: ReturnType<typeof getAllFormDisciplines>;
+  departments: ReturnType<typeof getAllDepartments>;
+  formTrainings: ReturnType<typeof getAllFormTrainings>;
 }
 export default function RecordDetailSection({
   record,
   contracts,
   trainings,
-  professions,
   recordDisciplines,
   recordCommendations,
   workExperiences,
@@ -69,8 +99,33 @@ export default function RecordDetailSection({
   allowances,
   houses,
   lands,
+  religions,
+  publicEmployeeRanks,
+  civilServantRanks,
+  policyObjects,
+  militaryRanks,
+  academicQualifications,
+  qualifications,
+  appellations,
+  ethnicities,
+  salaryGrades,
+  familyBackgrounds,
+  partyCommittees,
+  duties,
+  formDisciplines,
+  departments,
+  formTrainings,
+  imprisioneds,
+  oldRegimes,
+  organizations,
+  relatives,
 }: RecordDetailSectionProps) {
   const { data } = React.use(record);
+  const [tab, setTab] = React.useState('info');
+
+  const onTabChange = value => {
+    setTab(value);
+  };
   const items = [
     { name: 'Trang chủ', href: '/' },
     { isSeparator: true },
@@ -82,26 +137,51 @@ export default function RecordDetailSection({
     <ContentLayout title="Chi tiết hồ sơ">
       <AutoBreadcrumb items={items} />
       <MainContent>
-        <Tabs defaultValue="info">
-          <TabsList className="">
+        <span className="font-bold text-xl mb-3 block">
+          Danh sách các mục thông tin
+        </span>
+        <Tabs
+          defaultValue="info"
+          value={tab}
+          onValueChange={onTabChange}
+          orientation="vertical"
+          data-order="vertical"
+        >
+          <TabsList className="flex flex-col h-full justify-start items-start w-fit mb-5">
             <TabsTrigger value="info">Thông tin chung</TabsTrigger>
-            <TabsTrigger value="contract">
+            {/* <TabsTrigger value="languagesCertification">
+              Chứng chỉ ngoại ngữ
+            </TabsTrigger>
+            <TabsTrigger value="technologyCertification">
+              Chứng chỉ tin học
+            </TabsTrigger> */}
+            {/* <TabsTrigger value="contract">
               Quá trình biên chế, hợp đồng
+            </TabsTrigger> */}
+            <TabsTrigger value="commendation">
+              22. Quá trình khen thưởng
             </TabsTrigger>
-            <TabsTrigger value="commendationAndDiscipline">
-              Quá trình khen thưởng và kỷ luật
-            </TabsTrigger>
+            <TabsTrigger value="discipline">23. Quá trình kỷ luật</TabsTrigger>
             <TabsTrigger value="education">
-              Quá trình đào tạo và bồi dưỡng
+              26.Quá trình đào tạo và bồi dưỡng
             </TabsTrigger>
-            <TabsTrigger value="workExperience">Quá trình công tác</TabsTrigger>
+            <TabsTrigger value="workExperience">
+              27. Quá trình công tác
+            </TabsTrigger>
+            <TabsTrigger value="historyPersonal">
+              28. Đặc điểm lịch sử bản thân
+            </TabsTrigger>
+            <TabsTrigger value="relationWithForeign">
+              29. Quan hệ với nước ngoài
+            </TabsTrigger>
+
+            <TabsTrigger value="relationship">30. Quan hệ gia đình</TabsTrigger>
             <TabsTrigger value="salary">
-              Quá trình lương và phụ cấp (Hoàn cảnh kinh tế)
+              31. Hoàn cảnh kinh tế gia đình
             </TabsTrigger>
-            <TabsTrigger value="relationship">Hồ sơ nhân thân</TabsTrigger>
           </TabsList>
           <TabsContent value="info">
-            <div className="grid grid-cols-2 px-3">
+            {/* <div className="grid grid-cols-2 px-3">
               <div className="mb-7 flex flex-row gap-3">
                 <div className="flex flex-row items-center gap-2 font-bold">
                   <TypeOutline className="size-5 text-pink-500" />
@@ -187,46 +267,74 @@ export default function RecordDetailSection({
                   {data?.classificationCode || 'Chưa cập nhật'}
                 </Badge>
               </div>
-            </div>
+            </div> */}
             <Separator className="my-5" />
-            <span className="font-bold block mb-5 text-2xl">
-              Cập nhật thông tin
-            </span>
-            <UpdateInformationForm defaultValues={data} />
+
+            <UpdateInformationForm
+              defaultValues={data}
+              setTab={setTab}
+              data={{
+                religions,
+                publicEmployeeRanks,
+                ethnicities,
+                civilServantRanks,
+                policyObjects,
+                militaryRanks,
+                academicQualifications,
+                qualifications,
+                appellations,
+                salaryGrades,
+                familyBackgrounds,
+                partyCommittees,
+                duties,
+              }}
+            />
           </TabsContent>
           <TabsContent value="contract" className="w-full">
             <RecordContractSection contracts={contracts} id={data?.id || ''} />
           </TabsContent>
-          <TabsContent value="commendationAndDiscipline" className="w-full">
+          <TabsContent value="commendation" className="w-full">
             <div>
               <span className="block text-xl font-bold mb-5">
-                Quá trình khen thưởng
+                22. Quá trình khen thưởng
               </span>
               <Separator />
               <div className="my-5">
                 <RecordCommendationsTable
                   recordCommendations={recordCommendations}
+                  record={data}
+                  appellations={appellations}
                 />
               </div>
-              <span className="block text-xl font-bold mb-5">
-                Quá trình kỷ luật
-              </span>
-              <Separator />
-              <div className="my-5">
-                <RecordDisciplinesTable recordDisciplines={recordDisciplines} />
-              </div>
+            </div>
+          </TabsContent>
+          <TabsContent value="discipline">
+            <span className="block text-xl font-bold mb-5">
+              23. Quá trình kỷ luật
+            </span>
+            <Separator />
+            <div className="my-5">
+              <RecordDisciplinesTable
+                recordDisciplines={recordDisciplines}
+                departments={departments}
+                formDisciplines={formDisciplines}
+                record={data}
+              />
             </div>
           </TabsContent>
           <TabsContent value="education" className="w-full">
             <RecordEducationSection
               record={data}
-              professions={professions}
+              qualifications={qualifications}
+              formTrainings={formTrainings}
               trainings={trainings}
             />
           </TabsContent>
           <TabsContent value="workExperience" className="w-full">
             <RecordWorkExperienceTable
               workExperiences={workExperiences}
+              duties={duties}
+              departments={departments}
               id={data?.id || ''}
             />
           </TabsContent>
@@ -238,11 +346,28 @@ export default function RecordDetailSection({
           </TabsContent>
           <TabsContent value="salary" className="w-full">
             <RecordSalarySection
+              civilServantRanks={civilServantRanks}
+              salaryGrades={salaryGrades}
+              publicEmployeeRanks={publicEmployeeRanks}
               houses={houses}
               salaries={salaries}
               allowances={allowances}
               lands={lands}
               id={data?.id || ''}
+            />
+          </TabsContent>
+          <TabsContent value="historyPersonal">
+            <RecordHistorySection
+              id={data?.id || ''}
+              oldRegimes={oldRegimes}
+              imprisioneds={imprisioneds}
+            />
+          </TabsContent>
+          <TabsContent value="relationWithForeign">
+            <RecordAbroadSection
+              id={data?.id || ''}
+              organizations={organizations}
+              relatives={relatives}
             />
           </TabsContent>
         </Tabs>

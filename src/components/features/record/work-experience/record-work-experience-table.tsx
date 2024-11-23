@@ -10,17 +10,23 @@ import { getWorkExperiencesRecordById } from '@/db/queries/records';
 import { CreateDataDialog } from '@/components/common/create-data-dialog';
 import CreateWorkExperienceForm from './create-work-experience-form';
 import { DeleteWorkExperiencesDialog } from './delete-work-experience-dialog';
+import { getAllDepartments } from '@/db/queries/departments';
+import { getAllDuties } from '@/db/queries/duties';
 
-export interface RecordProfessionTableProps {
+export interface RecordWorkExperienceTableProps {
   workExperiences: ReturnType<typeof getWorkExperiencesRecordById>;
+  departments: ReturnType<typeof getAllDepartments>;
+  duties: ReturnType<typeof getAllDuties>;
   id: string;
 }
 export default function RecordWorkExperienceTable({
   workExperiences,
+  departments,
+  duties,
   id,
-}: RecordProfessionTableProps) {
+}: RecordWorkExperienceTableProps) {
   const { data } = React.use(workExperiences);
-  const columns = React.useMemo(() => getColumns(), []);
+  const columns = React.useMemo(() => getColumns(departments, duties), []);
   const { featureFlags } = useTable();
   const { table } = useDataTable({
     pageCount: 1,
@@ -48,6 +54,8 @@ export default function RecordWorkExperienceTable({
               description="Tạo quá trình công tác mới"
               data={{
                 recordId: id,
+                departments,
+                duties,
               }}
             />
           }

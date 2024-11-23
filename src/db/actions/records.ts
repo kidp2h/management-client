@@ -25,7 +25,6 @@ export async function createRecord(input: Partial<CreateRecordSchema>) {
       .insert(records)
       .values({
         code: `R${randomatic('AA0A', 10)}${new Date().getSeconds()}${new Date().getFullYear()}`,
-        rankId: input.rankId,
         ...input,
       })
       .returning({
@@ -114,12 +113,11 @@ export async function updateRecord(
         fullName: input.fullName,
         religion: input.religion,
         birthday: input.birthday,
-        rankId: input.rankId,
         englishCertification: input.englishCertification,
         technologyCertification: input.technologyCertification,
         bloodType: input.bloodType,
         isPartyMember: input.isPartyMember,
-        degree: input.degree,
+        qualification: input.qualification,
         ...input,
       })
       .where(eq(records.id, input.id));
@@ -146,7 +144,7 @@ export async function updateInformationRecord(
     const data = {
       ...input,
       hometown: `${input.hometownAddress}|${input.hometownWard}|${input.hometownDistrict}|${input.hometownProvince}`,
-      birthPlace: `${input.address}|${input.ward}|${input.district}|${input.province}`,
+      currentResidence: `${input.address}|${input.ward}|${input.district}|${input.province}`,
     };
     console.log(input, data);
     await db

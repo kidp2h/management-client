@@ -27,7 +27,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer';
-import { deleteTrainings } from '@/db/actions/training';
+import { deleteTrainings } from '@/db/actions/trainings';
 import type { RecordsTraining } from '@/db/schema';
 import { useMediaQuery } from '@/hooks/use-media-query';
 

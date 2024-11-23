@@ -41,6 +41,33 @@ export async function createDisciplines(
   }
 }
 
+export async function createDiscipline(
+  input: CreateDisciplineSchema & { recordId: string },
+) {
+  noStore();
+  console.log(input);
+  try {
+    await db
+      .insert(recordsDiscipline)
+      .values({
+        ...input,
+      })
+      .returning({
+        id: recordsDiscipline.id,
+      });
+    revalidatePath('/record');
+    return {
+      data: null,
+      error: null,
+    };
+  } catch (err) {
+    return {
+      data: null,
+      error: getErrorMessage(err),
+    };
+  }
+}
+
 export async function deleteDiscipline(input: { id: string }) {
   try {
     await db
@@ -80,11 +107,14 @@ export async function updateDiscipline(
   input: UpdateDisciplineSchema & { id: string },
 ) {
   noStore();
+
+  const { id, ...rest } = input;
+
   try {
     await db
       .update(recordsDiscipline)
       .set({
-        ...input,
+        ...rest,
       })
       .where(eq(recordsDiscipline.id, input.id));
 

@@ -26,24 +26,6 @@ export async function createCommendations(
       })
       .then(takeFirstOrThrow);
 
-    // Delete a task to keep the total number of tasks constant
-    // await tx.delete(commendations).where(
-    //   eq(
-    //     commendations.id,
-    //     (
-    //       await tx
-    //         .select({
-    //           id: commendations.id,
-    //         })
-    //         .from(commendations)
-    //         .limit(1)
-    //         .where(not(eq(commendations.id, newCommendation.id)))
-    //         .orderBy(asc(commendations.createdAt))
-    //         .then(takeFirstOrThrow)
-    //     ).id,
-    //   ),
-    // );;
-
     revalidatePath('/records/commendations');
 
     return {
@@ -52,6 +34,32 @@ export async function createCommendations(
     };
   } catch (err) {
     console.log(err);
+    return {
+      data: null,
+      error: getErrorMessage(err),
+    };
+  }
+}
+
+export async function createCommendation(
+  input: CreateCommendationSchema & { recordId: string },
+) {
+  noStore();
+  try {
+    await db
+      .insert(recordsCommendation)
+      .values({
+        ...input,
+      })
+      .returning({
+        id: recordsCommendation.id,
+      });
+    revalidatePath('/record');
+    return {
+      data: null,
+      error: null,
+    };
+  } catch (err) {
     return {
       data: null,
       error: getErrorMessage(err),
@@ -102,7 +110,8 @@ export async function updateCommendation(
     await db
       .update(recordsCommendation)
       .set({
-        ...input,
+        award: input.award,
+        year: input.year,
       })
       .where(eq(recordsCommendation.id, input.id));
 

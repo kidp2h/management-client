@@ -2,10 +2,10 @@
 import React from 'react';
 
 import { RecordsManagementSection } from '@/components/features/records';
-import { getAllRanks } from '@/db/queries/ranks';
 import { getRecords } from '@/db/queries/records';
 import { getRecordsSchema } from '@/lib/zod/schemas/record-schema';
 import type { SearchParams } from '@/types';
+import { getAllReligions } from '@/db/queries/religions';
 
 type RecordsManagementPageProps = {
   searchParams: SearchParams;
@@ -14,11 +14,12 @@ export default async function RecordsManagementPage({
   searchParams,
 }: RecordsManagementPageProps) {
   const search = getRecordsSchema.parse(searchParams);
-  const [ranks] = await Promise.all([getAllRanks()]);
+  const religions = getAllReligions();
+
   return (
     <RecordsManagementSection
       records={getRecords(search)}
-      ranks={ranks.data || []}
+      religions={religions}
     />
   );
 }

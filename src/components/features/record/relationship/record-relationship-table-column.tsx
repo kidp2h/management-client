@@ -51,7 +51,7 @@ export function getColumns(): ColumnDef<any>[] {
         <DataTableColumnHeader column={column} title="Họ và tên" />
       ),
       cell: ({ cell }) => (
-        <div className="w-20">{cell.getValue() as string}</div>
+        <div className="w-full">{cell.getValue() as string}</div>
       ),
       enableSorting: false,
       enableHiding: true,
@@ -65,7 +65,7 @@ export function getColumns(): ColumnDef<any>[] {
         <DataTableColumnHeader column={column} title="Ngày sinh" />
       ),
       cell: ({ cell }) => (
-        <div className="w-20">
+        <div className="w-full">
           {dayjs(cell.getValue() as Date).format('DD-MM-YYYY')}
         </div>
       ),
@@ -85,7 +85,7 @@ export function getColumns(): ColumnDef<any>[] {
         />
       ),
       cell: ({ cell }) => (
-        <div className="w-20">{cell.getValue() as string}</div>
+        <div className="w-full">{cell.getValue() as string}</div>
       ),
       enableSorting: false,
       enableHiding: true,

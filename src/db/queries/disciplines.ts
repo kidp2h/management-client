@@ -14,6 +14,8 @@ import { unstable_noStore as noStore } from 'next/cache';
 
 import { db } from '@/db';
 import {
+  departments,
+  formDisciplines,
   records,
   type RecordsDiscipline,
   recordsDiscipline,
@@ -82,9 +84,17 @@ export async function getRecordsDiscipline(
         .select({
           ...getTableColumns(recordsDiscipline),
           record: records,
+          decisionDepartment: {
+            id: departments.id,
+            name: departments.name,
+          },
         })
         .from(recordsDiscipline)
         .leftJoin(records, eq(recordsDiscipline.recordId, records.id))
+        .leftJoin(
+          departments,
+          eq(recordsDiscipline.decisionDepartment, departments.id),
+        )
         .limit(input.per_page!)
         .offset(offset)
         .where(where)
@@ -125,8 +135,24 @@ export async function getRecordDisciplinesById(id: string) {
       .select({
         ...getTableColumns(recordsDiscipline),
         record: records,
+        decisionDepartment: {
+          id: departments.id,
+          name: departments.name,
+        },
+        formDiscipline: {
+          id: formDisciplines.id,
+          name: formDisciplines.name,
+        },
       })
       .from(recordsDiscipline)
+      .leftJoin(
+        departments,
+        eq(recordsDiscipline.decisionDepartment, departments.id),
+      )
+      .leftJoin(
+        formDisciplines,
+        eq(recordsDiscipline.formDiscipline, formDisciplines.id),
+      )
       .leftJoin(records, eq(records.id, recordsDiscipline.recordId))
       .where(eq(records.id, id));
 

@@ -20,8 +20,12 @@ export const DatePicker = forwardRef<
     setDate: (date?: Date) => void;
     placeholder: string;
     disabled?: boolean;
+    format?: string;
   }
->(function DatePickerCmp({ date, setDate, placeholder, disabled }, ref) {
+>(function DatePickerCmp(
+  { date, setDate, placeholder, disabled, format },
+  ref,
+) {
   return (
     <Popover>
       <PopoverTrigger asChild disabled={disabled}>
@@ -33,7 +37,11 @@ export const DatePicker = forwardRef<
           )}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
-          {date ? dayjs(date).format('DD-MM-YYYY') : <span>{placeholder}</span>}
+          {date ? (
+            dayjs(date).format(format ? format : 'DD-MM-YYYY')
+          ) : (
+            <span>{placeholder}</span>
+          )}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[500px] p-0" ref={ref}>

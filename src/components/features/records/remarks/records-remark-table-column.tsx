@@ -40,7 +40,7 @@ export function getColumns(): ColumnDef<any>[] {
         <DataTableColumnHeader column={column} title="Mã cán bộ" />
       ),
       cell: ({ cell }) => (
-        <div className="w-20">{cell.getValue() as React.ReactNode}</div>
+        <div className="w-full">{cell.getValue() as React.ReactNode}</div>
       ),
       enableSorting: false,
       enableHiding: true,
@@ -54,7 +54,7 @@ export function getColumns(): ColumnDef<any>[] {
         <DataTableColumnHeader column={column} title="Họ và tên" />
       ),
       cell: ({ cell }) => (
-        <div className="w-20">{cell.getValue() as React.ReactNode}</div>
+        <div className="w-full">{cell.getValue() as React.ReactNode}</div>
       ),
       enableSorting: false,
       enableHiding: true,
@@ -68,7 +68,7 @@ export function getColumns(): ColumnDef<any>[] {
         <DataTableColumnHeader column={column} title="Số quyết định" />
       ),
       cell: ({ cell }) => (
-        <div className="w-20">{cell.getValue() as React.ReactNode}</div>
+        <div className="w-full">{cell.getValue() as React.ReactNode}</div>
       ),
       enableSorting: false,
       enableHiding: true,
@@ -82,7 +82,7 @@ export function getColumns(): ColumnDef<any>[] {
         <DataTableColumnHeader column={column} title="Cơ quan quyết định" />
       ),
       cell: ({ cell }) => (
-        <div className="w-20">{cell.getValue() as React.ReactNode}</div>
+        <div className="w-full">{cell.getValue() as React.ReactNode}</div>
       ),
       enableSorting: false,
       enableHiding: true,
@@ -96,7 +96,7 @@ export function getColumns(): ColumnDef<any>[] {
         <DataTableColumnHeader column={column} title="Ngày quyết định" />
       ),
       cell: ({ cell }) => (
-        <div className="w-20">
+        <div className="w-full">
           {
             dayjs(cell.getValue() as string).format(
               'D-MM-YYYY',

@@ -80,7 +80,7 @@ export function getColumns({ roles }: DataColumnsUsers): ColumnDef<any, any>[] {
         </div>
       ),
       cell: ({ cell }) => (
-        <div className="flex w-[6.25rem] items-center">
+        <div className="flex w-full items-center">
           <span>{cell.getValue()}</span>
         </div>
       ),
@@ -97,7 +97,7 @@ export function getColumns({ roles }: DataColumnsUsers): ColumnDef<any, any>[] {
         </div>
       ),
       cell: ({ cell }) => (
-        <div className="flex w-[6.25rem] items-center">
+        <div className="flex w-full items-center">
           <Badge
             roundedType="md"
             className="flex w-full justify-center"
@@ -121,7 +121,7 @@ export function getColumns({ roles }: DataColumnsUsers): ColumnDef<any, any>[] {
     //     </div>
     //   ),
     //   cell: ({ cell }) => (
-    //     <div className="flex w-[6.25rem] items-center">
+    //     <div className="flex w-full items-center">
     //       <span>{cell.getValue()}</span>
     //     </div>
     //   ),
@@ -138,7 +138,7 @@ export function getColumns({ roles }: DataColumnsUsers): ColumnDef<any, any>[] {
     //     </div>
     //   ),
     //   cell: ({ cell }) => (
-    //     <div className="flex w-[6.25rem] items-center">
+    //     <div className="flex w-full items-center">
     //       <span>{cell.getValue()}</span>
     //     </div>
     //   ),
@@ -199,7 +199,7 @@ export function getColumns({ roles }: DataColumnsUsers): ColumnDef<any, any>[] {
         const [isUpdatePending, startUpdateTransition] = React.useTransition();
         return (
           <>
-            <UpdateDataSheet<any>
+            <UpdateDataSheet
               open={showUpdateUserSheet}
               onOpenChange={setShowUpdateUserSheet}
               data={row.original}

@@ -3,7 +3,7 @@ import React, { useTransition } from 'react';
 import { toast } from 'sonner';
 
 import AutoForm, { AutoFormSubmit } from '@/components/ui/auto-form';
-import { createAllowance } from '@/db/actions/allowance';
+import { createAllowance } from '@/db/actions/allowances';
 import { createAllowanceSchema } from '@/lib/zod/schemas/record-schema';
 
 export interface CreateAllowanceFormProps {
