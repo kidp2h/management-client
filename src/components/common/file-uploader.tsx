@@ -248,7 +248,7 @@ export function FileUploader(props: FileUploaderProps) {
                     Kéo và thả tệp vào đây, hoặc nhấn để chọn tệp
                   </p>
                   <p className="text-sm text-muted-foreground/70">
-                    Bạn có thể tải 4MB mỗi tệp
+                    Bạn có thể tải tệp lên đến 4MB
                   </p>
                 </div>
               </div>

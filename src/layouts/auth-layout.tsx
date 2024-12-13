@@ -12,7 +12,7 @@ export function AuthLayout({ children }: { children: React.ReactNode }) {
         className="-top-40 right-0 md:left-[25rem] md:-top-20 "
         fill={theme === 'dark' ? 'white' : 'black'}
       /> */}
-      <Navbar title="Management" isAuth={false} />
+      <Navbar title="Quản lý hồ sơ cán bộ công chức viên chức" isAuth={false} />
       <div className="size-full">{children}</div>
 
       <footer

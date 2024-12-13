@@ -1,5 +1,5 @@
 'use client';
-import { PanelsTopLeft } from 'lucide-react';
+import { GaugeCircle } from 'lucide-react';
 import Link from 'next/link';
 
 import type { Group } from '@/components/common/sidebar/menu';
@@ -37,7 +37,7 @@ export function Sidebar({ menuList }: SidebarProps) {
           asChild
         >
           <Link href="/dashboard" className="flex items-center gap-2">
-            <PanelsTopLeft className="mr-1 size-6" />
+            <GaugeCircle className="mr-1 size-6" />
             <h1
               className={cn(
                 'font-bold text-lg whitespace-nowrap transition-[transform,opacity,display] ease-in-out duration-300',
@@ -46,7 +46,7 @@ export function Sidebar({ menuList }: SidebarProps) {
                   : 'translate-x-0 opacity-100',
               )}
             >
-              Management
+              Quản lý hồ sơ
             </h1>
           </Link>
         </Button>

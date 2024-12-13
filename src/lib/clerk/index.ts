@@ -5,35 +5,53 @@ import { revalidatePath } from 'next/cache';
 import { createRecord } from '@/db/actions/records';
 import type {
   CreateUserSchema,
-  UpdateUserSchema,
 } from '@/lib/zod/schemas/user-schema';
+import { Data } from '@/components/ui/fancy-combobox';
 
-export const createUser = async (input: CreateUserSchema) => {
+export const createUser = async (
+  input: CreateUserSchema,
+  roles: Data[],
+  departments: Data[],
+) => {
+  const rolesMapped =
+    roles?.map(role => ({
+      id: role.value,
+      name: role.label,
+    })) || [];
   try {
     const record = await createRecord({
       fullName: input.fullName,
       birthday: input.birthday,
+      departments: departments.map(department => department.value) || [],
     });
-    const data = await clerkClient().users.createUser({
-      username: input.username,
-      password: input.password,
-      publicMetadata: {
-        role: null,
-        record: {
-          id: record.data?.id,
-          code: record.data?.code,
+    if (!record.error) {
+      const data = await clerkClient().users.createUser({
+        username: input.username,
+        password: input.password,
+        emailAddress: [input.email],
+        publicMetadata: {
+          role: rolesMapped,
+          record: {
+            id: record.data?.id,
+            code: record.data?.code,
+          },
         },
-      },
-    });
-
-    if (data && record.error === null) {
-      revalidatePath('/users');
-      return {
-        data: null,
-        error: null,
-      };
+      });
+      if (data && record.error === null) {
+        revalidatePath('/users');
+        return {
+          data: null,
+          error: null,
+        };
+      }
     }
+    return {
+      data: null,
+      error: record.error,
+    };
+    // console.log(record);
   } catch (error) {
+    console.log(error);
     return {
       data: null,
       error,
@@ -81,9 +99,7 @@ export const deleteUsers = async (input: { ids: string[] }) => {
   }
 };
 
-export const updateUser = async (
-  input: Partial<UpdateUserSchema> & { id: string },
-) => {
+export const updateUser = async (input: any & { id: string }) => {
   try {
     const newData = {} as Record<string, string>;
     if (input.username) newData.username = input.username;
@@ -96,6 +112,7 @@ export const updateUser = async (
     }
     const data = await clerkClient().users.updateUser(input.id, {
       ...newData,
+
       skipPasswordChecks: true,
     });
 
@@ -116,7 +133,7 @@ export const updateUser = async (
 
 export const updateMetadata = async (id: string, metadata: any) => {
   try {
-    console.log(id, metadata);
+    // console.log(id, metadata);
     const data = await clerkClient().users.updateUserMetadata(id, {
       publicMetadata: metadata,
     });

@@ -20,7 +20,7 @@ export default function RecordImprisionedTable({
   imprisioneds,
   id,
 }: RecordImprisionedTableProps) {
-  console.log(id);
+  // console.log(id);
   const { data } = React.use(imprisioneds);
   const columns = React.useMemo(() => getColumns(), []);
   const { featureFlags } = useTable();

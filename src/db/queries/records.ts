@@ -17,21 +17,28 @@ import {
 import { unstable_noStore as noStore } from 'next/cache';
 
 import { db } from '@/db';
-import type { Records, RecordsRetirement } from '@/db/schema';
+import type { Records } from '@/db/schema';
 import {
   civilServantRanks,
   departments,
   duties,
+  ethnicities,
+  formRecruitments,
   formTrainings,
+  languages,
   publicEmployeeRanks,
   qualifications,
   records,
   recordsAllowance,
   recordsContract,
+  recordsDepartments,
   recordsDiscipline,
   recordsHouse,
   recordsImprisioned,
+  recordsIncreaseSalaryEarly,
+  recordsIncreaseSalaryRegular,
   recordsLand,
+  recordsLanguages,
   recordsOldRegime,
   recordsOrganization,
   recordsProfession,
@@ -52,6 +59,7 @@ import type {
 } from '@/lib/zod/schemas/record-schema';
 import type { DrizzleWhere } from '@/types';
 import { subDays, subMonths } from 'date-fns';
+import { alias } from 'drizzle-orm/pg-core';
 
 export async function getRecords(input: Partial<GetRecordsSchema>) {
   noStore();
@@ -86,19 +94,34 @@ export async function getRecords(input: Partial<GetRecordsSchema>) {
             isSelectable: true,
           })
         : undefined,
+      !!input.ethnicity
+        ? filterColumn({
+            column: records.ethnicity,
+            value: input.ethnicity,
+            isSelectable: true,
+          })
+        : undefined,
+
+      !!input.gender
+        ? filterColumn({
+            column: records.gender,
+            value: input.gender,
+            isSelectable: true,
+          })
+        : undefined,
+      !!input.birthPlace
+        ? filterColumn({
+            column: records.birthPlace,
+            value: input.birthPlace,
+            isSelectable: true,
+          })
+        : undefined,
 
       !!input.birthday
         ? and(
             gte(records.birthday, new Date(input.birthday.split(',')[0])),
             lte(records.birthday, new Date(input.birthday.split(',')[1])),
           )
-        : undefined,
-      input.religion
-        ? filterColumn({
-            column: records.religion,
-            value: input.religion,
-            isSelectable: true,
-          })
         : undefined,
 
       input.isPartyMember !== undefined
@@ -121,20 +144,23 @@ export async function getRecords(input: Partial<GetRecordsSchema>) {
             isSelectable: true,
           })
         : undefined,
-      !!input.englishCertification
-        ? filterColumn({
-            column: records.englishCertification,
-            value: input.englishCertification,
-            isSelectable: true,
-          })
+      !!input.departments
+        ? eq(recordsDepartments.departmentId, input.departments)
         : undefined,
-      !!input.technologyCertification
-        ? filterColumn({
-            column: records.technologyCertification,
-            value: input.technologyCertification,
-            isSelectable: true,
-          })
-        : undefined,
+      // !!input.englishCertification
+      //   ? filterColumn({
+      //       column: records.englishCertification,
+      //       value: input.englishCertification,
+      //       isSelectable: true,
+      //     })
+      //   : undefined,
+      // !!input.technologyCertification
+      //   ? filterColumn({
+      //       column: records.technologyCertification,
+      //       value: input.technologyCertification,
+      //       isSelectable: true,
+      //     })
+      //   : undefined,
 
       fromDate ? gte(records.createdAt, fromDate) : undefined,
       toDate ? lte(records.createdAt, toDate) : undefined,
@@ -144,19 +170,60 @@ export async function getRecords(input: Partial<GetRecordsSchema>) {
         ? and(...expressions)
         : or(...expressions);
     const { data, total } = await db.transaction(async tx => {
+      const departmentIds = await tx
+        .select({ id: departments.id })
+        .from(departments)
+        .execute()
+        .then(res => res?.map(department => department.id));
+      // console.log(departmentIds);
       const data = await tx
         .select({
           ...getTableColumns(records),
+          id: recordsDepartments.id,
+          // record: records,
+          department: departments,
+          record: {
+            id: records.id,
+            fullName: records.fullName,
+            code: records.code,
+          },
           religion: {
             name: religions.name,
             id: religions.id,
           },
+          ethnicity: {
+            name: ethnicities.name,
+            id: ethnicities.id,
+          },
+          civilServantRank: {
+            code: civilServantRanks.code,
+            name: civilServantRanks.name,
+            id: civilServantRanks.id,
+          },
+          salaryGrade: {
+            name: salaryGrades.name,
+            id: salaryGrades.id,
+          },
+          salaryFactor: records.salaryFactor,
         })
-        .from(records)
+        .from(recordsDepartments)
         .limit(input.per_page!)
         .offset(offset)
         .where(where)
+        .leftJoin(records, eq(recordsDepartments.recordId, records.id))
+        .leftJoin(
+          departments,
+          eq(recordsDepartments.departmentId, departments.id),
+        )
+
+        .leftJoin(ethnicities, eq(records.ethnicity, ethnicities.id))
         .leftJoin(religions, eq(records.religion, religions.id))
+        .leftJoin(
+          civilServantRanks,
+          eq(records.civilServantRankId, civilServantRanks.id),
+        )
+        .leftJoin(salaryGrades, eq(records.salaryGradeId, salaryGrades.id))
+
         .orderBy(
           column && column in records
             ? order === 'asc'
@@ -164,11 +231,25 @@ export async function getRecords(input: Partial<GetRecordsSchema>) {
               : desc(records[column])
             : desc(records.id),
         );
+
       const total = await tx
         .select({
           count: count(),
         })
-        .from(records)
+        .from(recordsDepartments)
+        .leftJoin(records, eq(recordsDepartments.recordId, records.id))
+        .leftJoin(
+          departments,
+          eq(recordsDepartments.departmentId, departments.id),
+        )
+
+        .leftJoin(ethnicities, eq(records.ethnicity, ethnicities.id))
+        .leftJoin(religions, eq(records.religion, religions.id))
+        .leftJoin(
+          civilServantRanks,
+          eq(records.civilServantRankId, civilServantRanks.id),
+        )
+        .leftJoin(salaryGrades, eq(records.salaryGradeId, salaryGrades.id))
         .where(where)
         .execute()
         .then(res => res[0]?.count ?? 0);
@@ -186,46 +267,19 @@ export async function getRecords(input: Partial<GetRecordsSchema>) {
     return { data: [], pageCount: 0 };
   }
 }
-
-export async function getRecordsRetired(input: GetListRecordsRetireSchema) {
+export async function getAllRecordsRetired() {
   noStore();
   try {
-    const offset = (input.page! - 1) * input.per_page!;
-    const [column, order] = (input.sort?.split('.').filter(Boolean) ?? [
-      'createdAt',
-      'desc',
-    ]) as [keyof RecordsRetirement | undefined, 'asc' | 'desc' | undefined];
-    const expressions: (SQL<unknown> | undefined)[] = [
-      input.fullName
-        ? filterColumn({
-            column: records.fullName,
-            value: input.fullName,
-          })
-        : undefined,
-      !!input.retireDate
-        ? and(
-            gte(
-              recordsRetirement.retireDate,
-              new Date(input.retireDate.split(',')[0]),
-            ),
-            lte(
-              recordsRetirement.retireDate,
-              new Date(input.retireDate.split(',')[1]),
-            ),
-          )
-        : undefined,
-      !!input.retirementType
-        ? filterColumn({
-            column: recordsRetirement.retirementType,
-            value: input.retirementType,
-            isSelectable: true,
-          })
-        : undefined,
-    ];
-    const where: DrizzleWhere<Records> =
-      !input.operator || input.operator === 'and'
-        ? and(...expressions)
-        : or(...expressions);
+    const data = await db.select().from(recordsRetirement);
+    return { data };
+  } catch (error) {
+    console.error('Error getting records:', error);
+    return { data: [], pageCount: 0 };
+  }
+}
+export async function getRecordsRetired(input?: GetListRecordsRetireSchema) {
+  noStore();
+  try {
     const { data, total } = await db.transaction(async tx => {
       const data = await tx
         .select({
@@ -234,18 +288,21 @@ export async function getRecordsRetired(input: GetListRecordsRetireSchema) {
             fullName: records.fullName,
             code: records.code,
           },
+          department: {
+            name: departments.name,
+            id: departments.id,
+          },
         })
         .from(recordsRetirement)
+
         .leftJoin(records, eq(recordsRetirement.recordId, records.id))
-        .limit(input.per_page!)
-        .offset(offset)
-        .where(where)
-        .orderBy(
-          column && column in recordsRetirement
-            ? order === 'asc'
-              ? asc(recordsRetirement[column])
-              : desc(recordsRetirement[column])
-            : desc(recordsRetirement.id),
+        .leftJoin(
+          recordsDepartments,
+          eq(recordsDepartments.recordId, records.id),
+        )
+        .leftJoin(
+          departments,
+          eq(recordsDepartments.departmentId, departments.id),
         );
       const total = await tx
         .select({
@@ -253,7 +310,6 @@ export async function getRecordsRetired(input: GetListRecordsRetireSchema) {
         })
         .from(recordsRetirement)
         .leftJoin(records, eq(recordsRetirement.recordId, records.id))
-        .where(where)
         .execute()
         .then(res => res[0]?.count ?? 0);
 
@@ -263,7 +319,7 @@ export async function getRecordsRetired(input: GetListRecordsRetireSchema) {
       };
     });
 
-    const pageCount = Math.ceil(total / input.per_page!);
+    const pageCount = 1;
     return { data, pageCount };
   } catch (error) {
     console.error('Error getting records:', error);
@@ -277,9 +333,20 @@ export async function getRecordsRetirement() {
     const data = await db
       .select({
         ...getTableColumns(records),
+        department: {
+          name: departments.name,
+          id: departments.id,
+        },
       })
-      .from(records)
-      .where(sql`id NOT IN (SELECT record_id FROM records_retirement)`);
+      .from(recordsDepartments)
+      .leftJoin(
+        departments,
+        eq(recordsDepartments.departmentId, departments.id),
+      )
+      .leftJoin(records, eq(recordsDepartments.recordId, records.id))
+      .where(
+        sql`records.id NOT IN (SELECT record_id  FROM records_retirement)`,
+      );
 
     return {
       data,
@@ -308,6 +375,91 @@ export async function _getRecords() {
   }
 }
 
+export async function getAllIncreasedSalaryRegular() {
+  noStore();
+  try {
+    const g1 = alias(salaryGrades, 'g1');
+    const g2 = alias(salaryGrades, 'g2');
+    const data = await db
+      .select({
+        ...getTableColumns(recordsIncreaseSalaryRegular),
+        salaryGrade: {
+          name: g1.name,
+          id: g1.id,
+        },
+        previousSalaryGrade: {
+          name: g2.name,
+          id: g2.id,
+        },
+        record: {
+          id: records.id,
+          fullName: records.fullName,
+          code: records.code,
+        },
+        department: {
+          id: departments.id,
+          name: departments.name,
+        },
+      })
+
+      .from(recordsIncreaseSalaryRegular)
+      .leftJoin(
+        departments,
+        eq(recordsIncreaseSalaryRegular.department, departments.id),
+      )
+      .leftJoin(g1, eq(recordsIncreaseSalaryRegular.salaryGrade, g1.id))
+      .leftJoin(g2, eq(recordsIncreaseSalaryRegular.previousSalaryGrade, g2.id))
+      .leftJoin(records, eq(recordsIncreaseSalaryRegular.recordId, records.id));
+
+    return {
+      data,
+      error: null,
+    };
+  } catch (err) {
+    console.error('Error getting record:', err);
+    return {
+      data: [],
+      error: err,
+    };
+  }
+}
+export async function getAllIncreasedSalaryEarly() {
+  noStore();
+  try {
+    const data = await db
+      .select({
+        ...getTableColumns(recordsIncreaseSalaryEarly),
+        record: {
+          id: records.id,
+          fullName: records.fullName,
+          code: records.code,
+        },
+        department: {
+          id: departments.id,
+          name: departments.name,
+        },
+      })
+
+      .from(recordsIncreaseSalaryEarly)
+      .leftJoin(
+        departments,
+        eq(recordsIncreaseSalaryEarly.department, departments.id),
+      )
+
+      .leftJoin(records, eq(recordsIncreaseSalaryEarly.recordId, records.id));
+
+    return {
+      data,
+      error: null,
+    };
+  } catch (err) {
+    console.error('Error getting record:', err);
+    return {
+      data: [],
+      error: err,
+    };
+  }
+}
 export async function getRecordById(id: string) {
   noStore();
   try {
@@ -339,9 +491,17 @@ export async function getContractsRecordById(id: string) {
       .select({
         ...getTableColumns(recordsContract),
         record: records,
+        formRecruitment: {
+          name: formRecruitments.name,
+          id: formRecruitments.id,
+        },
       })
       .from(recordsContract)
       .leftJoin(records, eq(records.id, recordsContract.recordId))
+      .leftJoin(
+        formRecruitments,
+        eq(recordsContract.recruimentType, formRecruitments.id),
+      )
       .where(eq(records.id, id));
 
     return {
@@ -646,6 +806,29 @@ export async function getRelativesRecordById(id: string) {
     };
   }
 }
+export async function getLanguagesRecordById(id: string) {
+  noStore();
+  try {
+    const data = await db
+      .select({
+        ...getTableColumns(recordsLanguages),
+      })
+      .from(recordsLanguages)
+      .leftJoin(languages, eq(recordsLanguages.language, languages.id))
+      .where(eq(records.id, id));
+
+    return {
+      data,
+      error: null,
+    };
+  } catch (err) {
+    console.error('Error getting record:', err);
+    return {
+      data: [],
+      error: err,
+    };
+  }
+}
 export async function getHousesRecordById(id: string) {
   noStore();
   try {
@@ -694,6 +877,31 @@ export async function getLandsRecordById(id: string) {
     };
   }
 }
+
+// export async function getRecordsCanIncreaseSalary() {
+//   noStore();
+//   try {
+//     // date
+//     const now = new Date();
+//     const data = await db
+//       .select({
+//         ...getTableColumns(records),
+//       })
+//       .from(records)
+//       .where(eq(records.dateOfAppointment));
+
+//     return {
+//       data,
+//       error: null,
+//     };
+//   } catch (err) {
+//     console.error('Error getting records:', err);
+//     return {
+//       data: [],
+//       error: err,
+//     };
+//   }
+// }
 
 export async function getCountRecords() {
   noStore();

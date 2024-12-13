@@ -38,7 +38,7 @@ export function FancyMultiCombobox({
   callback,
   id,
 }: FancyMultiSelectProps) {
-  // console.log(dataset);
+  // // console.log(dataset);
   const inputRef = React.useRef<HTMLInputElement>(null);
   const [open, setOpen] = React.useState(false);
 
@@ -63,7 +63,7 @@ export function FancyMultiCombobox({
       const input = inputRef.current;
       if (input) {
         if (e.key === 'Delete' || e.key === 'Backspace') {
-          console.log(selected);
+          // console.log(selected);
           if (input.value === '') {
             setSelected(prev => {
               const newSelected = [...prev];
@@ -130,8 +130,8 @@ export function FancyMultiCombobox({
       <div className="relative mt-2">
         <CommandList>
           {open && selectables?.length > 0 ? (
-            <div className="absolute top-0 z-10 w-full rounded-md border bg-popover text-popover-foreground shadow-md outline-none animate-in">
-              <CommandGroup className="h-full overflow-auto">
+            <div className="absolute  top-0 z-10 w-full rounded-md border bg-popover text-popover-foreground shadow-md outline-none animate-in">
+              <CommandGroup className="h-fit max-h-56 overflow-auto">
                 {selectables.map(data => {
                   return (
                     <CommandItem

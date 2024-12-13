@@ -29,7 +29,10 @@ export default function RecordDisciplinesTable({
 }: RecordsDisciplineTableProps) {
   const { data } = use(recordDisciplines);
 
-  const columns = React.useMemo(() => getColumns(), []);
+  const columns = React.useMemo(
+    () => getColumns(departments, formDisciplines),
+    [],
+  );
   const { featureFlags } = useTable();
 
   const filterFields: DataTableFilterField<any>[] = [];

@@ -52,7 +52,7 @@ export function getColumns(): ColumnDef<any>[] {
         </div>
       ),
       cell: ({ cell }) => (
-        <div className="w-20">{cell.getValue() as React.ReactNode}</div>
+        <div className="w-full">{cell.getValue() as React.ReactNode}</div>
       ),
       enableSorting: false,
       enableHiding: true,
@@ -69,7 +69,7 @@ export function getColumns(): ColumnDef<any>[] {
         </div>
       ),
       cell: ({ cell }) => (
-        <div className="w-20">{cell.getValue() as React.ReactNode}</div>
+        <div className="w-full">{cell.getValue() as React.ReactNode}</div>
       ),
       enableSorting: false,
       enableHiding: true,
@@ -112,7 +112,7 @@ export function getColumns(): ColumnDef<any>[] {
         </div>
       ),
       cell: ({ cell }) => (
-        <div className="w-20">
+        <div className="w-full">
           {
             dayjs(cell.getValue() as string).format(
               'D-MM-YYYY',

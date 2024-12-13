@@ -114,3 +114,24 @@ export function isImage(filename: string) {
   const ext = getFileExt(filename);
   return ['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(ext ?? '');
 }
+
+export function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+export function flat(a, keyChildren = 'children') {
+  return a.reduce((flattened, { children, ...rest }) => {
+    return flattened
+      .concat([{ ...rest }])
+      .concat(children ? flat(children) : []);
+  }, []);
+}
+
+export function extractDateParts(date: Date | null) {
+  if (!date) return null;
+  return {
+    day: date.getDate(),
+    month: date.getMonth() + 1, // Months are 0-indexed
+    year: date.getFullYear(),
+  };
+}

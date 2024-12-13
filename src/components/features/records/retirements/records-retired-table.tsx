@@ -12,29 +12,20 @@ import { getColumns } from './records-retired-column';
 
 export interface RecordsNearRetirementTableProps {
   recordsRetired: ReturnType<typeof getRecordsRetired>;
+  cDepartment: any;
 }
 export default function RecordsRetiredTable({
   recordsRetired,
+  cDepartment,
 }: RecordsNearRetirementTableProps) {
   const { data, pageCount } = use(recordsRetired);
 
   const columns = React.useMemo(() => getColumns(), []);
   const { featureFlags } = useTable();
 
-  const filterFieldsText: DataTableFilterField<any>[] = [
-    {
-      label: 'Họ và tên',
-      value: 'fullName',
-      placeholder: 'Tìm kiếm theo họ và tên',
-    },
-    {
-      label: 'Mã hồ sơ',
-      value: 'code',
-      placeholder: 'Tìm kiếm theo mã hồ sơ',
-    },
-  ];
+  const filterFieldsText: DataTableFilterField<any>[] = [];
   const { table } = useDataTable({
-    data,
+    data: data.filter(r => r?.department?.id === cDepartment?.id),
     columns,
     enableAdvancedFilter: featureFlags.includes('advancedFilter'),
     pageCount,
@@ -54,10 +45,7 @@ export default function RecordsRetiredTable({
         filterFields={filterFieldsText}
         btnView={false}
       >
-        <DataTableToolbarActions
-          table={table}
-          fileNameExport="record-retired"
-        />
+        <DataTableToolbarActions table={table} />
       </DataTableAdvancedToolbar>
     </DataTable>
   );

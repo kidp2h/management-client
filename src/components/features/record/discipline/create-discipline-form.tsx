@@ -1,9 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ReloadIcon } from '@radix-ui/react-icons';
-import {
-  Building,
-  ShieldMinus,
-} from 'lucide-react';
+import { Building, ShieldMinus } from 'lucide-react';
 import React, { use, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -30,6 +27,7 @@ import {
 import { Combobox } from '@/components/ui/combobox';
 import { getAllDepartments } from '@/db/queries/departments';
 import { getAllFormDisciplines } from '@/db/queries/form-disciplines';
+import { flat } from '@/lib/utils';
 
 export interface RecordsDisciplineFormProps {
   records: ReturnType<typeof _getRecords>;
@@ -51,7 +49,7 @@ export default function CreateDisciplineForm({
     defaultValues: {},
   });
   // const { data } = use(records);
-  const { data: dataDepartments } = use(departments);
+  const resultDepartments = use(departments);
   const { data: dataFormDisciplines } = use(formDisciplines);
   const [openForm, setOpenForm] = React.useState(false);
   const [openList, setOpenList] = React.useState(false);
@@ -60,7 +58,7 @@ export default function CreateDisciplineForm({
   const [selectedRecords, setSelectedRecords] = React.useState<Data[]>([]);
   const onSubmit = (values: CreateDisciplineSchema) => {
     startCreateTransition(async () => {
-      console.log(values);
+      // console.log(values);
       const { error } = await createDiscipline({
         ...values,
         recordId: props.recordId,
@@ -159,7 +157,7 @@ export default function CreateDisciplineForm({
                     field={field}
                     placeholder="Chọn cơ quan quyết định"
                     dataset={
-                      dataDepartments?.map(d => ({
+                      flat(resultDepartments?.data || [])?.map(d => ({
                         label: d.name,
                         value: d.id,
                       })) || []

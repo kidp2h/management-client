@@ -2,13 +2,11 @@ import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 import type { ColumnDef } from '@tanstack/react-table';
 import dayjs from 'dayjs';
 import {
-  Check,
   CircleUser,
   History,
-  Key,
+  Mail,
   ShieldPlus,
   Timer,
-  UserCircle,
 } from 'lucide-react';
 import React from 'react';
 
@@ -22,20 +20,12 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
 import { DeleteUsersDialog } from './delete-user-dialog';
 import UpdateUserForm from './update-user-form';
 import { Roles } from '@/db/schema';
-import { toast } from 'sonner';
-import { updateMetadata } from '@/lib/clerk';
 
 export interface DataColumnsUsers {
   roles: Roles[];
@@ -86,7 +76,7 @@ export function getColumns({ roles }: DataColumnsUsers): ColumnDef<any, any>[] {
       ),
     },
     {
-      accessorKey: 'publicMetadata.roleName',
+      accessorKey: 'publicMetadata.role',
       meta: {
         label: 'Vai trò',
       },
@@ -96,14 +86,55 @@ export function getColumns({ roles }: DataColumnsUsers): ColumnDef<any, any>[] {
           <DataTableColumnHeader column={column} title="Vai trò" />
         </div>
       ),
-      cell: ({ cell }) => (
+      cell: ({ cell, row }) => (
+        <div className="flex w-full items-center gap-2 flex-wrap">
+          {row.original.publicMetadata.role?.map((role: any) => {
+            return (
+              <Badge
+                key={`${role.id}-${row.original.id}`}
+                roundedType="md"
+                className="flex w-full justify-center"
+                variant={role.name ? 'default' : 'outline'}
+              >
+                {role.name || 'Chưa có'}
+              </Badge>
+            );
+          }) || (
+            <Badge
+              roundedType="md"
+              className="flex w-full justify-center"
+              variant="outline"
+            >
+              Chưa có
+            </Badge>
+          )}
+        </div>
+      ),
+    },
+    {
+      accessorKey: 'emailAddress',
+      meta: {
+        label: 'Địa chỉ email',
+      },
+      header: ({ column }) => (
+        <div className="flex flex-row items-center gap-1 ">
+          <Mail className="mr-2 size-5 text-pink-500 " />
+          <DataTableColumnHeader column={column} title="Địa chỉ email" />
+        </div>
+      ),
+      cell: ({ cell, row }) => (
         <div className="flex w-full items-center">
+          {/* <pre>{JSON.stringify(row.original, null, 2)}</pre> */}
           <Badge
             roundedType="md"
             className="flex w-full justify-center"
-            variant={cell.getValue() ? 'default' : 'outline'}
+            variant={
+              row?.original.emailAddresses?.[0]?.emailAddress
+                ? 'default'
+                : 'outline'
+            }
           >
-            {cell.getValue() || 'Chưa có'}
+            {row?.original.emailAddresses?.[0]?.emailAddress || 'Chưa có'}
           </Badge>
         </div>
       ),
@@ -204,24 +235,9 @@ export function getColumns({ roles }: DataColumnsUsers): ColumnDef<any, any>[] {
               onOpenChange={setShowUpdateUserSheet}
               data={row.original}
               form={UpdateUserForm}
+              dataset={{ roles }}
+              fieldConfig={{}}
               name="tài khoản"
-              fieldConfig={{
-                username: {
-                  inputProps: {
-                    type: 'text',
-                    placeholder: row.original.username,
-                  },
-
-                  icon: UserCircle,
-                },
-                password: {
-                  inputProps: {
-                    type: 'text',
-                    placeholder: 'Mật khẩu',
-                  },
-                  icon: Key,
-                },
-              }}
             />
             <DeleteUsersDialog
               name="tài khoản"
@@ -255,53 +271,6 @@ export function getColumns({ roles }: DataColumnsUsers): ColumnDef<any, any>[] {
                   Xoá
                   {/* <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut> */}
                 </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuLabel className="text-xs font-bold uppercase text-muted-foreground">
-                  Chỉnh sửa nhanh
-                </DropdownMenuLabel>
-                <DropdownMenuSub>
-                  <DropdownMenuSubTrigger>Vai trò</DropdownMenuSubTrigger>
-                  <DropdownMenuSubContent>
-                    <DropdownMenuRadioGroup
-                      value={row.original.label}
-                      onValueChange={value => {
-                        startUpdateTransition(async () => {
-                          if (value) {
-                            toast.promise(
-                              updateMetadata(row.original.id, {
-                                roleId: value,
-                                roleName: roles.find(r => r.id === value)?.name,
-                              }),
-                              {
-                                loading: 'Đang cập nhật...',
-                                success: 'Cập nhật thành công',
-                                error: 'Cập nhật thất bại',
-                              },
-                            );
-                          }
-                        });
-                      }}
-                    >
-                      {roles?.map(r => (
-                        <DropdownMenuRadioItem
-                          key={r.id}
-                          value={r.id}
-                          disabled={
-                            isUpdatePending ||
-                            r.id === row.original.publicMetadata.roleId
-                          }
-                        >
-                          <div className="flex flex-row items-center justify-center gap-2">
-                            {r.name}
-                            {r.id === row.original.publicMetadata.roleId && (
-                              <Check className="size-4" />
-                            )}
-                          </div>
-                        </DropdownMenuRadioItem>
-                      ))}
-                    </DropdownMenuRadioGroup>
-                  </DropdownMenuSubContent>
-                </DropdownMenuSub>
               </DropdownMenuContent>
             </DropdownMenu>
           </>

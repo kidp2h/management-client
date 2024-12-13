@@ -25,7 +25,7 @@ export default function RecordCommendationsTable({
   appellations,
 }: RecordsCommendationTableProps) {
   const { data } = use(recordCommendations);
-  console.log(appellations);
+  // console.log(appellations);
   const columns = React.useMemo(() => getColumns(appellations), []);
   const { featureFlags } = useTable();
 

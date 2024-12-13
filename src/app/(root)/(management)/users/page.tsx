@@ -5,6 +5,7 @@ import React from 'react';
 import { UsersManagementSection } from '@/components/features/users/users-management-section';
 import type { SearchParams } from '@/types';
 import { getAllRoles } from '@/db/queries/roles';
+import { getAllDepartments } from '@/db/queries/departments';
 
 type RecordsManagementPageProps = {
   searchParams: SearchParams;
@@ -12,7 +13,7 @@ type RecordsManagementPageProps = {
 export default async function UsersManagementPage({
   searchParams,
 }: RecordsManagementPageProps) {
-  console.log(searchParams);
+  // console.log(searchParams);
   const username =
     typeof searchParams.username === 'string'
       ? searchParams.username?.split('~')[0]
@@ -25,12 +26,16 @@ export default async function UsersManagementPage({
     if (username && username.length >= 3) {
       query.username = `${username}`;
     }
-    const [roles] = await Promise.all([getAllRoles()]);
+    const [roles, departments] = await Promise.all([
+      getAllRoles(),
+      getAllDepartments(),
+    ]);
     const users = await clerkClient().users.getUserList(query);
     return (
       <UsersManagementSection
         users={JSON.parse(JSON.stringify(users.data))}
         pageCount={Math.ceil(users.totalCount / 10)}
+        departments={departments?.data || []}
         roles={roles.data || []}
       />
     );

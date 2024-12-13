@@ -84,7 +84,7 @@ export function getColumns(): ColumnDef<any>[] {
         />
       ),
       cell: ({ cell }) => {
-        console.log(cell.getValue());
+        // console.log(cell.getValue());
         return (
           <div className="w-full flex flex-row gap-2">
             {(cell.getValue() as any)?.map((doc: any) => (

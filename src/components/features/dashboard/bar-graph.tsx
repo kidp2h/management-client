@@ -39,7 +39,7 @@ export interface BarGraphProps {
   data: BarGraphData;
 }
 export function BarGraph({ data }: BarGraphProps) {
-  console.log(data);
+  // console.log(data);
   const [activeChart, setActiveChart] =
     React.useState<keyof typeof chartConfig>('disciplined');
   // const chartData = data.applicationsRecent3Months;

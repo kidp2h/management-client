@@ -1,14 +1,8 @@
-import {
-  eq,
-  getTableColumns,
-} from 'drizzle-orm';
+import { eq, getTableColumns } from 'drizzle-orm';
 import { unstable_noStore as noStore } from 'next/cache';
 
 import { db } from '@/db';
-import {
-  records,
-  recordsCommendation,
-} from '@/db/schema';
+import { appellations, records, recordsCommendation } from '@/db/schema';
 
 // export async function getRecordsCommendation(
 //   input: Partial<GetCommendationRecordSchema>,
@@ -115,8 +109,13 @@ export async function getRecordCommendationsById(id: string) {
       .select({
         ...getTableColumns(recordsCommendation),
         record: records,
+        award: {
+          id: appellations.id,
+          name: appellations.name,
+        },
       })
       .from(recordsCommendation)
+      .leftJoin(appellations, eq(recordsCommendation.award, appellations.id))
       .leftJoin(records, eq(records.id, recordsCommendation.recordId))
       .where(eq(records.id, id));
 

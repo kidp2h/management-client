@@ -12,7 +12,7 @@ import { eq, inArray } from 'drizzle-orm';
 export async function createTraining(
   input: CreateTrainingSchema & { recordId: string },
 ) {
-  console.log(input);
+  // console.log(input);
   noStore();
   try {
     await db
@@ -60,7 +60,7 @@ export async function updateTraining(
   input: UpdateTrainingSchema & { id: string },
 ) {
   noStore();
-  console.log(input);
+  // console.log(input);
   try {
     await db
       .update(recordsTraining)

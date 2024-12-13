@@ -10,6 +10,7 @@
   "scripts": {
     "dev": "next dev -p 3111",
     "build": "next build",
+    "db:generate-erd": "drizzle-erd --in ./src/db/schema.ts --out erd.svg",
     "start": "next start",
     "clean": "rimraf .next out coverage",
     "lint": "eslint .",
@@ -67,6 +68,7 @@
     "drizzle-orm": "^0.33.0",
     "embla-carousel-react": "^8.2.1",
     "framer-motion": "^11.11.1",
+    "input-otp": "^1.4.1",
     "js-base64": "^3.7.7",
     "lodash": "^4.17.21",
     "lucide-react": "^0.441.0",
@@ -125,6 +127,7 @@
     "@vitejs/plugin-react": "^4.3.1",
     "commitizen": "^4.3.0",
     "dotenv-cli": "^7.4.2",
+    "drizzle-erd": "^0.0.1-alpha.11",
     "drizzle-kit": "^0.24.2",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",

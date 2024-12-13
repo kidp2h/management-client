@@ -33,6 +33,8 @@ export interface ComboboxPropsBase {
 
 export interface ComboboxNormalProps extends ComboboxPropsBase {
   type: 'normal';
+  value: string;
+  setValue: (value: string) => void;
 }
 
 export interface ComboboxFormProps extends ComboboxPropsBase {
@@ -40,7 +42,7 @@ export interface ComboboxFormProps extends ComboboxPropsBase {
   field: ControllerRenderProps<any>;
   form: UseFormReturn<any>;
   setValue?: (value: any) => void;
-  callback?: () => void;
+  callback?: (label?: string) => void;
 }
 
 type ComboboxProps = ComboboxNormalProps | ComboboxFormProps;
@@ -81,7 +83,7 @@ export function Combobox(props: ComboboxProps) {
     (entries: IntersectionObserverEntry[]) => {
       const target = entries[0];
       if (target.isIntersecting && visibleData.length < props.dataset.length) {
-        console.log('Load more items');
+        // console.log('Load more items');
         loadMoreItems();
       }
     },
@@ -110,12 +112,15 @@ export function Combobox(props: ComboboxProps) {
           value={data.value}
           onSelect={currentValue => {
             if (props.type === 'form') {
-              props.form.setValue(props.field.name, data.value);
-              props?.setValue?.(data.value);
-              props.callback?.();
+              props.form.setValue(props.field.name, data.value, {
+                shouldDirty: true,
+              });
+
+              props?.callback?.(data.label);
             } else {
               setValue(currentValue === value ? '' : currentValue);
             }
+            props?.setValue?.(data.value);
             setOpen(false);
           }}
         >
@@ -185,7 +190,16 @@ export function Combobox(props: ComboboxProps) {
           )}
         </PopoverTrigger>
         <PopoverContent className="w-full p-0">
-          <Command>
+          <Command
+            filter={(value, search) => {
+              const item = props.dataset.find(item => item.value === value);
+              if (!item) return 0;
+              if (item.label.toLowerCase().includes(search.toLowerCase()))
+                return 1;
+
+              return 0;
+            }}
+          >
             <CommandInput placeholder={props.placeholder} />
             <CommandList>
               <CommandEmpty>Không có dữ liệu</CommandEmpty>

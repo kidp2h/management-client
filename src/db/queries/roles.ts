@@ -1,11 +1,21 @@
 import 'server-only';
 
-import { and, asc, count, desc, gte, lte, or, type SQL } from 'drizzle-orm';
+import {
+  and,
+  asc,
+  count,
+  desc,
+  gte,
+  lte,
+  or,
+  sql,
+  type SQL,
+} from 'drizzle-orm';
 import { unstable_noStore as noStore } from 'next/cache';
 
 import { db } from '@/db';
 import type { Roles } from '@/db/schema';
-import { roles } from '@/db/schema';
+import { configRole, roles } from '@/db/schema';
 import { filterColumn } from '@/lib/filter-column';
 import type { GetRolesSchema } from '@/lib/zod/schemas/role-schema';
 import type { DrizzleWhere } from '@/types';
@@ -88,6 +98,46 @@ export async function getAllRoles() {
     return { data };
   } catch (error) {
     console.error('Error getting roles:', error);
+    return { data: null };
+  }
+}
+
+export async function getConfigRole() {
+  try {
+    const data = await db.select().from(configRole);
+    return { data };
+  } catch (error) {
+    console.error('Error getting config role:', error);
+    return { data: null };
+  }
+}
+
+export async function getDetailConfigRole() {
+  try {
+    const data = await db
+      .select({
+        roles,
+      })
+      .from(configRole)
+      .leftJoin(roles, sql`${roles.id} = ANY(${configRole.roleId})`);
+    return { data };
+  } catch (error) {
+    console.error('Error getting config role:', error);
+    return { data: null };
+  }
+}
+export async function getDetailConfigRoleApprove() {
+  try {
+    const data = await db
+      .select({
+        roles,
+      })
+      .from(configRole)
+      .leftJoin(roles, sql`${roles.id} = ANY(${configRole.rolesCanApprove})`);
+    console.log(data);
+    return { data };
+  } catch (error) {
+    console.error('Error getting config role:', error);
     return { data: null };
   }
 }

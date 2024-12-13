@@ -3,9 +3,7 @@ import React, { useCallback, useTransition } from 'react';
 import { toast } from 'sonner';
 
 import { updateCommendation } from '@/db/actions/commendations';
-import {
-  updateCommendationSchema,
-} from '@/lib/zod/schemas/record-schema';
+import { updateCommendationSchema } from '@/lib/zod/schemas/record-schema';
 import {
   Form,
   FormControl,
@@ -46,7 +44,7 @@ export default function UpdateCommendationForm({
   });
   const onSubmit = (values: z.infer<typeof updateCommendationSchema>) => {
     startUpdateTransition(async () => {
-      console.log(values);
+      // console.log(values);
       const { error } = await updateCommendation({
         ...values,
         id: data.id,

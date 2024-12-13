@@ -23,6 +23,8 @@ import { Combobox } from '@/components/ui/combobox';
 import { getAllDuties } from '@/db/queries/duties';
 import { getAllDepartments } from '@/db/queries/departments';
 import { Building, FlagTriangleLeft } from 'lucide-react';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { flat } from '@/lib/utils';
 
 export interface CreateWorkExperienceFormProps {
   onSuccess: () => void;
@@ -40,6 +42,7 @@ export default function CreateWorkExperienceForm({
   const { data: dataDuties } = React.use(duties);
   const { data: dataDepartments } = React.use(departments);
   const form = useForm<z.infer<typeof createWorkExperienceSchema>>({
+    resolver: zodResolver(createWorkExperienceSchema),
     defaultValues: {},
   });
   const onSubmit = (values: CreateWorkExperienceSchema) => {
@@ -134,7 +137,7 @@ export default function CreateWorkExperienceForm({
                   field={field}
                   className="w-full"
                   dataset={
-                    dataDepartments?.map(d => ({
+                    flat(dataDepartments)?.map(d => ({
                       label: d.name,
                       value: d.id,
                     })) || []

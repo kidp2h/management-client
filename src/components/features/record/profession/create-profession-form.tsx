@@ -14,7 +14,7 @@ export default function CreateProfessionForm({
   onSuccess,
   ...props
 }: CreateProfessionFormProps) {
-  console.log(props);
+  // console.log(props);
   const [isCreatePending, startCreateTransition] = useTransition();
   return (
     <AutoForm

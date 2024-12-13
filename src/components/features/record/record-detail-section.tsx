@@ -37,9 +37,7 @@ import RecordSalarySection from './circumstance/record-salary-section';
 import { getAllReligions } from '@/db/queries/religions';
 import { getAllPublicEmployeeRanks } from '@/db/queries/public-employee-ranks';
 import { getAllCivilServantRanks } from '@/db/queries/civil-servant-ranks';
-import { getAllPolicyObjects } from '@/db/queries/policy-objects';
 import { getAllMilitaryRanks } from '@/db/queries/military-ranks';
-import { getAllAcademicQualifications } from '@/db/queries/academic-qualifications';
 import { getAllAppellations } from '@/db/queries/appellations';
 import { getAllEthnicities } from '@/db/queries/ethnicities';
 import { getAllSalaryGrades } from '@/db/queries/salary-grades';
@@ -48,10 +46,25 @@ import { getAllFamilyBackgrounds } from '@/db/queries/family-backgrounds';
 import { getAllPartyCommittees } from '@/db/queries/party-committees';
 import { getAllDuties } from '@/db/queries/duties';
 import { getAllFormDisciplines } from '@/db/queries/form-disciplines';
-import { getAllDepartments } from '@/db/queries/departments';
+import {
+  getAllDepartments,
+  getDepartmentsByRecord,
+} from '@/db/queries/departments';
 import { getAllFormTrainings } from '@/db/queries/form-trainings';
 import RecordHistorySection from './history/record-history-section';
 import RecordAbroadSection from './abroad/record-abroad-section';
+import { getRecordLanguagesById } from '@/db/queries/record-languages';
+import RecordLanguagesTable from './language/record-language-table';
+import { getAllLanguages } from '@/db/queries/languages';
+import { getAllFormRecruitments } from '@/db/queries/form-recruitments';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import RecordDualsTable from './dual/record-dual-table';
+import { getRecordDualsById } from '@/db/queries/duals';
+import RecordSecondmentsTable from './secondment/record-secondment-table';
+import { getRecordSecondmentsById } from '@/db/queries/secondments';
+import { getAllTypeContracts } from '@/db/queries/type-contracts';
+import RecordPartiesTable from './party/record-party-table';
+import { getRecordPartiesById } from '@/db/queries/parties';
 
 export interface RecordDetailSectionProps {
   record: ReturnType<typeof getRecordById>;
@@ -60,6 +73,7 @@ export interface RecordDetailSectionProps {
   professions: ReturnType<typeof getProfessionsRecordById>;
   recordDisciplines: ReturnType<typeof getRecordDisciplinesById>;
   recordCommendations: ReturnType<typeof getRecordCommendationsById>;
+  recordLanguages: ReturnType<typeof getRecordLanguagesById>;
   workExperiences: ReturnType<typeof getWorkExperiencesRecordById>;
   relationships: ReturnType<typeof getRelationshipRecordById>;
   salaries: ReturnType<typeof getSalariesRecordById>;
@@ -73,11 +87,12 @@ export interface RecordDetailSectionProps {
   religions: ReturnType<typeof getAllReligions>;
   publicEmployeeRanks: ReturnType<typeof getAllPublicEmployeeRanks>;
   civilServantRanks: ReturnType<typeof getAllCivilServantRanks>;
-  policyObjects: ReturnType<typeof getAllPolicyObjects>;
+  // policyObjects: ReturnType<typeof getAllPolicyObjects>;
   militaryRanks: ReturnType<typeof getAllMilitaryRanks>;
-  academicQualifications: ReturnType<typeof getAllAcademicQualifications>;
+  // academicQualifications: ReturnType<typeof getAllAcademicQualifications>;
   qualifications: ReturnType<typeof getAllQualifications>;
   appellations: ReturnType<typeof getAllAppellations>;
+  languages: ReturnType<typeof getAllLanguages>;
   ethnicities: ReturnType<typeof getAllEthnicities>;
   salaryGrades: ReturnType<typeof getAllSalaryGrades>;
   familyBackgrounds: ReturnType<typeof getAllFamilyBackgrounds>;
@@ -86,6 +101,12 @@ export interface RecordDetailSectionProps {
   formDisciplines: ReturnType<typeof getAllFormDisciplines>;
   departments: ReturnType<typeof getAllDepartments>;
   formTrainings: ReturnType<typeof getAllFormTrainings>;
+  formRecruiments: ReturnType<typeof getAllFormRecruitments>;
+  departmentsOfRecord: ReturnType<typeof getDepartmentsByRecord>;
+  recordsDuals: ReturnType<typeof getRecordDualsById>;
+  recordsSecondments: ReturnType<typeof getRecordSecondmentsById>;
+  typeContracts: ReturnType<typeof getAllTypeContracts>;
+  recordParties: ReturnType<typeof getRecordPartiesById>;
 }
 export default function RecordDetailSection({
   record,
@@ -102,9 +123,9 @@ export default function RecordDetailSection({
   religions,
   publicEmployeeRanks,
   civilServantRanks,
-  policyObjects,
+  // policyObjects,
   militaryRanks,
-  academicQualifications,
+  // academicQualifications,
   qualifications,
   appellations,
   ethnicities,
@@ -119,6 +140,14 @@ export default function RecordDetailSection({
   oldRegimes,
   organizations,
   relatives,
+  recordLanguages,
+  languages,
+  formRecruiments,
+  recordsDuals,
+  departmentsOfRecord,
+  recordsSecondments,
+  typeContracts,
+  recordParties,
 }: RecordDetailSectionProps) {
   const { data } = React.use(record);
   const [tab, setTab] = React.useState('info');
@@ -147,38 +176,46 @@ export default function RecordDetailSection({
           orientation="vertical"
           data-order="vertical"
         >
-          <TabsList className="flex flex-col h-full justify-start items-start w-fit mb-5">
-            <TabsTrigger value="info">Thông tin chung</TabsTrigger>
-            {/* <TabsTrigger value="languagesCertification">
-              Chứng chỉ ngoại ngữ
-            </TabsTrigger>
+          <TabsList className="flex flex-row h-full justify-start items-start w-fit mb-5 bg-transparent">
+            <ScrollArea>
+              <TabsTrigger value="info">Thông tin chung</TabsTrigger>
+              <TabsTrigger value="languages">Ngoại ngữ</TabsTrigger>
+              {/*
             <TabsTrigger value="technologyCertification">
               Chứng chỉ tin học
             </TabsTrigger> */}
-            {/* <TabsTrigger value="contract">
-              Quá trình biên chế, hợp đồng
-            </TabsTrigger> */}
-            <TabsTrigger value="commendation">
-              22. Quá trình khen thưởng
-            </TabsTrigger>
-            <TabsTrigger value="discipline">23. Quá trình kỷ luật</TabsTrigger>
-            <TabsTrigger value="education">
-              26.Quá trình đào tạo và bồi dưỡng
-            </TabsTrigger>
-            <TabsTrigger value="workExperience">
-              27. Quá trình công tác
-            </TabsTrigger>
-            <TabsTrigger value="historyPersonal">
-              28. Đặc điểm lịch sử bản thân
-            </TabsTrigger>
-            <TabsTrigger value="relationWithForeign">
-              29. Quan hệ với nước ngoài
-            </TabsTrigger>
+              <TabsTrigger value="contract">
+                Quá trình biên chế, hợp đồng
+              </TabsTrigger>
+              <TabsTrigger value="commendation">
+                22. Quá trình khen thưởng
+              </TabsTrigger>
+              <TabsTrigger value="discipline">
+                23. Quá trình kỷ luật
+              </TabsTrigger>
+              <TabsTrigger value="education">
+                26.Quá trình đào tạo và bồi dưỡng
+              </TabsTrigger>
+              <TabsTrigger value="workExperience">
+                27. Quá trình công tác
+              </TabsTrigger>
+              <TabsTrigger value="historyPersonal">
+                28. Đặc điểm lịch sử bản thân
+              </TabsTrigger>
+              <TabsTrigger value="relationWithForeign">
+                29. Quan hệ với nước ngoài
+              </TabsTrigger>
 
-            <TabsTrigger value="relationship">30. Quan hệ gia đình</TabsTrigger>
-            <TabsTrigger value="salary">
-              31. Hoàn cảnh kinh tế gia đình
-            </TabsTrigger>
+              <TabsTrigger value="relationship">
+                30. Quan hệ gia đình
+              </TabsTrigger>
+              <TabsTrigger value="salary">
+                31. Hoàn cảnh kinh tế gia đình
+              </TabsTrigger>
+              <TabsTrigger value="dual">Quá trình kiêm nhiệm</TabsTrigger>
+              <TabsTrigger value="secondment">Quá trình biệt phái</TabsTrigger>
+              <TabsTrigger value="parties">Quá trình công tác Đảng</TabsTrigger>
+            </ScrollArea>
           </TabsList>
           <TabsContent value="info">
             {/* <div className="grid grid-cols-2 px-3">
@@ -278,9 +315,9 @@ export default function RecordDetailSection({
                 publicEmployeeRanks,
                 ethnicities,
                 civilServantRanks,
-                policyObjects,
+                // policyObjects,
                 militaryRanks,
-                academicQualifications,
+                // academicQualifications,
                 qualifications,
                 appellations,
                 salaryGrades,
@@ -291,7 +328,12 @@ export default function RecordDetailSection({
             />
           </TabsContent>
           <TabsContent value="contract" className="w-full">
-            <RecordContractSection contracts={contracts} id={data?.id || ''} />
+            <RecordContractSection
+              typeContracts={typeContracts}
+              contracts={contracts}
+              id={data?.id || ''}
+              formRecruitments={formRecruiments}
+            />
           </TabsContent>
           <TabsContent value="commendation" className="w-full">
             <div>
@@ -369,6 +411,32 @@ export default function RecordDetailSection({
               organizations={organizations}
               relatives={relatives}
             />
+          </TabsContent>
+          <TabsContent value="languages">
+            <RecordLanguagesTable
+              recordLanguages={recordLanguages}
+              languages={languages}
+              record={data}
+            />
+          </TabsContent>
+          <TabsContent value="dual">
+            <RecordDualsTable
+              duties={duties}
+              recordDuals={recordsDuals}
+              record={data}
+              departmentsOfRecord={departmentsOfRecord}
+            />
+          </TabsContent>
+          <TabsContent value="secondment">
+            <RecordSecondmentsTable
+              departments={departments}
+              recordSecondments={recordsSecondments}
+              record={data}
+              duties={duties}
+            />
+          </TabsContent>
+          <TabsContent value="parties">
+            <RecordPartiesTable recordParties={recordParties} record={data} />
           </TabsContent>
         </Tabs>
       </MainContent>

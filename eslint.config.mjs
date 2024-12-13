@@ -81,6 +81,7 @@ export default antfu(
       'style/arrow-parens': 'off',
       'style/operator-linebreak': 'off',
       'style/jsx-curly-newline': 'off',
+      'prefer-promise-reject-errors': 'off',
       'no-extra-boolean-cast': 'off',
       'react/no-useless-fragment': 'off',
       curly: 'off',
@@ -95,6 +96,8 @@ export default antfu(
       'unused-imports/no-unused-imports': 'warn',
       'unused-imports/no-unused-vars': 'warn',
       'tailwindcss/classnames-order': 'off',
+      'ts/no-use-before-define': 'off',
+      'unicorn/no-instanceof-array': 'off',
     },
   },
 );

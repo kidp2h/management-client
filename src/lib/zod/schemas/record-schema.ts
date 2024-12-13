@@ -2,11 +2,9 @@ import z from 'zod';
 
 import {
   enumBloodType,
-  enumContractType,
   enumQualifications,
   enumEnglishCertification,
   enumGender,
-  enumRecruitmentType,
   enumRelation,
   enumReligions,
   enumRetirementType,
@@ -16,6 +14,7 @@ import {
   enumTypeHouse,
   enumTypeLand,
   enumEthnicities,
+  nationalities,
 } from '@/db/schema';
 
 import { searchParamsSchema } from '.';
@@ -56,34 +55,36 @@ export const getRecordsSchema = z.object({
   ...recordSchema.shape,
   bloodType: z.string().optional(),
   rank: z.string().optional(),
-  englishCertification: z.string().optional(),
+  // englishCertification: z.string().optional(),
   religion: z.string().optional(),
   birthday: z.string().optional(),
-  technologyCertification: z.string().optional(),
+  // technologyCertification: z.string().optional(),
   gender: z.string().optional(),
+  birthPlace: z.string().optional(),
+  ethnicity: z.string().optional(),
+  departments: z.string().optional(),
 });
 export type GetRecordsSchema = z.infer<typeof getRecordsSchema>;
 
-export const createRecordSchema = (_ranks: string[]) => {
-  return z.object({
-    fullName: z
-      .string({
-        required_error: 'Họ và tên không được để trống',
-      })
-      .describe('Họ và tên'),
+export const createRecordSchema = z.object({
+  fullName: z
+    .string({
+      required_error: 'Họ và tên không được để trống',
+    })
+    .describe('Họ và tên'),
 
-    birthday: z
-      .date({
-        required_error: 'Ngày sinh không được để trống',
-      })
-      .describe('Ngày sinh'),
-    gender: z
-      .enum(enumGender, {
-        required_error: 'Giới tính không được để trống',
-      })
-      .describe('Giới tính'),
-  });
-};
+  birthday: z
+    .date({
+      required_error: 'Ngày sinh không được để trống',
+    })
+    .describe('Ngày sinh'),
+  gender: z
+    .enum(enumGender, {
+      required_error: 'Giới tính không được để trống',
+    })
+    .describe('Giới tính'),
+  deparments: z.array(z.string()),
+});
 
 export const updateInformationRecordSchema = z.object({
   fullName: z
@@ -93,13 +94,20 @@ export const updateInformationRecordSchema = z.object({
     .optional()
     .describe('Họ và tên'),
   otherName: z.string().optional().describe('Tên gọi khác'),
+  // avatar: z.string().optional().describe('Ảnh 4x6'),
+  ...fileSchema.shape,
+
   religion: z
     .enum(enumReligions, {
       required_error: 'Tôn giáo không được để trống',
     })
     .optional()
     .describe('Tôn giáo'),
-
+  affiliatedUnit: z.string().optional().describe('Đơn vị trực thuộc'),
+  serialNumber: z.string().optional().describe('Số hiệu cán bộ, công chức'),
+  baseUnit: z.string().optional().describe('Đơn vị cơ sở'),
+  _province: z.string().optional().describe('Tỉnh'),
+  overAllowance: z.string().optional().describe('Phụ cấp vượt khung'),
   birthday: z
     .date({
       required_error: 'Ngày sinh không được để trống',
@@ -159,7 +167,7 @@ export const updateInformationRecordSchema = z.object({
   address: z.string().optional().describe('Địa chỉ'),
   phoneNumber: z.string().optional().describe('Số điện thoại'),
   insuranceNumber: z.string().optional().describe('Số BHXH'),
-  salaryGrade: z.string().optional().describe('Bậc lương'),
+  salaryGradeId: z.string().optional().describe('Bậc lương'),
   salaryFactor: z.string().optional().describe('Hệ số lương'),
   percentageOfSalary: z.string().optional().describe('Phần trăm hưởng'),
   seniorityAllowance: z.string().optional().describe('Phụ cấp thâm niên'),
@@ -169,7 +177,7 @@ export const updateInformationRecordSchema = z.object({
     .optional()
     .describe('Ngày được hưởng phụ cấp thâm niên'),
   dateOfEntilement: z.date().optional().describe('Ngày được hưởng'),
-  classificationCode: z.string().optional().describe('Mã ngạch'),
+  civilServantRankId: z.string().optional().describe('Mã ngạch'),
   dateOfAppointment: z.date().optional().describe('Ngày bổ nhiệm'),
   dateOfEnlistment: z.date().optional().describe('Ngày nhập ngũ'),
   dateOfDemobilization: z.date().optional().describe('Ngày xuất ngũ'),
@@ -211,7 +219,26 @@ export const updateInformationRecordSchema = z.object({
   dateOfJoiningCurrentWorkPlace: z.date().optional(),
   currentMainWork: z.string().optional(),
 });
-
+export const createIncreaseSalaryRegularSchema = z.object({
+  department: z.string(),
+  decisionNumber: z.string(),
+  decisionDepartment: z.string(),
+  decisionDate: z.date(),
+  salaryGrade: z.string(),
+  previousSalaryGrade: z.string(),
+  previousSalaryFactor: z.string(),
+  preOverAllowance: z.string(),
+  salaryFactor: z.string(),
+  overAllowance: z.string(),
+});
+export const createIncreaseSalaryEarlySchema = z.object({
+  department: z.string(),
+  decisionNumber: z.string(),
+  decisionDepartment: z.string(),
+  decisionDate: z.date(),
+  previousSalaryFactor: z.string(),
+  salaryFactor: z.string(),
+});
 export const commendateRecordSchema = z
   .object({
     from: z.date({
@@ -242,7 +269,11 @@ export const getCommendationRecordSchema = z.object({
   _to: z.string().optional(),
 });
 export const createCommendationSchema = z.object({
-  year: z.string(),
+  from: z.date(),
+  to: z.date(),
+  reason: z.string(),
+  decisionNumber: z.string(),
+  year: z.string().optional(),
   award: z.string(),
 });
 export const updateCommendationSchema = createCommendationSchema.partial();
@@ -265,6 +296,13 @@ export const createDisciplineSchema = z.object({
   decisionDepartment: z.string(),
   formDiscipline: z.string(),
 });
+export const createPartySchema = z.object({
+  from: z.date(),
+  to: z.date(),
+  organization: z.string(),
+  dutyParty: z.string(),
+});
+export const updatePartySchema = createPartySchema.partial();
 export const updateDisciplineSchema = createDisciplineSchema.partial();
 
 export const getDisciplineRecordSchema = z.object({
@@ -308,7 +346,7 @@ export const getRemarkRecordSchema = z.object({
   _to: z.string().optional(),
 });
 export type GetRemarkRecordSchema = z.infer<typeof getRemarkRecordSchema>;
-export const updateRecordSchema = (_ranks: string[]) => {
+export const updateRecordSchema = () => {
   return z.object({
     fullName: z
       .string({
@@ -316,12 +354,7 @@ export const updateRecordSchema = (_ranks: string[]) => {
       })
       .optional()
       .describe('Họ và tên'),
-    religion: z
-      .enum(enumReligions, {
-        required_error: 'Tôn giáo không được để trống',
-      })
-      .optional()
-      .describe('Tôn giáo'),
+
     birthday: z
       .date({
         required_error: 'Ngày sinh không được để trống',
@@ -330,30 +363,7 @@ export const updateRecordSchema = (_ranks: string[]) => {
       .describe('Ngày sinh'),
     bloodType: z.enum(enumBloodType).optional().describe('Nhóm máu'),
 
-    englishCertification: z
-      .enum(enumEnglishCertification)
-      .optional()
-      .describe('Chứng chỉ tiếng Anh'),
-    technologyCertification: z
-      .enum(enumTechnologyCertification)
-      .optional()
-      .describe('Chứng chỉ tin học'),
     gender: z.enum(enumGender).optional().describe('Giới tính'),
-    isPartyMember: z
-      .boolean({
-        required_error: 'Đảng viên không được để trống',
-      })
-      .optional()
-      .describe('Đảng viên'),
-    qualification: z
-      .enum(enumQualifications, {
-        required_error: 'Trình độ không được để trống',
-      })
-      .describe('Trình độ')
-      .optional(),
-    salaryGrade: z.string().optional().describe('Bậc lương'),
-    salaryFactor: z.string().optional().describe('Hệ số lương'),
-    dateOfEntilement: z.date().optional().describe('Ngày được hưởng'),
   });
 };
 
@@ -383,21 +393,29 @@ export const getListRecordsRetireSchema = z.object({
 });
 
 export const createContractSchema = z.object({
-  from: z.date().describe('Ngày bắt đầu'),
-  to: z.date().describe('Ngày kết thúc'),
+  from: z
+    .date({
+      required_error: 'Không được để trống ngày bắt đầu',
+    })
+    .describe('Ngày bắt đầu'),
+  to: z
+    .date({
+      required_error: 'Không được để trống ngày kết thúc',
+    })
+    .describe('Ngày kết thúc'),
   decisionNumber: z
     .string({
       required_error: 'Không được để trống số quyết định',
     })
     .describe('Số quyết định'),
 
-  contractType: z
-    .enum(enumContractType, {
+  typeContract: z
+    .string({
       required_error: 'Không được để trống loại hợp đồng',
     })
     .describe('Loại hợp đồng'),
   recruimentType: z
-    .enum(enumRecruitmentType, {
+    .string({
       required_error: 'Không được để trống hình thức tuyển dụng',
     })
     .describe('Hình thức tuyển dụng'),
@@ -567,7 +585,8 @@ export const createWorkExperienceSchema = z.object({
     .date({
       required_error: 'Không được để trống',
     })
-    .describe('Đến năm'),
+    .describe('Đến năm')
+    .optional(),
   department: z
     .string({
       required_error: 'Không được để trống',
@@ -658,6 +677,112 @@ export const createOrganizationSchema = z.object({
   located: z.string({}).describe('Trụ sở tại'),
   do: z.string({}).describe('Làm gì'),
 });
+
+export const mobilizationRecordSchema = z.object({
+  department: z.string({
+    required_error: 'Không được để trống',
+  }),
+  dateMobilizate: z.date({
+    required_error: 'Không được để trống',
+  }),
+  decisionNumber: z.string({
+    required_error: 'Không được để trống',
+  }),
+  dateDecision: z.date({
+    required_error: 'Không được để trống',
+  }),
+  fromDepartment: z.string({
+    required_error: 'Không được để trống',
+  }),
+});
+export const sendRecordSchema = z.object({
+  decisionNumber: z.string({
+    required_error: 'Không được để trống',
+  }),
+  dateDecision: z.date({
+    required_error: 'Không được để trống',
+  }),
+  departmentDecision: z.string({
+    required_error: 'Không được để trống',
+  }),
+  funding: z.string({
+    required_error: 'Không được để trống',
+  }),
+  curriculum: z.string({
+    required_error: 'Không được để trống',
+  }),
+  school: z.string({
+    required_error: 'Không được để trống',
+  }),
+  country: z.enum(nationalities, {
+    required_error: 'Không được để trống',
+  }),
+  yearStart: z.date({
+    required_error: 'Không được để trống',
+  }),
+  yearEnd: z.date({
+    required_error: 'Không được để trống',
+  }),
+  qualification: z.string({
+    required_error: 'Không được để trống',
+  }),
+});
+export const acceptMobilizationSchema = z.object({
+  formSalary: z.string({
+    required_error: 'Không được để trống',
+  }),
+  civilServantRank: z.string({
+    required_error: 'Không được để trống',
+  }),
+  salaryGrade: z.string({
+    required_error: 'Không được để trống',
+  }),
+  dateSalary: z.date({
+    required_error: 'Không được để trống',
+  }),
+  duty: z.string({
+    required_error: 'Không được để trống',
+  }),
+  department: z.string({
+    required_error: 'Không được để trống',
+  }),
+});
+
+export const increaseSalarySchema = z.object({
+  decisionNumber: z.string({
+    required_error: 'Không được để trống',
+  }),
+  dateDecision: z.date({
+    required_error: 'Không được để trống',
+  }),
+  department: z.string({
+    required_error: 'Không được để trống',
+  }),
+  salaryGrade: z.string({
+    required_error: 'Không được để trống',
+  }),
+  salaryFactor: z.string({
+    required_error: 'Không được để trống',
+  }),
+  overAllowance: z.string({
+    required_error: 'Không được để trống',
+  }),
+});
+export const increaseSalaryEarlySchema = z.object({
+  decisionNumber: z.string({
+    required_error: 'Không được để trống',
+  }),
+  dateDecision: z.date({
+    required_error: 'Không được để trống',
+  }),
+  department: z.string({
+    required_error: 'Không được để trống',
+  }),
+
+  salaryFactor: z.string({
+    required_error: 'Không được để trống',
+  }),
+});
 export const updateOrganizationSchema = createOrganizationSchema.partial();
 
 export const createRelativeSchema = z.object({
@@ -673,12 +798,73 @@ export const createRelativeSchema = z.object({
 });
 export const updateRelativeSchema = createRelativeSchema.partial();
 
+export const createDualSchema = z.object({
+  decisionNumber: z
+    .string({
+      required_error: 'Không được để trống',
+    })
+    .describe('Số quyết định'),
+  department: z.string({
+    required_error: 'Không được để trống',
+  }),
+  startDate: z.date({
+    required_error: 'Không được để trống',
+  }),
+  endDate: z.date({
+    required_error: 'Không được để trống',
+  }),
+  duty: z.string({
+    required_error: 'Không được để trống',
+  }),
+  issuer: z.string({
+    required_error: 'Không được để trống',
+  }),
+  dateOfIssue: z.date({
+    required_error: 'Không được để trống',
+  }),
+});
+
+export const updateDualSchema = createDualSchema.partial();
+
+export const createSecondmentSchema = z.object({
+  decisionNumber: z
+    .string({
+      required_error: 'Không được để trống',
+    })
+    .describe('Số quyết định'),
+  department: z.string({
+    required_error: 'Không được để trống',
+  }),
+  startDate: z.date({
+    required_error: 'Không được để trống',
+  }),
+  endDate: z.date({
+    required_error: 'Không được để trống',
+  }),
+  duty: z.string({
+    required_error: 'Không được để trống',
+  }),
+  issuer: z.string({
+    required_error: 'Không được để trống',
+  }),
+  dateOfIssue: z.date({
+    required_error: 'Không được để trống',
+  }),
+});
+export const updateSecondmentSchema = createSecondmentSchema.partial();
+
 export const updateRelationshipSchema = createRelationshipSchema.partial();
+
+export const createLanguageSchema = z.object({
+  language: z.string().describe('Tên ngôn ngữ'),
+  mark: z.string().describe('Điểm/Bậc'),
+});
+export const updateLanguageSchema = createLanguageSchema.partial();
 export type GetListRecordsRetireSchema = z.infer<
   typeof getListRecordsRetireSchema
 >;
 export type ListRecordsRetireSchema = z.infer<typeof listRecordsRetireSchema>;
-export type CreateRecordSchema = z.infer<ReturnType<typeof createRecordSchema>>;
+export type CreateRecordSchema = z.infer<typeof createRecordSchema>;
 export type UpdateRecordSchema = z.infer<ReturnType<typeof updateRecordSchema>>;
 export type UpdateInformationRecordSchema = z.infer<
   typeof updateInformationRecordSchema
@@ -724,3 +910,22 @@ export type CreateOrganizationSchema = z.infer<typeof createOrganizationSchema>;
 export type UpdateOrganizationSchema = z.infer<typeof updateOrganizationSchema>;
 export type CreateRelativeSchema = z.infer<typeof createRelativeSchema>;
 export type UpdateRelativeSchema = z.infer<typeof updateRelativeSchema>;
+export type CreateLanguageSchema = z.infer<typeof createLanguageSchema>;
+export type UpdateLanguageSchema = z.infer<typeof updateLanguageSchema>;
+export type CreateMobilizationRecordSchema = z.infer<
+  typeof mobilizationRecordSchema
+>;
+export type CreateDualSchema = z.infer<typeof createDualSchema>;
+export type UpdateDualSchema = z.infer<typeof updateDualSchema>;
+
+export type CreateSecondmentSchema = z.infer<typeof createSecondmentSchema>;
+export type UpdateSecondmentSchema = z.infer<typeof updateSecondmentSchema>;
+export type CreateIncreaseSalaryRegularSchema = z.infer<
+  typeof createIncreaseSalaryRegularSchema
+>;
+export type CreateIncreaseSalaryEarlySchema = z.infer<
+  typeof createIncreaseSalaryEarlySchema
+>;
+export type CreateSendRecordSchema = z.infer<typeof sendRecordSchema>;
+export type CreatePartySchema = z.infer<typeof createPartySchema>;
+export type UpdatePartySchema = z.infer<typeof updatePartySchema>;

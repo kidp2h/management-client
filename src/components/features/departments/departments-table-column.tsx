@@ -16,8 +16,11 @@ import {
 
 import { DeleteDepartmentsDialog } from './delete-departments-dialog';
 import UpdateDepartmentForm from './update-department-form';
+import { getAllDepartments } from '@/db/queries/departments';
 
-export function getColumns(): ColumnDef<any>[] {
+export function getColumns(
+  allDepartments: ReturnType<typeof getAllDepartments>,
+): ColumnDef<any>[] {
   return [
     {
       id: 'select',
@@ -94,6 +97,9 @@ export function getColumns(): ColumnDef<any>[] {
               onOpenChange={setShowUpdateDepartmentSheet}
               data={row.original}
               form={UpdateDepartmentForm}
+              dataset={{
+                departments: allDepartments,
+              }}
               name="đơn vị"
               fieldConfig={{
                 name: {

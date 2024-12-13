@@ -12,13 +12,19 @@ import type { getContractsRecordById } from '@/db/queries/records';
 import RecordContractTable from './record-contract-table';
 import { Badge } from '@/components/ui/badge';
 import dayjs from 'dayjs';
+import { getAllFormRecruitments } from '@/db/queries/form-recruitments';
+import { getAllTypeContracts } from '@/db/queries/type-contracts';
 
 export interface RecordContractSectionProps {
   contracts: ReturnType<typeof getContractsRecordById>;
+  formRecruitments: ReturnType<typeof getAllFormRecruitments>;
+  typeContracts: ReturnType<typeof getAllTypeContracts>;
   id: string;
 }
 export default function RecordContractSection({
   contracts,
+  formRecruitments,
+  typeContracts,
   id,
 }: RecordContractSectionProps) {
   const { data } = React.use(contracts);
@@ -36,12 +42,12 @@ export default function RecordContractSection({
         <Accordion type="single" collapsible>
           {latestContract.map(contract => (
             <AccordionItem value={contract.id} key={contract.id}>
-              <AccordionTrigger>{contract.contractType}</AccordionTrigger>
+              <AccordionTrigger>{contract.typeContract}</AccordionTrigger>
               <AccordionContent>
                 <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
                   <div className="flex flex-row gap-3">
                     <span>Hình thức tuyển dụng</span>
-                    <Badge>{contract.contractType}</Badge>
+                    <Badge>{contract.typeContract}</Badge>
                   </div>
                   <div className="grid-col-2 grid gap-3">
                     <div className="flex flex-row gap-3">
@@ -61,7 +67,12 @@ export default function RecordContractSection({
         </Accordion>
       </CollapsibleFancy>
       <CollapsibleFancy name="Quá trình biên chế hợp đồng">
-        <RecordContractTable contracts={contracts} id={id} />
+        <RecordContractTable
+          contracts={contracts}
+          id={id}
+          typeContracts={typeContracts}
+          formRecruitments={formRecruitments}
+        />
       </CollapsibleFancy>
     </div>
   );

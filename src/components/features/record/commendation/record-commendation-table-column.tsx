@@ -97,7 +97,7 @@ export function getColumns(
               data={row.original}
               form={UpdateCommendationForm}
               dataset={{ appellations: data }}
-              name="quá trình đào tạo chuyên môn"
+              name="khen thưởng"
               fieldConfig={{
                 from: {
                   inputProps: {

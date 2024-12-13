@@ -31,26 +31,37 @@ export interface CreateDataDialogProps {
   form: ({ onSuccess }: any) => JSX.Element;
   name: string;
   description: string;
+  disabled?: boolean;
+  showTrigger?: boolean;
   data?: any;
+  _open?: boolean;
+  _onOpenChange?: (open: boolean) => void;
 }
 export function CreateDataDialog({
   form: FormCreate,
   name,
   data,
+  disabled,
+  showTrigger = true,
   description,
+  _open,
+  _onOpenChange,
 }: CreateDataDialogProps) {
   const [open, setOpen] = React.useState(false);
   const isDesktop = useMediaQuery('(min-width: 640px)');
 
   if (isDesktop)
     return (
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger asChild>
-          <Button variant="outline" size="sm">
-            <Plus className="mr-2 size-4" aria-hidden="true" />
-            Thêm mới {name}
-          </Button>
-        </DialogTrigger>
+      <Dialog open={_open || open} onOpenChange={_onOpenChange || setOpen}>
+        {showTrigger && (
+          <DialogTrigger asChild>
+            <Button variant="outline" size="sm" disabled={disabled}>
+              <Plus className="mr-2 size-4" aria-hidden="true" />
+              Thêm mới {name}
+            </Button>
+          </DialogTrigger>
+        )}
+
         <DialogContent className="max-h-[95vh] overflow-y-scroll">
           <DialogHeader>
             <DialogTitle>Tạo {name}</DialogTitle>
@@ -75,12 +86,14 @@ export function CreateDataDialog({
 
   return (
     <Drawer open={open} onOpenChange={setOpen}>
-      <DrawerTrigger asChild>
-        <Button variant="outline" size="sm">
-          <Plus className="mr-2 size-4" aria-hidden="true" />
-          Thêm mới {name}
-        </Button>
-      </DrawerTrigger>
+      {showTrigger && (
+        <DrawerTrigger asChild>
+          <Button variant="outline" size="sm">
+            <Plus className="mr-2 size-4" aria-hidden="true" />
+            Thêm mới {name}
+          </Button>
+        </DrawerTrigger>
+      )}
 
       <DrawerContent>
         <DrawerHeader>

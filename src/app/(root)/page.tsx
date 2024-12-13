@@ -24,6 +24,7 @@ export default async function DashboardPage() {
     getRecordsRetiredRecent3Months(),
     getRecordsRecent7Days(),
   ]);
+
   return (
     <DashboardSection
       data={{

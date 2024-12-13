@@ -20,7 +20,7 @@ export default function RecordOrganizationTable({
   organizations,
   id,
 }: RecordOrganizationTableProps) {
-  console.log(id);
+  // console.log(id);
   const { data } = React.use(organizations);
   const columns = React.useMemo(() => getColumns(), []);
   const { featureFlags } = useTable();

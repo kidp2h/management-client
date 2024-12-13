@@ -75,7 +75,7 @@ export function getColumns(): ColumnDef<any>[] {
       enableHiding: true,
     },
     {
-      accessorKey: 'contractType',
+      accessorKey: 'typeContract',
       meta: {
         label: 'Loại hình',
       },
@@ -89,7 +89,7 @@ export function getColumns(): ColumnDef<any>[] {
       enableHiding: true,
     },
     {
-      accessorKey: 'recruimentType',
+      accessorKey: 'formRecruitment.name',
       meta: {
         label: 'Hình thức tuyển dụng',
       },
@@ -162,11 +162,11 @@ export function getColumns(): ColumnDef<any>[] {
                     placeholder: dayjs(row.original.to).format('DD-MM-YYYY'),
                   },
                 },
-                contractType: {
+                typeContract: {
                   inputProps: {
-                    placeholder: row.original.contractType,
-                    defaultValue: row.original.contractType,
-                    value: row.original.contractType,
+                    placeholder: row.original.typeContract,
+                    defaultValue: row.original.typeContract,
+                    value: row.original.typeContract,
                   },
                 },
                 decisionNumber: {

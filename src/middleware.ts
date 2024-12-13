@@ -7,11 +7,12 @@ const isPublicRoute = createRouteMatcher([
   '/api/uploadthing',
   '/users',
   '/users/(.*)',
-  '/',
+  '/forgot-password',
 ]);
 
 export default clerkMiddleware(
   (auth, request) => {
+    // console.log(auth().userId === null);
     if (request.nextUrl.pathname === '/auth') {
       if (auth().userId) {
         const url = request.nextUrl.clone();
@@ -20,6 +21,12 @@ export default clerkMiddleware(
       }
     }
     if (!isPublicRoute(request)) {
+      // // console.log('private');
+      if (!auth().userId) {
+        const url = request.nextUrl.clone();
+        url.pathname = '/auth';
+        return NextResponse.redirect(url);
+      }
       auth().protect();
     }
   },

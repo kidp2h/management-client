@@ -11,17 +11,25 @@ import { getColumns } from './record-contract-table-column';
 import { CreateDataDialog } from '@/components/common/create-data-dialog';
 import CreateContractForm from './create-contract-form';
 import { DeleteContractsDialog } from './delete-contracts-dialog';
+import { getAllFormRecruitments } from '@/db/queries/form-recruitments';
+import { getAllTypeContracts } from '@/db/queries/type-contracts';
 
 export interface RecordContractTableProps {
   contracts: ReturnType<typeof getContractsRecordById>;
+  formRecruitments: ReturnType<typeof getAllFormRecruitments>;
+  typeContracts: ReturnType<typeof getAllTypeContracts>;
   id: string;
 }
 export default function RecordContractTable({
   contracts,
+  formRecruitments,
+  typeContracts,
   id,
 }: RecordContractTableProps) {
-  console.log(id);
+  console.log(formRecruitments);
+  // console.log(id);
   const { data } = React.use(contracts);
+
   const columns = React.useMemo(() => getColumns(), []);
   const { featureFlags } = useTable();
   const { table } = useDataTable({
@@ -50,6 +58,8 @@ export default function RecordContractTable({
               description="Tạo hợp đồng mới"
               data={{
                 recordId: id,
+                formRecruitments,
+                typeContracts,
               }}
             />
           }

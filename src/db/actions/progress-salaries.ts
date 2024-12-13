@@ -55,7 +55,7 @@ export async function deleteSalaries(input: { ids: string[] }) {
 
 export async function updateSalary(input: UpdateSalarySchema & { id: string }) {
   noStore();
-  console.log(input);
+  // console.log(input);
   try {
     await db
       .update(recordsSalary)

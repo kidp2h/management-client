@@ -5,10 +5,7 @@ import {
   createDepartmentSlice,
   type DepartmentSlice,
 } from '@/lib/zustand/slices/department-slice';
-import {
-  createRankSlice,
-  type RankSlice,
-} from '@/lib/zustand/slices/rank-slice';
+
 import {
   createSidebarSlice,
   type SidebarSlice,
@@ -18,11 +15,12 @@ import {
   ClassificationSlice,
   createClassificationSlice,
 } from '../slices/classification-slice';
+import { createRoleSlice, RoleSlice } from '../slices/role-slice';
 
 export type GlobalStore = SidebarSlice &
   DepartmentSlice &
-  RankSlice &
   ProvinceSlice &
+  RoleSlice &
   ClassificationSlice;
 
 export const createGlobalStore = () => {
@@ -32,7 +30,7 @@ export const createGlobalStore = () => {
         (set, get, replace) => ({
           ...createSidebarSlice(set, get, replace),
           ...createDepartmentSlice(set, get, replace),
-          ...createRankSlice(set, get, replace),
+          ...createRoleSlice(set, get, replace),
           ...createProvinceSlice(set, get, replace),
           ...createClassificationSlice(set, get, replace),
         }),

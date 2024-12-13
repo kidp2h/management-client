@@ -7,7 +7,6 @@ import AutoForm, { AutoFormSubmit } from '@/components/ui/auto-form';
 import type { FieldConfig } from '@/components/ui/auto-form/types';
 import { updateRecord } from '@/db/actions/records';
 import { updateRecordSchema } from '@/lib/zod/schemas/record-schema';
-import { useGlobalStore } from '@/providers/global-store-provider';
 
 export interface UpdateRecordFormProps {
   onSuccess: () => void;
@@ -19,11 +18,10 @@ export default function UpdateRecordForm({
   fieldConfig,
   data,
 }: UpdateRecordFormProps) {
-  const { ranks } = useGlobalStore(state => state);
   const [isUpdatePending, startUpdateTransition] = useTransition();
   return (
     <AutoForm
-      formSchema={updateRecordSchema(ranks.map(r => `${r.id}|${r.name}`))}
+      formSchema={updateRecordSchema()}
       onSubmit={async values => {
         startUpdateTransition(async () => {
           const { error } = await updateRecord({

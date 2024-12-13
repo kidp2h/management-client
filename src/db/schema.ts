@@ -1,6 +1,7 @@
 import { relations, sql } from 'drizzle-orm';
 import {
   boolean,
+  jsonb,
   pgTable,
   primaryKey,
   text,
@@ -241,7 +242,118 @@ export const enumEthnicities = [
   'Brâu',
   'Chu Ru',
 ] as [string, ...string[]];
-
+export const nationalities = [
+  'Việt Nam',
+  'Mỹ',
+  'Canada',
+  'Brazil',
+  'Anh',
+  'Pháp',
+  'Đức',
+  'Ý',
+  'Tây Ban Nha',
+  'Nga',
+  'Trung Quốc',
+  'Nhật Bản',
+  'Hàn Quốc',
+  'Ấn Độ',
+  'Úc',
+  'Mexico',
+  'Argentina',
+  'Nam Phi',
+  'Nigeria',
+  'Ai Cập',
+  'Thổ Nhĩ Kỳ',
+  'Ả Rập Saudi',
+  'Indonesia',
+  'Malaysia',
+  'Singapore',
+  'Thái Lan',
+  'Philippines',
+  'Pakistan',
+  'Bangladesh',
+  'Sri Lanka',
+  'New Zealand',
+  'Hà Lan',
+  'Bỉ',
+  'Thụy Sĩ',
+  'Áo',
+  'Thụy Điển',
+  'Na Uy',
+  'Đan Mạch',
+  'Phần Lan',
+  'Hy Lạp',
+  'Bồ Đào Nha',
+  'Ba Lan',
+  'Séc',
+  'Hungary',
+  'Romania',
+  'Bulgaria',
+  'Ukraine',
+  'Kazakhstan',
+  'Uzbekistan',
+  'Iran',
+  'Iraq',
+  'Syria',
+  'Liban',
+  'Jordan',
+  'Israel',
+  'Palestine',
+  'Chile',
+  'Peru',
+  'Colombia',
+  'Venezuela',
+  'Ecuador',
+  'Cuba',
+  'Haiti',
+  'Cộng hòa Dominica',
+  'Panama',
+  'Costa Rica',
+  'Guatemala',
+  'Honduras',
+  'El Salvador',
+  'Nicaragua',
+  'Bolivia',
+  'Paraguay',
+  'Uruguay',
+  'Iceland',
+  'Mông Cổ',
+  'Nepal',
+  'Bhutan',
+  'Maldives',
+  'Afghanistan',
+  'Tunisia',
+  'Morocco',
+  'Algeria',
+  'Ethiopia',
+  'Kenya',
+  'Uganda',
+  'Rwanda',
+  'Ghana',
+  'Bờ Biển Ngà',
+  'Senegal',
+  'Cameroon',
+  'Zimbabwe',
+  'Zambia',
+  'Tanzania',
+  'Somalia',
+  'Sudan',
+  'Libya',
+  'Qatar',
+  'Bahrain',
+  'Oman',
+  'Các Tiểu vương quốc Ả Rập Thống nhất',
+  'Kuwait',
+  'Yemen',
+  'Armenia',
+  'Georgia',
+  'Azerbaijan',
+  'Belarus',
+  'Moldova',
+  'Lithuania',
+  'Latvia',
+  'Estonia',
+] as [string, ...string[]];
 export const religions = pgTable('religions', {
   id: uuid('id')
     .$default(() => uuidv4())
@@ -436,7 +548,8 @@ export const departments = pgTable('departments', {
     .$default(() => uuidv4())
     .primaryKey(),
   code: text('code').notNull().unique(),
-  name: text('name').notNull().unique(),
+  parent: uuid('parent_id').references(() => departments.id),
+  name: text('name').notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
 
@@ -462,19 +575,26 @@ export const records = pgTable('records', {
     .$default(() => uuidv4())
     .primaryKey(),
   code: text('code').notNull().unique(),
+  affiliatedUnit: text('affiliated_unit'),
+  serialNumber: text('serial_number'),
+  baseUnit: text('base_unit'),
+  province: text('province'),
+  avatar: text('avatar'),
   gender: text('gender', {
     enum: enumGender,
   })
     .default('Nam')
     .notNull(),
   otherName: text('other_name'),
-  ethnicity: text('ethnicity'),
-  familyBackground: text('family_background'),
+  ethnicity: uuid('ethnicity').references(() => ethnicities.id),
+  familyBackground: uuid('family_background').references(
+    () => familyBackgrounds.id,
+  ),
   previousJob: text('previous_job'),
   dateHired: timestamp('date_hired'),
-  dateJoiningRevoluntionary: timestamp('date_joining_revoluntionary'),
-  educationLevel: text('education_level'),
-  highestConferredTitle: text('highest_conferred_title'),
+  dateJoiningRevolutionary: timestamp('date_joining_revolutionary'),
+  // educationLevel: text('education_level'),
+  // highestConferredTitle: text('highest_conferred_title'),
   partyCommiteeLevelId: uuid('party_committee_level_id').references(
     () => partyCommittees.id,
   ),
@@ -493,12 +613,13 @@ export const records = pgTable('records', {
   birthPlace: text('birth_place'),
   hometown: text('home_town'),
   phoneNumber: text('phone_number'),
-  englishCertification: text('english_certification', {
-    enum: enumEnglishCertification,
-  }),
-  technologyCertification: text('technology_certification', {
-    enum: enumTechnologyCertification,
-  }),
+  // englishCertification: text('english_certification', {
+  //   enum: enumEnglishCertification,
+  // }),
+  // technologyCertification: text('technology_certification', {
+  //   enum: enumTechnologyCertification,
+  // }),
+  overAllownace: text('over_allownace'),
   dateJoiningParty: timestamp('date_joining_party'),
   dateOfficialJoiningParty: timestamp('date_official_joining_party'),
   dateOfJoiningOrganization: timestamp('date_of_joining_organization'),
@@ -507,9 +628,9 @@ export const records = pgTable('records', {
   dateOfDemobilization: timestamp('date_of_demobilization'),
   currentMainWork: text('current_main_work'),
   isPartyMember: boolean('is_party_member'),
-  highestMilitaryRank: text('highest_military_rank', {
-    enum: enumMilitaryRank,
-  }),
+  highestMilitaryRank: uuid('highest_military_rank').references(
+    () => militaryRanks.id,
+  ),
   identityCard: text('identity_card'),
   dateOfIssue: timestamp('date_of_issue'),
   placeOfIssue: text('place_of_issue'),
@@ -535,6 +656,7 @@ export const records = pgTable('records', {
   healthStatus: text('health_status', {
     enum: enumHealthStatus,
   }),
+  seniorityAllowance: text('seniority_allowance'),
   weight: text('weight'),
   height: text('height'),
   sourceIncome: text('source_income'),
@@ -548,6 +670,7 @@ export const records = pgTable('records', {
   dateOfJoiningCurrentWorkPlace: timestamp(
     'date_of_joining_current_work_place',
   ),
+  lastIncreaseSalary: timestamp('last_increase_salary'),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   dutyId: uuid('duty_id').references(() => duties.id),
   dutyAllowance: text('duty_allowance'),
@@ -594,7 +717,14 @@ export const recordsDuty = pgTable('records_duty', {
   allowance: text('allowance').default('0'),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
-
+export const recordsDepartments = pgTable('records_departments', {
+  id: uuid('id')
+    .$default(() => uuidv4())
+    .primaryKey(),
+  recordId: uuid('record_id').references(() => records.id),
+  departmentId: uuid('department_id').references(() => departments.id),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
 export const recordsTraining = pgTable('records_training', {
   id: uuid('id')
     .$default(() => uuidv4())
@@ -653,10 +783,133 @@ export const recordsCommendation = pgTable('records_commendation', {
   recordId: uuid('record_id')
     .notNull()
     .references(() => records.id),
+  from: timestamp('from'),
+  to: timestamp('to'),
   award: uuid('award').references(() => appellations.id),
-  year: text('year').notNull(),
+  year: text('year'),
+  decisionNumber: text('decision_number'),
+  reason: text('reason'),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
+export const recordsMobilization = pgTable('records_mobilization', {
+  id: uuid('id').$default(() => uuidv4()),
+  recordId: uuid('record_id').references(() => records.id),
+  dateMobilizate: timestamp('date_mobilizate').notNull(),
+  decisionNumber: text('decision_number').notNull(),
+  dateDecision: timestamp('date_decision').notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  fromDepartment: uuid('from_department').references(() => departments.id),
+  department: uuid('department').references(() => departments.id),
+});
+export const recordsSend = pgTable('records_send', {
+  id: uuid('id').$default(() => uuidv4()),
+  recordId: uuid('record_id').references(() => records.id),
+  decisionNumber: text('decision_number').notNull(),
+  dateDecision: timestamp('date_decision').notNull(),
+  departmentDecision: text('department_decision').notNull(),
+  funding: text('funding').notNull(),
+  curriculum: text('curriculum').notNull(),
+  school: text('school').notNull(),
+  country: text('country').notNull(),
+  yearStart: timestamp('year_start').notNull(),
+  yearEnd: timestamp('year_end').notNull(),
+  qualification: uuid('qualification').references(() => qualifications.id),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+export const recordsDual = pgTable('records_dual', {
+  id: uuid('id')
+    .$default(() => uuidv4())
+    .primaryKey(),
+  recordId: uuid('record_id').references(() => records.id),
+  decisionNumber: text('decision_number').notNull(),
+  department: uuid('department')
+    .references(() => departments.id)
+    .notNull(),
+  startDate: timestamp('start_date').notNull(),
+  endDate: timestamp('end_date').notNull(),
+  duty: uuid('duty')
+    .references(() => duties.id)
+    .notNull(),
+  issuer: text('issuer').notNull(),
+  dateOfIssue: timestamp('date_of_issue').notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+export const recordsSecondment = pgTable('records_secondment', {
+  id: uuid('id')
+    .$default(() => uuidv4())
+    .primaryKey(),
+  recordId: uuid('record_id').references(() => records.id),
+  decisionNumber: text('decision_number').notNull(),
+  department: uuid('department')
+    .references(() => departments.id)
+    .notNull(),
+  startDate: timestamp('start_date').notNull(),
+  endDate: timestamp('end_date').notNull(),
+  duty: uuid('duty')
+    .references(() => duties.id)
+    .notNull(),
+  issuer: text('issuer').notNull(),
+  dateOfIssue: timestamp('date_of_issue').notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+export const typeContracts = pgTable('type_contracts', {
+  id: uuid('id')
+    .$default(() => uuidv4())
+    .primaryKey(),
+  code: text('code').notNull().unique(),
+  name: text('name').notNull().unique(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+export const recordsIncreaseSalaryRegular = pgTable(
+  'records_increase_salary_regular',
+  {
+    id: uuid('id')
+      .$default(() => uuidv4())
+      .primaryKey(),
+    recordId: uuid('record_id').references(() => records.id),
+    decisionNumber: text('decision_number').notNull(),
+    decisionDate: timestamp('decision_date').notNull(),
+    decisionDepartment: text('decision_department').notNull(),
+    department: uuid('department').references(() => departments.id),
+    previousSalaryGrade: uuid('prev_salary_grade').references(
+      () => salaryGrades.id,
+    ),
+    salaryGrade: uuid('salary_grade').references(() => salaryGrades.id),
+    previousSalaryFactor: text('prev_salary_factor')
+      .$default(() => '0')
+      .notNull(),
+    salaryFactor: text('salary_factor')
+      .$default(() => '0')
+      .notNull(),
+    preOverAllowance: text('pre_over_allowance')
+      .$default(() => '0')
+      .notNull(),
+    overAllowance: text('overAllowance')
+      .$default(() => '0')
+      .notNull(),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+  },
+);
+export const recordsIncreaseSalaryEarly = pgTable(
+  'records_increase_salary_early',
+  {
+    id: uuid('id')
+      .$default(() => uuidv4())
+      .primaryKey(),
+    recordId: uuid('record_id').references(() => records.id),
+    decisionNumber: text('decision_number').notNull(),
+    decisionDate: timestamp('decision_date').notNull(),
+    decisionDepartment: text('decision_department').notNull(),
+    department: uuid('department').references(() => departments.id),
+
+    previousSalaryFactor: text('prev_salary_factor')
+      .$default(() => '0')
+      .notNull(),
+    salaryFactor: text('salary_factor').notNull(),
+
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+  },
+);
 // export const recordsCommendation = pgTable('records_commendation', {
 //   id: uuid('id')
 //     .$default(() => uuidv4())
@@ -748,12 +1001,12 @@ export const recordsContract = pgTable('records_contract', {
   to: timestamp('to').notNull(),
   decisionNumber: text('decision_number').notNull(),
 
-  contractType: text('contract_type', {
-    enum: enumContractType,
-  }).notNull(),
-  recruimentType: text('recruiment_type', {
-    enum: enumRecruitmentType,
-  }).notNull(),
+  typeContract: uuid('type_contract')
+    .references(() => typeContracts.id)
+    .notNull(),
+  recruimentType: uuid('recruiment_type')
+    .notNull()
+    .references(() => formRecruitments.id),
   dateRecruiment: timestamp('date_recruiment').notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
@@ -766,7 +1019,7 @@ export const recordsWorkExperience = pgTable('records_work_experience', {
     .notNull()
     .references(() => records.id),
   from: timestamp('from').notNull(),
-  to: timestamp('to').notNull(),
+  to: timestamp('to'),
   department: uuid('department')
     .references(() => departments.id)
     .notNull(),
@@ -909,18 +1162,12 @@ export const recordsRelative = pgTable('records_relative', {
   address: text('address').notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
-export const recordsInsurance = pgTable('records_insurance', {
+export const formSalary = pgTable('form_salary', {
   id: uuid('id')
     .$default(() => uuidv4())
     .primaryKey(),
-  recordId: uuid('record_id')
-    .notNull()
-    .references(() => records.id),
-  from: timestamp('from').notNull(),
-  to: timestamp('to').notNull(),
-  decisionNumber: text('decision_number').notNull(),
-  decisionDate: timestamp('decision_date').notNull(),
-  decisionDepartment: text('decision_department').notNull(),
+  code: text('code').notNull().unique(),
+  name: text('name').notNull().unique(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
 export const recordsToLanguages = pgTable(
@@ -960,6 +1207,54 @@ export const roles = pgTable('roles', {
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
 
+export const configRole = pgTable('config_role', {
+  id: uuid('id')
+    .$default(() => uuidv4())
+    .primaryKey(),
+
+  roleId: uuid('role_id')
+    .references(() => roles.id)
+    .array()
+    .default([]),
+  rolesCanApprove: uuid('roles_can_approve').array().default([]),
+
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+export const recordsParty = pgTable('records_party', {
+  id: uuid('id')
+    .$default(() => uuidv4())
+    .primaryKey(),
+  recordId: uuid('record_id').references(() => records.id),
+  from: timestamp('from').notNull(),
+  to: timestamp('to').notNull(),
+
+  organization: text('organization').notNull(),
+  dutyParty: text('duty_party').notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+export const recordsLanguages = pgTable('records_languages', {
+  id: uuid('id')
+    .$default(() => uuidv4())
+    .primaryKey(),
+  recordId: uuid('record_id').references(() => records.id),
+  language: uuid('language_id')
+    .references(() => languages.id)
+    .notNull(),
+  mark: text('mark').notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+
+export const recordsApprove = pgTable('records_approve', {
+  id: uuid('id')
+    .$default(() => uuidv4())
+    .primaryKey(),
+  recordId: uuid('record_id').references(() => records.id),
+
+  changes: jsonb('changes').notNull(),
+  data: jsonb('data').notNull(),
+  type: text('type').notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
 export const permissions = pgTable('permissions', {
   id: uuid('id')
     .$default(() => uuidv4())
@@ -1002,7 +1297,7 @@ export type Languages = typeof languages.$inferSelect;
 export type Ranks = typeof ranks.$inferSelect;
 export type Records = typeof records.$inferSelect;
 export type RecordsRetirement = typeof recordsRetirement.$inferSelect;
-export type RecordsLanguages = typeof recordsToLanguages.$inferSelect;
+// export type RecordsLanguages = typeof recordsToLanguages.$inferSelect;
 export type EnumQualifications = typeof records.$inferSelect.qualification;
 export type EnumBloodType = typeof records.$inferSelect.bloodType;
 export type Roles = typeof roles.$inferSelect;
@@ -1048,3 +1343,12 @@ export type RecordsImprisioned = typeof recordsImprisioned.$inferSelect;
 export type RecordsOldRegime = typeof recordsOldRegime.$inferSelect;
 export type RecordsOrganization = typeof recordsOrganization.$inferSelect;
 export type RecordsRelative = typeof recordsRelative.$inferSelect;
+export type RecordsLanguages = typeof recordsLanguages.$inferSelect;
+export type RecordsApprove = typeof recordsApprove.$inferSelect;
+export type ConfigRole = typeof configRole.$inferSelect;
+export type RecordsDual = typeof recordsDual.$inferSelect;
+export type RecordsSecondment = typeof recordsSecondment.$inferSelect;
+export type TypeContracts = typeof typeContracts.$inferSelect;
+export type FormSalary = typeof formSalary.$inferSelect;
+export type RecordsSend = typeof recordsSend.$inferSelect;
+export type RecordsParty = typeof recordsParty.$inferSelect;

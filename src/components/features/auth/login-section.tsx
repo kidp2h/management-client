@@ -5,6 +5,7 @@ import { Globe } from '@/components/three/globe';
 import { Cover } from '@/components/ui/cover';
 
 import { LoginForm } from './login-form';
+import Link from 'next/link';
 
 type AuthSectionProps = {};
 
@@ -21,7 +22,6 @@ export const LoginSection = ({}: AuthSectionProps) => {
             <p className="mb-24 mt-3 text-xl text-muted-foreground">
               Đăng nhập để sử dụng hệ thống
             </p>
-
             {/* <div className="mt-8 grid">
               <Button variant="outline">
                 <svg
@@ -56,8 +56,13 @@ export const LoginSection = ({}: AuthSectionProps) => {
                 hoặc
               </div>
             </Separator> */}
-
             <LoginForm />
+            <Link
+              href="/forgot-password"
+              className="text-muted-foreground mt-2 text-sm block"
+            >
+              Quên mật khẩu ?
+            </Link>
           </div>
         </div>
         <div>
