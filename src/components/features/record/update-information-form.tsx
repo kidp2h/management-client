@@ -1,4 +1,5 @@
 'use client';
+import { FileUploader } from '@/components/common/file-uploader';
 import { Button } from '@/components/ui/button';
 import { Combobox } from '@/components/ui/combobox';
 import { DatePicker } from '@/components/ui/date-picker';
@@ -16,7 +17,6 @@ import { PhoneInput } from '@/components/ui/phone-input';
 import { Separator } from '@/components/ui/separator';
 import { Switch } from '@/components/ui/switch';
 import { updateInformationRecord } from '@/db/actions/records';
-import { getAllAcademicQualifications } from '@/db/queries/academic-qualifications';
 import { getAllAppellations } from '@/db/queries/appellations';
 import { getAllCivilServantRanks } from '@/db/queries/civil-servant-ranks';
 import { getAllDuties } from '@/db/queries/duties';
@@ -24,7 +24,6 @@ import { getAllEthnicities } from '@/db/queries/ethnicities';
 import { getAllFamilyBackgrounds } from '@/db/queries/family-backgrounds';
 import { getAllMilitaryRanks } from '@/db/queries/military-ranks';
 import { getAllPartyCommittees } from '@/db/queries/party-committees';
-import { getAllPolicyObjects } from '@/db/queries/policy-objects';
 import { getAllPublicEmployeeRanks } from '@/db/queries/public-employee-ranks';
 import { getAllQualifications } from '@/db/queries/qualifications';
 import { getAllReligions } from '@/db/queries/religions';
@@ -35,12 +34,15 @@ import {
   enumHealthStatus,
   enumPoliticalTheory,
 } from '@/db/schema';
+import { useUploadFile } from '@/hooks/use-upload-file';
 import { updateInformationRecordSchema } from '@/lib/zod/schemas/record-schema';
 import { useGlobalStore } from '@/providers/global-store-provider';
 import { ReloadIcon } from '@radix-ui/react-icons';
+import dayjs from 'dayjs';
 import {
   Activity,
   Award,
+  Badge,
   BookHeart,
   BookOpenText,
   BriefcaseBusiness,
@@ -68,6 +70,7 @@ import {
   University,
   Weight,
 } from 'lucide-react';
+import Link from 'next/link';
 import React, { useCallback, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -77,9 +80,9 @@ interface DataInformation {
   religions: ReturnType<typeof getAllReligions>;
   publicEmployeeRanks: ReturnType<typeof getAllPublicEmployeeRanks>;
   civilServantRanks: ReturnType<typeof getAllCivilServantRanks>;
-  policyObjects: ReturnType<typeof getAllPolicyObjects>;
+  // policyObjects: ReturnType<typeof getAllPolicyObjects>;
   militaryRanks: ReturnType<typeof getAllMilitaryRanks>;
-  academicQualifications: ReturnType<typeof getAllAcademicQualifications>;
+  // academicQualifications: ReturnType<typeof getAllAcademicQualifications>;
   qualifications: ReturnType<typeof getAllQualifications>;
   appellations: ReturnType<typeof getAllAppellations>;
   ethnicities: ReturnType<typeof getAllEthnicities>;
@@ -101,6 +104,7 @@ export default function UpdateInformationForm({
 }: UpdateInformationFormProps) {
   const { fetchProvinces, provinces, fetchClassifications, classifications } =
     useGlobalStore(state => state);
+
   const [isUpdatePending, startUpdateTransition] = useTransition();
   const { data: religions } = React.use(data.religions);
   const { data: ethnicities } = React.use(data.ethnicities);
@@ -108,11 +112,12 @@ export default function UpdateInformationForm({
   const { data: salaryGrades } = React.use(data.salaryGrades);
   const { data: publicEmployeeRanks } = React.use(data.publicEmployeeRanks);
   const { data: civilServantRanks } = React.use(data.civilServantRanks);
-  const { data: policyObjects } = React.use(data.policyObjects);
-  const { data: academicQualifications } = React.use(
-    data.academicQualifications,
-  );
+  // const { data: policyObjects } = React.use(data.policyObjects);
+  // const { data: academicQualifications } = React.use(
+  //   data.academicQualifications,
+  // );
   const { data: duties } = React.use(data.duties);
+  const [changes, setChanges] = React.useState<any[]>([]);
   const { data: partyCommittees } = React.use(data.partyCommittees);
   const { data: appellations } = React.use(data.appellations);
 
@@ -127,6 +132,7 @@ export default function UpdateInformationForm({
       (_, i) => currentYear + i * step,
     );
   }, []);
+  const refInputFile = React.useRef<HTMLInputElement>(null);
   const classificationsMapped = React.useMemo(() => {
     return classifications.map(i => ({
       label: `[${i.code}] ${i.name}`,
@@ -171,235 +177,194 @@ export default function UpdateInformationForm({
     });
   }, [fetchProvinces, fetchClassifications]);
   const form = useForm<z.infer<typeof updateInformationRecordSchema>>({
+    // resolver: zodResolver(updateInformationRecordSchema),
     defaultValues: {
-      ...defaultValues,
-      hometownAddress: defaultValues.hometown?.split('|')[0] || '',
-      hometownWard: defaultValues.hometown?.split('|')[1] || '',
-      hometownDistrict: defaultValues.hometown?.split('|')[2] || '',
-      hometownProvince: defaultValues.hometown?.split('|')[3] || '',
-      address: defaultValues.currentResidence?.split('|')[0] || '',
-      ward: defaultValues.currentResidence?.split('|')[1] || '',
-      district: defaultValues.currentResidence?.split('|')[2] || '',
-      province: defaultValues.currentResidence?.split('|')[3] || '',
+      // ...defaultValues,
+      // _province: defaultValues.province,
+      // hometownAddress: defaultValues.hometown?.split('|')[0] || null,
+      // hometownWard: defaultValues.hometown?.split('|')[1] || null,
+      // hometownDistrict: defaultValues.hometown?.split('|')[2] || null,
+      // hometownProvince: defaultValues.hometown?.split('|')[3] || null,
+      // address: defaultValues.currentResidence?.split('|')[0] || null,
+      // ward: defaultValues.currentResidence?.split('|')[1] || null,
+      // district: defaultValues.currentResidence?.split('|')[2] || null,
+      // province: defaultValues.currentResidence?.split('|')[3] || null,
     },
+  });
+
+  const { onUpload, progresses, isUploading } = useUploadFile('imageUploader', {
+    defaultUploadedFiles: [],
   });
   const onSubmit = (values: z.infer<typeof updateInformationRecordSchema>) => {
     startUpdateTransition(async () => {
-      const { error } = await updateInformationRecord({
-        id: defaultValues.id,
-        ...values,
-      });
-      if (error) {
-        toast.error('Cập nhật hồ sơ thất bại');
-        return;
-      }
-      toast.success('Hồ sơ đã được cập nhật');
+      toast.promise(
+        onUpload(values.files, async uploaded => {
+          delete values.files;
+          console.log(changes);
+          const { error } = await updateInformationRecord(
+            form.formState.dirtyFields,
+            defaultValues,
+            {
+              id: defaultValues.id,
+              ...values,
+            },
+            uploaded || [],
+          );
+          if (error) {
+            toast.error('Cập nhật hồ sơ thất bại');
+            return;
+          }
+          toast.success(
+            'Hồ sơ đã được cập nhật, vui lòng đợi cán bộ tổ chức duyệt hồ sơ',
+          );
+        }),
+        {
+          loading: 'Đang xử lý yêu cầu và tệp',
+          success: () => {
+            form.resetField('files');
+            return 'Xử lý cập nhật thành công';
+          },
+          error: 'Xử lý yêu cầu thất bại',
+        },
+      );
     });
   };
+  const handleUploadClick = () => {
+    if (refInputFile.current) {
+      refInputFile.current.click();
+    }
+  };
+
+  const handleChanges = (key, newValue, oldValue) => {
+    if (newValue !== oldValue) {
+      // remove the key if it exists
+      const index = changes.findIndex(change => change.key === key);
+      if (index !== -1) {
+        setChanges(prev => {
+          const newChanges = [...prev];
+          newChanges[index] = {
+            key,
+            newValue,
+            oldValue,
+          };
+          return newChanges;
+        });
+      } else {
+        setChanges(prev => [
+          ...prev,
+          {
+            key,
+            newValue,
+            oldValue,
+          },
+        ]);
+      }
+    }
+  };
+  const handleFileChange = event => {
+    const file = event.target.files[0];
+    if (file) {
+      // Handle the selected file (e.g., upload it to the server or display a preview)
+      // // console.log('Selected file:', file);
+    }
+  };
+
   return (
     <Form {...form}>
+      {/* <pre>1{JSON.stringify(form.formState.dirtyFields, null, 2)}</pre> */}
+      <div className="text-2xl font-bold uppercase mb-5">Thông tin hồ sơ</div>
+      <div className="grid grid-cols-4 gap-5">
+        <div>
+          <span className="font-bold">Mã hồ sơ: </span>
+          <span>{defaultValues.code}</span>
+        </div>
+        <div>
+          <span className="font-bold">Họ và tên: </span>
+          <span>{defaultValues.fullName}</span>
+        </div>
+        <div>
+          <span className="font-bold">Giới tính: </span>
+          <span>{defaultValues.gender}</span>
+        </div>
+        <div>
+          <span className="font-bold">Tên gọi khác: </span>
+          <span>
+            {defaultValues.otherName === ''
+              ? defaultValues.otherName
+              : 'Chưa cập nhật'}
+          </span>
+        </div>
+        <div>
+          <span className="font-bold">Số hiệu cán bộ, công chức: </span>
+          <span>
+            {defaultValues.serialNumber === ''
+              ? defaultValues.serialNumber
+              : 'Chưa cập nhật'}
+          </span>
+        </div>
+        <div>
+          <span className="font-bold">Ngày sinh: </span>
+          <span>
+            {defaultValues?.birthday
+              ? (dayjs(defaultValues.birthday).format('D-MM-YYYY') as string)
+              : 'Chưa cập nhật'}
+          </span>
+        </div>
+        <div>
+          <span className="font-bold">Số điện thoại: </span>
+          <span>
+            {defaultValues?.phoneNumber
+              ? (defaultValues.phoneNumber as string)
+              : 'Chưa cập nhật'}
+          </span>
+        </div>
+        <div>
+          <span className="font-bold">Nơi sinh: </span>
+          <span>
+            {defaultValues.birthPlace === ''
+              ? defaultValues.birthPlace
+              : 'Chưa cập nhật'}
+          </span>
+        </div>
+        <div>
+          <span className="font-bold">Dân tộc: </span>
+          <span>
+            {ethnicities?.find(v => v.id === defaultValues.ethnicity)?.name
+              ? ethnicities?.find(v => v.id === defaultValues.ethnicity)?.name
+              : 'Chưa cập nhật'}
+          </span>
+        </div>
+        <div>
+          <span className="font-bold">Tôn giáo: </span>
+          <span>
+            {religions?.find(v => v.id === defaultValues.religion)?.name
+              ? religions?.find(v => v.id === defaultValues.religion)?.name
+              : 'Chưa cập nhật'}
+          </span>
+        </div>
+      </div>
+      <Separator className="my-5" />
+      <div className="text-2xl font-bold uppercase mb-5">
+        Biểu mẫu cập nhật thông tin
+      </div>
+
       <form onSubmit={form.handleSubmit(onSubmit)} className="">
         <div className="grid grid-cols-3 gap-5 mb-5">
-          <FormField
-            control={form.control}
-            name="fullName"
-            render={({ field }) => (
-              <FormItem className="col-span-3 lg:col-span-1">
-                <FormLabel>1. Họ và tên</FormLabel>
-                <FormControl>
-                  <Input
-                    startIcon={TypeOutline}
-                    placeholder="Họ và tên"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="gender"
-            render={({ field }) => (
-              <FormItem className="col-span-3 lg:col-span-1">
-                <FormLabel>Giới tính</FormLabel>
-                <FormControl>
-                  <Combobox
-                    startIcon={Dna}
-                    type="form"
-                    form={form}
-                    field={field}
-                    placeholder="Chọn giới tính"
-                    dataset={enumGender.map(gender => ({
-                      label: gender,
-                      value: gender,
-                    }))}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="otherName"
-            render={({ field }) => (
-              <FormItem className="col-span-3 lg:col-span-1">
-                <FormLabel>2. Tên gọi khác</FormLabel>
-                <FormControl>
-                  <Input
-                    startIcon={TypeOutline}
-                    placeholder="Tên gọi khác"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <>
-            <div className="col-span-3 lg:col-span-1 flex flex-col lg:flex-row gap-5">
-              <FormField
-                control={form.control}
-                name="partyCommitteeLevelId"
-                render={({ field }) => (
-                  <FormItem className="">
-                    <FormLabel>3. Cấp uỷ hiện tại</FormLabel>
-                    <FormControl>
-                      <Combobox
-                        startIcon={FlagTriangleLeft}
-                        type="form"
-                        form={form}
-                        placeholder="Chọn cấp uỷ hiện tại"
-                        field={field}
-                        className="w-full"
-                        dataset={
-                          partyCommittees
-                            ?.filter(
-                              pC =>
-                                pC.id !==
-                                form.getValues().partyCommitteeConcurrentId,
-                            )
-                            ?.map(pC => ({
-                              label: pC.name,
-                              value: pC.id,
-                            })) || []
-                        }
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="partyCommitteeConcurrentId"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Cấp uỷ kiêm</FormLabel>
-                    <FormControl>
-                      <Combobox
-                        startIcon={FlagTriangleLeft}
-                        type="form"
-                        form={form}
-                        placeholder="Chọn cấp uỷ kiêm"
-                        field={field}
-                        className="w-full"
-                        dataset={
-                          partyCommittees
-                            ?.filter(
-                              pC =>
-                                pC.id !==
-                                form.getValues().partyCommitteeLevelId,
-                            )
-                            ?.map(pC => ({
-                              label: pC.name,
-                              value: pC.id,
-                            })) || []
-                        }
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-
+          <div className="col-span-3 lg:col-span-1 grid grid-rows-2 grid-cols-1 gap-5">
             <FormField
               control={form.control}
-              name="dutyId"
-              render={({ field }) => (
-                <FormItem className="col-span-3 lg:col-span-1">
-                  <FormLabel>Chức vụ</FormLabel>
-                  <FormControl>
-                    <Combobox
-                      startIcon={Goal}
-                      type="form"
-                      form={form}
-                      placeholder="Chọn chức vụ"
-                      field={field}
-                      className="w-full"
-                      dataset={
-                        duties?.map(d => ({
-                          label: d.name,
-                          value: d.id,
-                        })) || []
-                      }
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="dutyAllowance"
-              render={({ field }) => (
-                <FormItem className="col-span-3 lg:col-span-1">
-                  <FormLabel>Phụ cấp chức vụ</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="number"
-                      inputMode="numeric"
-                      startIcon={HandCoins}
-                      unit="đồng"
-                      pattern="[0-9]*"
-                      placeholder="Phụ cấp chức vụ"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </>
-          <div className="col-span-3 grid-cols-1 lg:grid-cols-2 grid gap-3">
-            <FormField
-              control={form.control}
-              name="birthday"
+              name="_province"
               render={({ field }) => (
                 <FormItem className="">
-                  <FormLabel>4. Ngày sinh</FormLabel>
-                  <DatePicker
-                    date={field.value}
-                    setDate={field.onChange}
-                    placeholder="Ngày sinh"
-                  />
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="birthPlace"
-              render={({ field }) => (
-                <FormItem className="">
-                  <FormLabel>5. Nơi sinh</FormLabel>
+                  <FormLabel>Tỉnh</FormLabel>
                   <Combobox
                     startIcon={MapPinned}
                     type="form"
                     form={form}
-                    placeholder="Nơi sinh"
+                    callback={label => {
+                      handleChanges('_province', label, defaultValues.province);
+                    }}
+                    placeholder="Tỉnh"
                     field={field}
                     className="w-full"
                     dataset={provinces.map(province => ({
@@ -411,7 +376,371 @@ export default function UpdateInformationForm({
                 </FormItem>
               )}
             />
+            {/* <FormField
+              control={form.control}
+              name="affiliatedUnit"
+              render={({ field }) => (
+                <FormItem className="col-span-3 lg:col-span-1">
+                  <FormLabel>Đơn vị trực thuộc</FormLabel>
+                  <FormControl>
+                    <Input
+                      startIcon={Split}
+                      placeholder="Đơn vị trực thuộc"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="baseUnit"
+              render={({ field }) => (
+                <FormItem className="col-span-3 lg:col-span-1">
+                  <FormLabel>Đơn vị cơ sở</FormLabel>
+                  <FormControl>
+                    <Input
+                      startIcon={Baseline}
+                      placeholder="Đơn vị cơ sở"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            /> */}
+            <FormField
+              control={form.control}
+              name="serialNumber"
+              render={({ field }) => (
+                <FormItem className="col-span-3 lg:col-span-1">
+                  <FormLabel>Số hiệu cán bộ, công chức</FormLabel>
+                  <FormControl>
+                    <Input
+                      startIcon={Badge}
+                      placeholder="Số hiệu cán bộ, công chức"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </div>
+
+          <Separator className="col-span-3" />
+          {/* <div className="grid col-span-3 grid-cols-2 grid-rows-1"> */}
+          <div className="flex lg:flex-row flex-col col-span-3 w-full gap-10 lg: lg:items-start items-center lg:justify-start justify-center">
+            <div>
+              <FormField
+                control={form.control}
+                name="files"
+                render={({ field }) => (
+                  <div className="w-44 h-72">
+                    <FormItem className="w-full ">
+                      <FormLabel>Ảnh 4x6</FormLabel>
+                      {defaultValues.avatar?.split('|')?.[0] && (
+                        <Link
+                          href={defaultValues.avatar.split('|')[0]}
+                          target="_blank"
+                          className="text-blue-500 underline mt-3 block"
+                        >
+                          Xem ảnh hiện tại
+                        </Link>
+                      )}
+                      <FormControl>
+                        <FileUploader
+                          value={field.value}
+                          onValueChange={field.onChange}
+                          className="size-full"
+                          maxFileCount={1}
+                          maxSize={4 * 1024 * 1024}
+                          progresses={progresses}
+                          disabled={isUploading}
+                        />
+                      </FormControl>
+
+                      <FormMessage />
+                    </FormItem>
+                  </div>
+                )}
+              />
+              {/* <div
+                className="w-44 cursor-pointer flex-col h-60 text-xs mt-8 rounded-xl border-dashed border-2 text-muted-foreground font-bold flex items-center justify-center"
+                onClick={handleUploadClick}
+              >
+                Ảnh 4 x 6
+                <br />
+                <p className="">(Nhấn vào đây để tải ảnh lên)</p>
+              </div>
+              <Input type="file" className="hidden" ref={refInputFile} />
+              <div className="w-14 h-16 mt-3 bg-red-500"></div> */}
+            </div>
+
+            <div className="grid grid-cols-3 gap-5 mb-5 col-span-3 w-full">
+              <FormField
+                control={form.control}
+                name="fullName"
+                render={({ field }) => (
+                  <FormItem className="col-span-3 lg:col-span-1">
+                    <FormLabel>1. Họ và tên</FormLabel>
+                    <FormControl>
+                      <Input
+                        startIcon={TypeOutline}
+                        placeholder="Họ và tên"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="gender"
+                render={({ field }) => (
+                  <FormItem className="col-span-3 lg:col-span-1">
+                    <FormLabel>Giới tính</FormLabel>
+                    <FormControl>
+                      <Combobox
+                        startIcon={Dna}
+                        type="form"
+                        form={form}
+                        field={field}
+                        placeholder="Chọn giới tính"
+                        callback={() => {
+                          handleChanges(
+                            'gender',
+                            form.getValues().gender,
+                            defaultValues.gender,
+                          );
+                        }}
+                        dataset={enumGender.map(gender => ({
+                          label: gender,
+                          value: gender,
+                        }))}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="otherName"
+                render={({ field }) => (
+                  <FormItem className="col-span-3 lg:col-span-1">
+                    <FormLabel>2. Tên gọi khác</FormLabel>
+                    <FormControl>
+                      <Input
+                        startIcon={TypeOutline}
+                        placeholder="Tên gọi khác"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <>
+                {/* <div className="col-span-3 lg:col-span-1 flex flex-col lg:flex-row gap-5"> */}
+                <FormField
+                  control={form.control}
+                  name="partyCommitteeLevelId"
+                  render={({ field }) => (
+                    <FormItem className="">
+                      <FormLabel>3. Cấp uỷ hiện tại</FormLabel>
+                      <FormControl>
+                        <Combobox
+                          startIcon={FlagTriangleLeft}
+                          type="form"
+                          form={form}
+                          placeholder="Chọn cấp uỷ hiện tại"
+                          field={field}
+                          className="w-full"
+                          callback={() => {
+                            handleChanges(
+                              'partyCommitteeLevelId',
+                              form.getValues().partyCommitteeLevelId,
+                              defaultValues.partyCommitteeLevelId,
+                            );
+                          }}
+                          dataset={
+                            partyCommittees
+                              ?.filter(
+                                pC =>
+                                  pC.id !==
+                                  form.getValues().partyCommitteeConcurrentId,
+                              )
+                              ?.map(pC => ({
+                                label: pC.name,
+                                value: `${pC.id}.${pC.name}`,
+                              })) || []
+                          }
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="partyCommitteeConcurrentId"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Cấp uỷ kiêm</FormLabel>
+                      <FormControl>
+                        <Combobox
+                          startIcon={FlagTriangleLeft}
+                          type="form"
+                          form={form}
+                          placeholder="Chọn cấp uỷ kiêm"
+                          field={field}
+                          className="w-full"
+                          callback={() => {
+                            handleChanges(
+                              'partyCommitteeConcurrentId',
+                              form.getValues().partyCommitteeConcurrentId,
+                              defaultValues.partyCommitteeConcurrentId,
+                            );
+                          }}
+                          dataset={
+                            partyCommittees
+                              ?.filter(
+                                pC =>
+                                  pC.id !==
+                                  form.getValues().partyCommitteeLevelId,
+                              )
+                              ?.map(pC => ({
+                                label: pC.name,
+                                value: `${pC.id}.${pC.name}`,
+                              })) || []
+                          }
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                {/* </div> */}
+
+                <FormField
+                  control={form.control}
+                  name="dutyId"
+                  render={({ field }) => (
+                    <FormItem className="col-span-3 lg:col-span-1">
+                      <FormLabel>Chức vụ</FormLabel>
+                      <FormControl>
+                        <Combobox
+                          startIcon={Goal}
+                          type="form"
+                          form={form}
+                          placeholder="Chọn chức vụ"
+                          callback={() => {
+                            handleChanges(
+                              'dutyId',
+                              form.getValues().dutyId,
+                              defaultValues.dutyId,
+                            );
+                          }}
+                          field={field}
+                          className="w-full"
+                          dataset={
+                            duties?.map(d => ({
+                              label: d.name,
+                              value: `${d.id}.${d.name}`,
+                            })) || []
+                          }
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="dutyAllowance"
+                  render={({ field }) => (
+                    <FormItem className="col-span-3 lg:col-span-1">
+                      <FormLabel>Phụ cấp chức vụ</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="number"
+                          inputMode="numeric"
+                          startIcon={HandCoins}
+                          unit="đồng"
+                          pattern="[0-9]*"
+                          placeholder="Phụ cấp chức vụ"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </>
+              <div className="col-span-3 grid-cols-1 lg:grid-cols-2 grid gap-3">
+                <FormField
+                  control={form.control}
+                  name="birthday"
+                  render={({ field }) => (
+                    <FormItem className="">
+                      <FormLabel>4. Ngày sinh</FormLabel>
+                      <DatePicker
+                        date={field.value}
+                        setDate={field.onChange}
+                        callback={() => {
+                          setChanges(prev => [
+                            ...prev,
+                            {
+                              key: 'birthday',
+                              newValue: form.getValues().birthday,
+                              oldValue: defaultValues.birthday,
+                            },
+                          ]);
+                        }}
+                        placeholder="Ngày sinh"
+                      />
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="birthPlace"
+                  render={({ field }) => (
+                    <FormItem className="">
+                      <FormLabel>5. Nơi sinh</FormLabel>
+                      <Combobox
+                        startIcon={MapPinned}
+                        type="form"
+                        form={form}
+                        placeholder="Nơi sinh"
+                        field={field}
+                        className="w-full"
+                        callback={() => {
+                          if (
+                            form.getValues().birthPlace !==
+                            defaultValues.birthPlace
+                          ) {
+                            setChanges(prev => [...prev, 'birthPlace']);
+                          }
+                        }}
+                        dataset={provinces.map(province => ({
+                          label: province.name,
+                          value: province.name,
+                        }))}
+                      />
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* </div> */}
 
           <>
             <span className="col-span-3 text-sm ">6. Quê quán</span>
@@ -700,7 +1029,7 @@ export default function UpdateInformationForm({
                     dataset={
                       ethnicities?.map(e => ({
                         label: e.name,
-                        value: e.id,
+                        value: `${e.id}.${e.name}`,
                       })) || []
                     }
                   />
@@ -725,7 +1054,7 @@ export default function UpdateInformationForm({
                     dataset={
                       religions?.map(religion => ({
                         label: religion.name,
-                        value: religion.id,
+                        value: `${religion.id}.${religion.name}`,
                       })) || []
                     }
                   />
@@ -750,7 +1079,7 @@ export default function UpdateInformationForm({
                     dataset={
                       familyBackgrounds?.map(f => ({
                         label: f.name,
-                        value: f.id,
+                        value: `${f.id}.${f.name}`,
                       })) || []
                     }
                   />
@@ -964,7 +1293,7 @@ export default function UpdateInformationForm({
                       dataset={
                         militaryRanks?.map(rank => ({
                           label: rank.name,
-                          value: rank.id,
+                          value: `${rank.id}.${rank.name}`,
                         })) || []
                       }
                     />
@@ -1012,7 +1341,7 @@ export default function UpdateInformationForm({
                         dataset={
                           qualifications?.map(q => ({
                             label: q.name,
-                            value: q.id,
+                            value: `${q.id}.${q.name}`,
                           })) || []
                         }
                       />
@@ -1081,7 +1410,7 @@ export default function UpdateInformationForm({
           <div className="col-span-3 grid grid-cols-3 gap-5">
             <FormField
               control={form.control}
-              name="classificationCode"
+              name="civilServantRankId"
               render={({ field }) => (
                 <FormItem className="">
                   <FormLabel>19. Ngạch công chức</FormLabel>
@@ -1094,12 +1423,10 @@ export default function UpdateInformationForm({
                       placeholder="Chọn ngạch công chức"
                       field={field}
                       dataset={
-                        publicEmployeeRanks
-                          ?.concat(civilServantRanks || [])
-                          .map(rank => ({
-                            label: `[${rank.code}] [${rank.type}] ${rank.name}`,
-                            value: rank.id,
-                          })) || []
+                        civilServantRanks?.map(rank => ({
+                          label: `[${rank.code}] [${rank.type}] ${rank.name}`,
+                          value: `${rank.id}.${rank.name}`,
+                        })) || []
                       }
                     />
                   </FormControl>
@@ -1109,7 +1436,7 @@ export default function UpdateInformationForm({
             />
             <FormField
               control={form.control}
-              name="salaryGrade"
+              name="salaryGradeId"
               render={({ field }) => (
                 <FormItem className="">
                   <FormLabel>Bậc lương</FormLabel>
@@ -1123,9 +1450,53 @@ export default function UpdateInformationForm({
                       dataset={
                         salaryGrades?.map(grade => ({
                           label: grade.name,
-                          value: grade.id,
+                          value: `${grade.id}.${grade.name}`,
                         })) || []
                       }
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="overAllowance"
+              render={({ field }) => (
+                <FormItem className="">
+                  <FormLabel>Phụ cấp vượt khung</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="number"
+                      inputMode="numeric"
+                      step="1"
+                      unit="%"
+                      startIcon={HandCoins}
+                      pattern="[0-9]*"
+                      placeholder="Phụ cấp vượt khung"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="overAllowance"
+              render={({ field }) => (
+                <FormItem className="">
+                  <FormLabel>Phụ cấp thâm niên</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="number"
+                      inputMode="numeric"
+                      step="1"
+                      unit="%"
+                      startIcon={HandCoins}
+                      pattern="[0-9]*"
+                      placeholder="Phụ cấp thâm niên"
+                      {...field}
                     />
                   </FormControl>
                   <FormMessage />
@@ -1192,7 +1563,7 @@ export default function UpdateInformationForm({
                     dataset={
                       appellations?.map(a => ({
                         label: a.name,
-                        value: a.id,
+                        value: `${a.id}.${a.name}`,
                       })) || []
                     }
                   />
@@ -1694,7 +2065,7 @@ export default function UpdateInformationForm({
       </form>
       <pre className="mt-5 block">
         <FormDescription>
-          <code>{JSON.stringify(form.getValues(), null, 2)}</code>
+          <code>{JSON.stringify(defaultValues, null, 2)}</code>
         </FormDescription>
       </pre>
     </Form>

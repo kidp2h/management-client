@@ -29,7 +29,7 @@ export default function UpdateContractForm({
             id: data.id,
             ...values,
           });
-          console.log(values, data);
+          // console.log(values, data);
           console.error(error);
           if (error) {
             toast.error('Cập nhật hợp đồng thất bại');

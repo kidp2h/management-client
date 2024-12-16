@@ -33,7 +33,7 @@ export async function createCommendations(
       error: null,
     };
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     return {
       data: null,
       error: getErrorMessage(err),

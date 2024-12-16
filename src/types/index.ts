@@ -43,6 +43,7 @@ export type FeatureFlagValue = DataTableConfig['featureFlags'][number]['value'];
 export enum ClerkCode {
   NOT_FOUND = 'form_identifier_not_found',
   INVALID_PASSWORD = 'form_password_validation_failed',
+  SESSION_EXISTS = 'session_exists',
 }
 export type DrizzleWhere<T> =
   | SQL<unknown>

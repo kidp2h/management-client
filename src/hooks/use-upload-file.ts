@@ -50,11 +50,11 @@ export function useUploadFile(
           });
         },
       });
-      console.log(res);
+      // console.log(res);
       await callback(res);
       setUploadedFiles(prev => (prev ? [...prev, ...res] : res));
     } catch (err) {
-      console.log('erro ne', err);
+      // console.log('erro ne', err);
       toast.error('File không hợp lệ');
       throw new Error("Can't upload file");
     } finally {

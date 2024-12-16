@@ -6,7 +6,10 @@ import { CreateDataDialog } from '@/components/common/create-data-dialog';
 import { DataTableToolbarActions } from '@/components/common/data-table-toolbar-actions';
 import { DataTableAdvancedToolbar } from '@/components/data-table/advanced/data-table-advanced-toolbar';
 import { DataTable } from '@/components/data-table/data-table';
-import type { getDepartments } from '@/db/queries/departments';
+import type {
+  getAllDepartments,
+  getDepartments,
+} from '@/db/queries/departments';
 import type { Departments } from '@/db/schema';
 import { useDataTable } from '@/hooks/use-data-table';
 import { useTable } from '@/providers/table-provider';
@@ -18,10 +21,14 @@ import { getColumns } from './departments-table-column';
 
 interface DepartmentsTableProps {
   departments: ReturnType<typeof getDepartments>;
+  allDepartments: ReturnType<typeof getAllDepartments>;
 }
-export const DepartmentsTable = ({ departments }: DepartmentsTableProps) => {
+export const DepartmentsTable = ({
+  departments,
+  allDepartments,
+}: DepartmentsTableProps) => {
   const { data, pageCount } = use(departments);
-  const columns = React.useMemo(() => getColumns(), []);
+  const columns = React.useMemo(() => getColumns(allDepartments), []);
   const { featureFlags } = useTable();
 
   const filterFields: DataTableFilterField<any>[] = [
@@ -62,6 +69,7 @@ export const DepartmentsTable = ({ departments }: DepartmentsTableProps) => {
           createDialog={
             <CreateDataDialog
               form={CreateDepartmentForm}
+              data={{ departments: allDepartments }}
               name="Đơn vị"
               description="Tạo mới đơn vị"
             />

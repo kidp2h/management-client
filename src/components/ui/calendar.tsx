@@ -15,7 +15,9 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { DayPicker, DropdownProps } from 'react-day-picker';
 import { vi } from 'date-fns/locale';
 
-export type CalendarProps = React.ComponentProps<typeof DayPicker>;
+export type CalendarProps = React.ComponentProps<typeof DayPicker> & {
+  callback?: () => void;
+};
 
 function Calendar({
   className,

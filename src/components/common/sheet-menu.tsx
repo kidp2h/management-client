@@ -13,11 +13,28 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { getMenuList } from '@/config/sidebar';
+import type { getConfigRole } from '@/db/queries/roles';
+import { useUser } from '@clerk/nextjs';
+import { useGlobalStore } from '@/providers/global-store-provider';
 
-type SheetMenuProps = {};
-export function SheetMenu({}: SheetMenuProps) {
+type SheetMenuProps = {
+  configRole?: ReturnType<typeof getConfigRole>;
+};
+export function SheetMenu({ configRole }: SheetMenuProps) {
   const pathName = usePathname();
-  const menuList = getMenuList(pathName);
+  const { user } = useUser();
+
+  // const { data } = use(configRole || Promise.resolve({ data: null }));
+
+  const { setRoleAdmin, roleAdmin, roleApprove } = useGlobalStore(
+    state => state,
+  );
+  const menuList = getMenuList(pathName, roleAdmin, roleApprove, user);
+  // useEffect(() => {
+  //   if (data && data?.length > 0) {
+  //     setRoleAdmin(data[0].roleId);
+  //   }
+  // }, []);
   return (
     <Sheet>
       <SheetTrigger className="lg:hidden" asChild>

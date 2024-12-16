@@ -20,7 +20,7 @@ export default function RecordOldRegimeTable({
   oldRegimes,
   id,
 }: RecordOldRegimeTableProps) {
-  console.log(id);
+  // console.log(id);
   const { data } = React.use(oldRegimes);
   const columns = React.useMemo(() => getColumns(), []);
   const { featureFlags } = useTable();

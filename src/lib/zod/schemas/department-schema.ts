@@ -21,8 +21,18 @@ export const createDepartmentSchema = z.object({
       required_error: 'Tên đơn vị không được để trống',
     })
     .describe('Tên đơn vị'),
+  parent: z
+    .string({
+      required_error: 'Đơn vị cha không được để trống',
+    })
+    .optional(),
+});
+export const createRecordDepartmentSchema = z.object({
+  recordId: z.string({
+    required_error: 'Không được để trống',
+  }),
 });
 
-export const updateDepartmentSchema = createDepartmentSchema;
+export const updateDepartmentSchema = createDepartmentSchema.partial();
 export type CreateDepartmentSchema = z.infer<typeof createDepartmentSchema>;
-export type UpdateDepartmentSchema = z.infer<typeof createDepartmentSchema>;
+export type UpdateDepartmentSchema = z.infer<typeof updateDepartmentSchema>;

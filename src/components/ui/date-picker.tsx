@@ -20,10 +20,11 @@ export const DatePicker = forwardRef<
     setDate: (date?: Date) => void;
     placeholder: string;
     disabled?: boolean;
+    callback?: () => void;
     format?: string;
   }
 >(function DatePickerCmp(
-  { date, setDate, placeholder, disabled, format },
+  { date, setDate, placeholder, disabled, format, callback },
   ref,
 ) {
   return (
@@ -48,7 +49,10 @@ export const DatePicker = forwardRef<
         <Calendar
           mode="single"
           selected={date}
-          onSelect={setDate}
+          onSelect={date => {
+            setDate(date);
+            callback && callback();
+          }}
           initialFocus
           className=""
           captionLayout="dropdown-buttons"

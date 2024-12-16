@@ -14,7 +14,7 @@ export default function CreateOldRegimeForm({
   onSuccess,
   ...props
 }: CreateOldRegimeFormProps) {
-  console.log(props);
+  // console.log(props);
   const [isCreatePending, startCreateTransition] = useTransition();
   return (
     <AutoForm

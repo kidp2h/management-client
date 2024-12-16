@@ -12,14 +12,20 @@ import type { DataTableFilterField } from '@/types';
 import CreateUserForm from './create-user-form';
 import { DeleteUsersDialog } from './delete-user-dialog';
 import { getColumns } from './users-table-column';
-import { Roles } from '@/db/schema';
+import { Departments, Roles } from '@/db/schema';
 
 interface UsersTableProps {
   users: User[];
   pageCount: number;
   roles: Roles[];
+  departments: Departments[];
 }
-export const UsersTable = ({ users, pageCount, roles }: UsersTableProps) => {
+export const UsersTable = ({
+  users,
+  pageCount,
+  roles,
+  departments,
+}: UsersTableProps) => {
   // const { data } = use(users);
   const columns = React.useMemo(() => getColumns({ roles }), []);
   const { featureFlags } = useTable();
@@ -45,7 +51,7 @@ export const UsersTable = ({ users, pageCount, roles }: UsersTableProps) => {
     shallow: false,
     clearOnDefault: true,
   });
-  // console.log(table);
+  // // console.log(table);
   return (
     <DataTable table={table}>
       <DataTableToolbarActions
@@ -56,6 +62,7 @@ export const UsersTable = ({ users, pageCount, roles }: UsersTableProps) => {
             form={CreateUserForm}
             name="Tài khoản"
             description="Tạo mới tài khoản"
+            data={{ roles, departments }}
           />
         }
         deleteDialog={

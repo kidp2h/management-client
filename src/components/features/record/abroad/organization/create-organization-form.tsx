@@ -14,7 +14,7 @@ export default function CreateOrganizationForm({
   onSuccess,
   ...props
 }: CreateOrganizationFormProps) {
-  console.log(props);
+  // console.log(props);
   const [isCreatePending, startCreateTransition] = useTransition();
   return (
     <AutoForm

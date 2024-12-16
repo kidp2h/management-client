@@ -15,9 +15,11 @@ import {
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Combobox } from '@/components/ui/combobox';
-import { Award, Badge } from 'lucide-react';
+import { Badge } from 'lucide-react';
 import { getAllAppellations } from '@/db/queries/appellations';
 import { Button } from '@/components/ui/button';
+import { DatePicker } from '@/components/ui/date-picker';
+import { Input } from '@/components/ui/input';
 
 export interface CreateCommendationFormProps {
   onSuccess: () => void;
@@ -28,7 +30,7 @@ export default function CreateCommendationForm({
   onSuccess,
   ...props
 }: CreateCommendationFormProps) {
-  console.log(props);
+  // console.log(props);
   const [isCreatePending, startCreateTransition] = useTransition();
   const rangeYears = useCallback((stop, step) => {
     const currentYear = new Date().getFullYear();
@@ -47,6 +49,7 @@ export default function CreateCommendationForm({
       const { error } = await createCommendation({
         ...values,
         recordId: props.recordId,
+        year: form.getValues('from').getFullYear().toString(),
       });
       if (error) {
         toast.error(error);
@@ -65,16 +68,51 @@ export default function CreateCommendationForm({
       >
         <FormField
           control={form.control}
+          name="from"
+          render={({ field }) => (
+            <FormItem className="">
+              <FormLabel>Từ ngày</FormLabel>
+              <FormControl className="space-x-0 space-y-0">
+                <DatePicker
+                  date={field.value}
+                  setDate={field.onChange}
+                  placeholder="Từ ngày"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="to"
+          render={({ field }) => (
+            <FormItem className="">
+              <FormLabel>Đến ngày</FormLabel>
+              <FormControl className="space-x-0 space-y-0">
+                <DatePicker
+                  date={field.value}
+                  setDate={field.onChange}
+                  placeholder="Đến ngày"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
           name="award"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Từ</FormLabel>
+              <FormLabel>Huân chương / Huy chương / Bằng khen</FormLabel>
               <FormControl>
                 <Combobox
                   startIcon={Badge}
                   type="form"
                   form={form}
-                  placeholder="Chọn Huân chương / Huy chương"
+                  placeholder="Chọn Huân chương / Huy chương / Bằng khen"
                   field={field}
                   className="w-full"
                   dataset={
@@ -90,6 +128,32 @@ export default function CreateCommendationForm({
           )}
         />
         <FormField
+          control={form.control}
+          name="decisionNumber"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Số quyết định</FormLabel>
+              <FormControl className="space-x-0 space-y-0">
+                <Input placeholder="Số quyết định" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="reason"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Lý do</FormLabel>
+              <FormControl className="space-x-0 space-y-0">
+                <Input placeholder="Lý do" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        {/* <FormField
           control={form.control}
           name="year"
           render={({ field }) => (
@@ -111,7 +175,7 @@ export default function CreateCommendationForm({
               <FormMessage />
             </FormItem>
           )}
-        />
+        /> */}
         <Button type="submit" disabled={isCreatePending}>
           {isCreatePending && (
             <ReloadIcon

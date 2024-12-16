@@ -37,12 +37,12 @@ export default function CreateTrainingForm({
   formTrainings,
   ...props
 }: CreateTrainingFormProps) {
-  console.log(props);
+  // console.log(props);
   const [isCreatePending, startCreateTransition] = useTransition();
   const form = useForm<z.infer<typeof createTrainingSchema>>({
     defaultValues: {},
   });
-  console.log(qualifications, formTrainings);
+  // console.log(qualifications, formTrainings);
   const { data: dataQualifications } = React.use(qualifications);
   const { data: dataFormTrainings } = React.use(formTrainings);
   const onSubmit = (values: CreateTrainingSchema) => {

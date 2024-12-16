@@ -14,29 +14,31 @@ import { getColumns } from './records-near-retirement-column';
 
 export interface RecordsNearRetirementTableProps {
   records: ReturnType<typeof getRecordsRetirement>;
+  cDepartment: any;
 }
 export default function RecordsNearRetirementTable({
   records,
+  cDepartment,
 }: RecordsNearRetirementTableProps) {
   const { data } = use(records);
-  console.log(data);
+  // console.log(data);
   const columns = React.useMemo(() => getColumns(), []);
   const { featureFlags } = useTable();
-  const filteredData = React.useMemo(() => {
-    return data.filter(record => {
-      const birthday = dayjs(record.birthday);
-      const retirementAge = record.gender === 'male' ? 60 : 59;
-      const retirementDate = birthday.add(retirementAge, 'year');
-      const yearsToRetirement = retirementDate.diff(dayjs(), 'year', true);
 
-      // Consider records that are within 1 year of retirement
-      console.log(yearsToRetirement);
-      return yearsToRetirement <= 1;
-    });
-  }, [data]);
   const filterFields: DataTableFilterField<any>[] = [];
   const { table } = useDataTable({
-    data: filteredData,
+    data: data
+      .filter(record => record?.department?.id === cDepartment?.id)
+      .filter(record => {
+        const birthday = dayjs(record.birthday);
+        const retirementAge = record.gender === 'male' ? 60 : 59;
+        const retirementDate = birthday.add(retirementAge, 'year');
+        const yearsToRetirement = retirementDate.diff(dayjs(), 'year', true);
+
+        // Consider records that are within 1 year of retirement
+        // console.log(yearsToRetirement);
+        return yearsToRetirement <= 1;
+      }),
     columns,
     enableAdvancedFilter: featureFlags.includes('advancedFilter'),
     pageCount: 0,

@@ -33,7 +33,7 @@ export async function createRemarks(
       error: null,
     };
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     return {
       data: null,
       error: getErrorMessage(err),

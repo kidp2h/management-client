@@ -84,3 +84,13 @@ export async function getLanguages(input: Partial<GetLanguagesSchema>) {
     return { data: [], pageCount: 0 };
   }
 }
+
+export const getAllLanguages = async () => {
+  try {
+    const data = await db.select().from(languages);
+    return { data };
+  } catch (error) {
+    console.error('Error getting languages:', error);
+    return { data: null };
+  }
+};

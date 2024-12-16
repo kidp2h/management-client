@@ -42,7 +42,7 @@ export function UserNav() {
   const handleSignOut = async () => {
     // const x = await signOut({ redirectUrl: '/auth' });
 
-    console.log('signOut');
+    // console.log('signOut');
     setLoading(true);
     await signOut({ redirectUrl: '/auth' });
     router.push('/auth');
@@ -107,7 +107,7 @@ export function UserNav() {
           <DropdownMenuItem
             className="hover:cursor-pointer"
             onClick={() => {
-              console.log('signOuts');
+              // console.log('signOuts');
               handleSignOut();
             }}
           >

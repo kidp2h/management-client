@@ -17,11 +17,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { DatePicker } from '@/components/ui/date-picker';
 import { Combobox } from '@/components/ui/combobox';
-import {
-  BriefcaseBusiness,
-  ChartNoAxesGantt,
-  Hash,
-} from 'lucide-react';
+import { BriefcaseBusiness, ChartNoAxesGantt, Hash } from 'lucide-react';
 import { useGlobalStore } from '@/providers/global-store-provider';
 import { Button } from '@/components/ui/button';
 import { getAllSalaryGrades } from '@/db/queries/salary-grades';
@@ -48,12 +44,11 @@ export default function CreateSalaryForm({
     props.publicEmployeeRanks,
   );
   const { data: dataSalaryGrades } = React.use(props.salaryGrades);
-  const classificationsMapped = dataCivilServantRanks
-    ?.concat(dataPublicEmployeeRanks || [])
-    .map(c => ({
+  const classificationsMapped =
+    dataCivilServantRanks?.map(c => ({
       label: c.name,
       value: c.id,
-    }));
+    })) || [];
 
   const form = useForm<z.infer<typeof createSalarySchema>>({
     defaultValues: {},

@@ -14,7 +14,7 @@ export default function CreateRelativeForm({
   onSuccess,
   ...props
 }: CreateRelativeFormProps) {
-  console.log(props);
+  // console.log(props);
   const [isCreatePending, startCreateTransition] = useTransition();
   return (
     <AutoForm

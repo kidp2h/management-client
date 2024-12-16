@@ -27,7 +27,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer';
-import { deleteRecords } from '@/db/actions/records';
+import { deleteRecordsDepartment } from '@/db/actions/records';
 import type { Records } from '@/db/schema';
 import { useMediaQuery } from '@/hooks/use-media-query';
 
@@ -36,6 +36,7 @@ interface DeleteRecordsDialogProps
   records: Row<Records>['original'][];
   showTrigger?: boolean;
   onSuccess?: () => void;
+  cDepartment: Record<string, string>;
   name: string;
 }
 
@@ -51,8 +52,9 @@ export function DeleteRecordsDialog({
 
   function onDelete() {
     startDeleteTransition(async () => {
-      const { error } = await deleteRecords({
+      const { error } = await deleteRecordsDepartment({
         ids: records.map(record => record.id),
+        departmentId: props.cDepartment.id,
       });
       if (error) {
         toast.error(error);
@@ -76,6 +78,8 @@ export function DeleteRecordsDialog({
         ) : null}
         <DialogContent>
           <DialogHeader>
+            {/* {JSON.stringify(props.cDepartment)} */}
+
             <DialogTitle>Bạn có chắc chắn không?</DialogTitle>
             <DialogDescription>
               Hành động này không thể hoàn tác. Điều này sẽ xóa vĩnh viễn{' '}

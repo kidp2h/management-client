@@ -21,10 +21,10 @@ export default function PartyCommitteesManagementSection({
     { isSeparator: true },
     { name: 'Quản lý danh mục' },
     { isSeparator: true },
-    { name: 'Quân hàm' },
+    { name: 'Cấp uỷ' },
   ];
   return (
-    <ContentLayout title="Quân hàm">
+    <ContentLayout title="Cấp uỷ">
       <AutoBreadcrumb items={items} />
       <MainContent hasCard={false}>
         <TableProvider isHidden>

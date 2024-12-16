@@ -51,12 +51,15 @@ export const LoginForm = () => {
         case ClerkCode.NOT_FOUND:
           toast('Tài khoản không tồn tại');
           break;
+        case ClerkCode.SESSION_EXISTS:
+          router.push('/');
+          break;
         default:
           toast('Mã cán bộ hoặc mật khẩu không đúng', {
             description: `${dayjs().format('h:mm A')}`,
             action: {
               label: 'Quên mật khẩu ?',
-              onClick: () => console.warn('forgot'),
+              onClick: () => router.push('/forgot-password'),
             },
           });
           break;

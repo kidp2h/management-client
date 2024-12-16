@@ -1,11 +1,11 @@
 import 'server-only';
 
-import { and, asc, count, desc, gte, lte, or, type SQL } from 'drizzle-orm';
+import { and, asc, count, desc, eq, gte, lte, or, type SQL } from 'drizzle-orm';
 import { unstable_noStore as noStore } from 'next/cache';
 
 import { db } from '@/db';
 import type { Departments } from '@/db/schema';
-import { departments } from '@/db/schema';
+import { departments, records, recordsDepartments } from '@/db/schema';
 import { filterColumn } from '@/lib/filter-column';
 import type { GetDepartmentsSchema } from '@/lib/zod/schemas/department-schema';
 import type { DrizzleWhere } from '@/types';
@@ -85,6 +85,104 @@ export async function getDepartments(input: Partial<GetDepartmentsSchema>) {
 export async function getAllDepartments() {
   try {
     const data = await db.select().from(departments);
+    if (data) {
+      const hierarchy = buildDepartmentHierarchy(data);
+      // console.log(JSON.stringify(hierarchy, null, 2));
+      // console.log(hierarchy);
+      return { data: hierarchy };
+    }
+    return { data: [] };
+  } catch (error) {
+    console.error('Error getting departments:', error);
+    return { data: null, error: 'Error getting departments' };
+  }
+}
+
+export async function getChildOfDepartment(id: string) {
+  try {
+    const data = await db
+      .select()
+      .from(departments)
+      .where(eq(departments.parent, id));
+    // if (data) {
+    //   const hierarchy = buildDepartmentHierarchy(data);
+
+    // }
+    // return { data: [], error: null };
+    return { data, error: null };
+  } catch (error) {
+    console.error('Error getting departments:', error);
+    return { data: null };
+  }
+}
+
+export async function getDepartmentsByRecord(id: string) {
+  try {
+    const data = await db
+      .select({
+        id: recordsDepartments.id,
+        record: records,
+        department: departments,
+      })
+      .from(recordsDepartments)
+      .where(eq(recordsDepartments.recordId, id))
+      .leftJoin(
+        departments,
+        eq(recordsDepartments.departmentId, departments.id),
+      )
+      .leftJoin(records, eq(recordsDepartments.recordId, records.id));
+    return { data, error: null };
+  } catch (error) {
+    console.error('Error getting departments:', error);
+    return { data: null, error: 'Error getting departments' };
+  }
+}
+
+function buildDepartmentHierarchy(departments: any[]) {
+  const departmentMap = new Map<
+    string,
+    Departments & { children: Departments[] }
+  >();
+
+  // Initialize the map with all departments
+  departments.forEach(department => {
+    departmentMap.set(department.id, { ...department, children: null });
+  });
+
+  // Build the hierarchy
+  const hierarchy: (Departments & { children: Departments[] })[] = [];
+  departmentMap.forEach(department => {
+    // // console.log(department);
+    if (department.parent) {
+      const parent = departmentMap.get(department.parent);
+      if (parent) {
+        if (!parent.children) {
+          parent.children = [];
+        }
+        parent.children.push(department);
+      }
+    } else {
+      hierarchy.push(department);
+    }
+  });
+
+  return hierarchy;
+}
+
+export async function getAllRecordsDepartments() {
+  try {
+    const data = await db
+      .select({
+        id: recordsDepartments.id,
+        record: records,
+        department: departments,
+      })
+      .from(recordsDepartments)
+      .leftJoin(
+        departments,
+        eq(recordsDepartments.departmentId, departments.id),
+      )
+      .leftJoin(records, eq(recordsDepartments.recordId, records.id));
     return { data };
   } catch (error) {
     console.error('Error getting departments:', error);

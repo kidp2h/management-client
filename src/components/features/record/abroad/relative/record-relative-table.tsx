@@ -20,7 +20,7 @@ export default function RecordRelativeTable({
   relatives,
   id,
 }: RecordRelativeTableProps) {
-  console.log(id);
+  // console.log(id);
   const { data } = React.use(relatives);
   const columns = React.useMemo(() => getColumns(), []);
   const { featureFlags } = useTable();

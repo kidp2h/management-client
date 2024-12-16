@@ -1,50 +1,65 @@
-import { ReloadIcon } from '@radix-ui/react-icons';
-import { CaseUpper } from 'lucide-react';
+import { TypeOutline } from 'lucide-react';
 import React, { useTransition } from 'react';
 import { toast } from 'sonner';
 
-import AutoForm, { AutoFormSubmit } from '@/components/ui/auto-form';
 import { createRecord } from '@/db/actions/records';
 import { createRecordSchema } from '@/lib/zod/schemas/record-schema';
-import { useGlobalStore } from '@/providers/global-store-provider';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { z } from 'zod';
 
 export interface CreateRecordFormProps {
   onSuccess: () => void;
 }
 export default function CreateRecordForm({ onSuccess }: CreateRecordFormProps) {
   const [isCreatePending, startCreateTransition] = useTransition();
-  const { ranks } = useGlobalStore(state => state);
+  const form = useForm<z.infer<typeof createRecordSchema>>({
+    resolver: zodResolver(createRecordSchema),
+    defaultValues: {},
+  });
+  const onSubmit = (values: z.infer<typeof createRecordSchema>) => {
+    startCreateTransition(async () => {
+      try {
+        await createRecord(values);
+        toast.success('Tạo bản ghi thành công');
+        onSuccess();
+      } catch (error) {
+        toast.error('Tạo bản ghi thất bại');
+      }
+    });
+  };
+  // const { ranks } = useGlobalStore(state => state);
   return (
-    <AutoForm
-      onSubmit={async values => {
-        startCreateTransition(async () => {
-          const { error } = await createRecord({
-            ...values,
-          });
-          if (error) {
-            toast.error(error);
-            return;
-          }
-          onSuccess();
-          toast.success('Hồ sơ đã được tạo');
-        });
-      }}
-      formSchema={createRecordSchema(ranks.map(r => `${r.id}|${r.name}`))}
-      fieldConfig={{
-        fullName: {
-          icon: CaseUpper,
-        },
-      }}
-    >
-      <AutoFormSubmit
-        disabled={isCreatePending}
-        className="w-full bg-primary text-primary-foreground"
-      >
-        {isCreatePending && (
-          <ReloadIcon className="mr-2 size-4 animate-spin" aria-hidden="true" />
-        )}
-        Tạo
-      </AutoFormSubmit>
-    </AutoForm>
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
+        <FormField
+          control={form.control}
+          name="fullName"
+          render={({ field }) => (
+            <FormItem className="w-full">
+              <FormLabel>Họ và tên</FormLabel>
+              <FormControl>
+                <Input
+                  startIcon={TypeOutline}
+                  type="text"
+                  placeholder="Họ và tên"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      </form>
+    </Form>
   );
 }

@@ -33,7 +33,7 @@ export async function createDisciplines(
       error: null,
     };
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     return {
       data: null,
       error: getErrorMessage(err),
@@ -45,7 +45,7 @@ export async function createDiscipline(
   input: CreateDisciplineSchema & { recordId: string },
 ) {
   noStore();
-  console.log(input);
+  // console.log(input);
   try {
     await db
       .insert(recordsDiscipline)

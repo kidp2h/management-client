@@ -59,7 +59,7 @@ export function DeleteUsersDialog({
         toast.success('Tài khoản đã được xoá');
         onSuccess?.();
       } catch (error) {
-        console.log(error);
+        // console.log(error);
         toast.error('Xoá tài khoản thất bại');
       }
     });
