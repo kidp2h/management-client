@@ -43,7 +43,6 @@ import { getRecordSecondmentsById } from '@/db/queries/secondments';
 import { getAllTypeContracts } from '@/db/queries/type-contracts';
 import { currentUser } from '@clerk/nextjs/server';
 import { decode } from 'js-base64';
-import { redirect } from 'next/navigation';
 import React from 'react';
 
 type RecordDetailPageProps = {
@@ -96,11 +95,11 @@ export default async function RecordDetailPage({
     const typeContracts = getAllTypeContracts();
     const recordParties = getRecordPartiesById(recordId);
     console.log(await formRecruiments);
-    if (user?.publicMetadata?.roleName !== 'Quản lý') {
-      if ((user?.publicMetadata?.record as any)?.id !== recordId) {
-        return redirect('/');
-      }
-    }
+    // if (user?.publicMetadata?.roleName !== 'Quản lý') {
+    //   if ((user?.publicMetadata?.record as any)?.id !== recordId) {
+    //     return redirect('/');
+    //   }
+    // }
     return (
       <RecordDetailSection
         typeContracts={typeContracts}

@@ -4,11 +4,7 @@ import { and, eq, inArray } from 'drizzle-orm';
 import { revalidatePath, unstable_noStore as noStore } from 'next/cache';
 
 import { db } from '@/db';
-import {
-  records,
-  recordsDepartments,
-  recordsMobilization,
-} from '@/db/schema';
+import { records, recordsDepartments, recordsMobilization } from '@/db/schema';
 import { getErrorMessage } from '@/lib/handle-error';
 import {
   acceptMobilizationSchema,

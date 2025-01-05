@@ -72,6 +72,7 @@ export function getColumns(
   appellations: ReturnType<typeof getAllAppellations>,
   formDisciplines: ReturnType<typeof getAllFormDisciplines>,
   cDepartment: Record<string, string>,
+  isAll?: boolean,
 ): ColumnDef<any>[] {
   // console.log(provinces);
   return [
@@ -412,60 +413,65 @@ export function getColumns(
                 },
               }}
             />
-            <MobilizationRecordDialog
-              row={row.original}
-              currentDepartment={cDepartment}
-              open={showMobilizationRecordDialog}
-              onOpenChange={setShowMobilizationRecordDialog}
-              departments={departments}
-              onSuccess={() => row.toggleSelected(false)}
-            />
-            <CreateDataDialog
-              name="thuyên chuyển nội bộ"
-              form={CreateWorkExperienceForm}
-              description="Tạo thuyên chuyển nội bộ mới"
-              showTrigger={false}
-              _open={showTransferRecordDialog}
-              _onOpenChange={setShowTransferRecordDialog}
-              data={{
-                recordId: row.original.record.id,
-                departments,
-                duties,
-              }}
-            />
-            <SendRecordDialog
-              qualifications={qualification}
-              row={row.original}
-              currentDepartment={cDepartment}
-              open={showSendRecordDialog}
-              onOpenChange={setShowSendRecordDialog}
-              onSuccess={() => row.toggleSelected(false)}
-            />
-            <CreateDataDialog
-              name="khen thưởng"
-              form={CreateCommendationForm}
-              description="Tạo khen thưởng mới"
-              showTrigger={false}
-              _open={showCommendationRecordDialog}
-              _onOpenChange={setShowCommendationRecordDialog}
-              data={{
-                recordId: row.original.record.id,
-                appellations,
-              }}
-            />
-            <CreateDataDialog
-              name="kỷ luật"
-              form={CreateDisciplineForm}
-              description="Tạo kỷ luật mới"
-              showTrigger={false}
-              _open={showDisciplineRecordDialog}
-              _onOpenChange={setShowDisciplineRecordDialog}
-              data={{
-                recordId: row.original.record.id,
-                departments,
-                formDisciplines,
-              }}
-            />
+            {!isAll && (
+              <>
+                <MobilizationRecordDialog
+                  row={row.original}
+                  currentDepartment={cDepartment}
+                  open={showMobilizationRecordDialog}
+                  onOpenChange={setShowMobilizationRecordDialog}
+                  departments={departments}
+                  onSuccess={() => row.toggleSelected(false)}
+                />
+                <CreateDataDialog
+                  name="thuyên chuyển nội bộ"
+                  form={CreateWorkExperienceForm}
+                  description="Tạo thuyên chuyển nội bộ mới"
+                  showTrigger={false}
+                  _open={showTransferRecordDialog}
+                  _onOpenChange={setShowTransferRecordDialog}
+                  data={{
+                    recordId: row.original.record.id,
+                    departments,
+                    duties,
+                  }}
+                />
+                <SendRecordDialog
+                  qualifications={qualification}
+                  row={row.original}
+                  currentDepartment={cDepartment}
+                  open={showSendRecordDialog}
+                  onOpenChange={setShowSendRecordDialog}
+                  onSuccess={() => row.toggleSelected(false)}
+                />
+                <CreateDataDialog
+                  name="khen thưởng"
+                  form={CreateCommendationForm}
+                  description="Tạo khen thưởng mới"
+                  showTrigger={false}
+                  _open={showCommendationRecordDialog}
+                  _onOpenChange={setShowCommendationRecordDialog}
+                  data={{
+                    recordId: row.original.record.id,
+                    appellations,
+                  }}
+                />
+                <CreateDataDialog
+                  name="kỷ luật"
+                  form={CreateDisciplineForm}
+                  description="Tạo kỷ luật mới"
+                  showTrigger={false}
+                  _open={showDisciplineRecordDialog}
+                  _onOpenChange={setShowDisciplineRecordDialog}
+                  data={{
+                    recordId: row.original.record.id,
+                    departments,
+                    formDisciplines,
+                  }}
+                />
+              </>
+            )}
+
             <DeleteRecordsDialog
               name="hồ sơ"
               open={showDeleteRecordDialog}
@@ -500,39 +506,43 @@ export function getColumns(
                   Thao tác
                 </DropdownMenuLabel>
                 {/* {isCanApprove && ( */}
-                <DropdownMenuItem
-                  onSelect={() => setShowMobilizationRecordDialog(true)}
-                >
-                  Điều động
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onSelect={() => setShowTransferRecordDialog(true)}
-                >
-                  Thuyên chuyển nội bộ
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onSelect={() => setShowCommendationRecordDialog(true)}
-                >
-                  Khen thưởng
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onSelect={() => setShowDisciplineRecordDialog(true)}
-                >
-                  Kỷ luật
-                </DropdownMenuItem>
+                {!isAll && (
+                  <>
+                    <DropdownMenuItem
+                      onSelect={() => setShowMobilizationRecordDialog(true)}
+                    >
+                      Điều động
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onSelect={() => setShowTransferRecordDialog(true)}
+                    >
+                      Thuyên chuyển nội bộ
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onSelect={() => setShowCommendationRecordDialog(true)}
+                    >
+                      Khen thưởng
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onSelect={() => setShowDisciplineRecordDialog(true)}
+                    >
+                      Kỷ luật
+                    </DropdownMenuItem>
 
-                {/* )} */}
-                {/* {isCanApprove && ( */}
-                <DropdownMenuItem onSelect={() => console.log('')}>
-                  Bình bầu
-                </DropdownMenuItem>
-                {/* )} */}
-                {/* {isCanApprove && ( */}
-                <DropdownMenuItem
-                  onSelect={() => setShowSendRecordDialog(true)}
-                >
-                  Cử đi học
-                </DropdownMenuItem>
+                    {/* )} */}
+                    {/* {isCanApprove && ( */}
+                    <DropdownMenuItem onSelect={() => console.log('')}>
+                      Bình bầu
+                    </DropdownMenuItem>
+                    {/* )} */}
+                    {/* {isCanApprove && ( */}
+                    <DropdownMenuItem
+                      onSelect={() => setShowSendRecordDialog(true)}
+                    >
+                      Cử đi học
+                    </DropdownMenuItem>
+                  </>
+                )}
                 {/* )} */}
                 <DropdownMenuItem
                   onSelect={() => setShowUpdateRecordSheet(true)}

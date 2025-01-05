@@ -1,11 +1,7 @@
 'use client';
 
 import type { Row } from '@tanstack/react-table';
-import {
-  Binary,
-  Book,
-  Building,
-} from 'lucide-react';
+import { Binary, Book, Building } from 'lucide-react';
 import * as React from 'react';
 import { toast } from 'sonner';
 
@@ -39,16 +35,11 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { DatePicker } from '@/components/ui/date-picker';
-import {
-  createIncreaseSalaryEarly,
-  updateRecord,
-} from '@/db/actions/records';
+import { createIncreaseSalaryEarly, updateRecord } from '@/db/actions/records';
 import { useMediaQuery } from '@/hooks/use-media-query';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import {
-  increaseSalaryEarlySchema,
-} from '@/lib/zod/schemas/record-schema';
+import { increaseSalaryEarlySchema } from '@/lib/zod/schemas/record-schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { getAllSalaryGrades } from '@/db/queries/salary-grades';

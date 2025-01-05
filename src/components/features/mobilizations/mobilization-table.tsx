@@ -11,9 +11,7 @@ import { useDataTable } from '@/hooks/use-data-table';
 import { useTable } from '@/providers/table-provider';
 import type { DataTableFilterField } from '@/types';
 
-import {
-  getAllDepartments,
-} from '@/db/queries/departments';
+import { getAllDepartments } from '@/db/queries/departments';
 import { getColumns } from './mobilization-table-column';
 import { getAllMobilizations } from '@/db/queries/mobilizations';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';

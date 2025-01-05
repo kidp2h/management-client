@@ -19,15 +19,8 @@ import { RecordsTable } from './records-table';
 import { getAllReligions } from '@/db/queries/religions';
 import { getAllEthnicities } from '@/db/queries/ethnicities';
 import { TreeView } from '@/components/ui/tree-view';
-import {
-  BookUser,
-  Cog,
-  FilePlus,
-  GitBranchPlus,
-} from 'lucide-react';
-import {
-  getAllDepartments,
-} from '@/db/queries/departments';
+import { BookUser, Cog, FilePlus, GitBranchPlus } from 'lucide-react';
+import { getAllDepartments } from '@/db/queries/departments';
 import { DataTableSkeleton } from '@/components/data-table/data-table-skeleton';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -55,9 +48,11 @@ import { getAllRecordDuals } from '@/db/queries/duals';
 import { getAllRecordSecondments } from '@/db/queries/secondments';
 import RecordDualsTable from '../record/dual/record-dual-table';
 import RecordSecondmentsTable from '../record/secondment/record-secondment-table';
+import { RecordsTableAll } from './records-table-all';
 
 type RecordsManagementSectionProps = {
   records: ReturnType<typeof getRecords>;
+  recordsExceptDepartment: ReturnType<typeof getRecords>;
   allRecords: ReturnType<typeof _getRecords>;
   religions: ReturnType<typeof getAllReligions>;
   ethnicities: ReturnType<typeof getAllEthnicities>;
@@ -100,6 +95,7 @@ export const RecordsManagementSection = ({
   formDisciplines,
   recordDuals,
   recordSecondments,
+  recordsExceptDepartment,
 }: RecordsManagementSectionProps) => {
   // const isDesktop = useMediaQuery('(min-width: 1024px)');
   const result = React.use(allDepartments);
@@ -213,122 +209,147 @@ export const RecordsManagementSection = ({
     <ContentLayout title="Quản lý hồ sơ">
       <AutoBreadcrumb items={items} />
       <MainContent>
-        <div className="flex flex-col lg:flex-row gap-3 mb-20 ">
-          <TreeView
-            data={resultMapped || []}
-            initialSelectedItemId={cItem?.id}
-            expandAll
-            className="w-full lg:w-[30%] h-fit max-h-[70vh] overflow-auto bg-primary-foreground rounded-lg border-muted border-2 border-dashed"
-          />
-          <CreateDepartmentsDialog
-            name="đơn vị"
-            cDepartment={cItem}
-            open={showCreateDepartmentDialog}
-            onOpenChange={setShowCreateDepartmentDialog}
-            showTrigger={false}
-          />
-          <FormDialog
-            form={CreateRecordDepartmentForm}
-            _open={showCreateRecordDepartmentDialog}
-            _onOpenChange={setShowCreateRecordDepartmentDialog}
-            showTrigger={false}
-            disabled={!cItem}
-            data={{
-              records: allRecords,
-              cDepartment: cItem,
-            }}
-            title="Gán đơn vị cho cán bộ"
-            description="Gán đơn vị cho cán bộ"
-          />
-          <FormDialog
-            title="Cập nhật đơn vị"
-            form={UpdateDepartmentForm}
-            _open={showUpdateDepartmentDialog}
-            _onOpenChange={setShowUpdateDepartmentDialog}
-            showTrigger={false}
-            disabled={!cItem}
-            data={{
-              cDepartment: cItem,
-              data: {
-                name: cItem?.name,
-                parent: cItem?.parent,
-              },
-              departments: allDepartments,
-            }}
-            name="đơn vị"
-            description="Cập nhật thông tin đơn vị"
-          />
-          <div className="w-full lg:w-[70%]">
-            <div className="font-bold mb-5">Đơn vị: {cItem?.name}</div>
+        <Tabs defaultValue="department">
+          <TabsList>
+            <TabsTrigger value="all">Tổng</TabsTrigger>
+            <TabsTrigger value="department">Danh sách theo khoa</TabsTrigger>
+          </TabsList>
+          <TabsContent value="all">
+            <RecordsTableAll
+              formDisciplines={formDisciplines}
+              departments={allDepartments}
+              cDepartment={cItem}
+              records={recordsExceptDepartment}
+              isAll
+              qualifications={qualifications}
+              religions={religions}
+              ethnicities={ethnicities}
+              duties={duties}
+              appellations={appellations}
+            />
+          </TabsContent>
+          <TabsContent value="department">
+            {' '}
+            <div className="flex flex-col lg:flex-row gap-3 mb-20 ">
+              <TreeView
+                data={resultMapped || []}
+                initialSelectedItemId={cItem?.id}
+                expandAll
+                className="w-full lg:w-[30%] h-fit max-h-[70vh] overflow-auto bg-primary-foreground rounded-lg border-muted border-2 border-dashed"
+              />
+              <CreateDepartmentsDialog
+                name="đơn vị"
+                cDepartment={cItem}
+                open={showCreateDepartmentDialog}
+                onOpenChange={setShowCreateDepartmentDialog}
+                showTrigger={false}
+              />
+              <FormDialog
+                form={CreateRecordDepartmentForm}
+                _open={showCreateRecordDepartmentDialog}
+                _onOpenChange={setShowCreateRecordDepartmentDialog}
+                showTrigger={false}
+                disabled={!cItem}
+                data={{
+                  records: allRecords,
+                  cDepartment: cItem,
+                }}
+                title="Gán đơn vị cho cán bộ"
+                description="Gán đơn vị cho cán bộ"
+              />
+              <FormDialog
+                title="Cập nhật đơn vị"
+                form={UpdateDepartmentForm}
+                _open={showUpdateDepartmentDialog}
+                _onOpenChange={setShowUpdateDepartmentDialog}
+                showTrigger={false}
+                disabled={!cItem}
+                data={{
+                  cDepartment: cItem,
+                  data: {
+                    name: cItem?.name,
+                    parent: cItem?.parent,
+                  },
+                  departments: allDepartments,
+                }}
+                name="đơn vị"
+                description="Cập nhật thông tin đơn vị"
+              />
+              <div className="w-full lg:w-[70%]">
+                <div className="font-bold mb-5">Đơn vị: {cItem?.name}</div>
 
-            {/* <div className="w-full relative h-10"> */}
-            <Tabs value={tab} onValueChange={setTab} defaultValue="info">
-              <TabsList className="flex flex-row h-full justify-start items-start w-fit mb-5">
-                <ScrollArea>
-                  <TabsTrigger value="list" disabled={cItem === null}>
-                    Danh sách trích ngang
-                  </TabsTrigger>
+                {/* <div className="w-full relative h-10"> */}
+                <Tabs value={tab} onValueChange={setTab} defaultValue="info">
+                  <TabsList className="flex flex-row h-full justify-start items-start w-fit mb-5">
+                    <ScrollArea>
+                      <TabsTrigger value="list" disabled={cItem === null}>
+                        Danh sách trích ngang
+                      </TabsTrigger>
 
-                  <TabsTrigger disabled={cItem === null} value="mobilization">
-                    Điều động
-                  </TabsTrigger>
-                  <TabsTrigger disabled={cItem === null} value="send">
-                    Cử đi học
-                  </TabsTrigger>
-                  <TabsTrigger disabled={cItem === null} value="retire">
-                    Nghỉ hưu
-                  </TabsTrigger>
-                  <TabsTrigger disabled={cItem === null} value="dual">
-                    Kiêm nhiệm
-                  </TabsTrigger>
-                  <TabsTrigger disabled={cItem === null} value="secondment">
-                    Biệt phái
-                  </TabsTrigger>
-                  <TabsTrigger
-                    disabled={cItem === null}
-                    value="increase-salary-regular"
-                  >
-                    Nâng lương thường xuyên
-                  </TabsTrigger>
-                  <TabsTrigger
-                    disabled={cItem === null}
-                    value="increase-salary-early"
-                  >
-                    Nâng lương trước hạn
-                  </TabsTrigger>
-                </ScrollArea>
-              </TabsList>
-              <TabsContent value="list" className="w-full">
-                {cItem && (
-                  <TableProvider isHidden>
-                    <Suspense
-                      fallback={
-                        <DataTableSkeleton
-                          columnCount={3}
-                          searchableColumnCount={2}
-                          filterableColumnCount={2}
-                          cellWidths={['10rem']}
-                          shrinkZero
-                        />
-                      }
-                    >
-                      <RecordsTable
-                        formDisciplines={formDisciplines}
-                        departments={allDepartments}
-                        cDepartment={cItem}
-                        records={records}
-                        qualifications={qualifications}
-                        religions={religions}
-                        ethnicities={ethnicities}
-                        duties={duties}
-                        appellations={appellations}
-                      />
-                    </Suspense>
-                  </TableProvider>
-                )}
-              </TabsContent>
-              <TabsContent value="retire" className="w-full">
-                {/* <TableProvider isHidden>
+                      <TabsTrigger
+                        disabled={cItem === null}
+                        value="mobilization"
+                      >
+                        Điều động
+                      </TabsTrigger>
+                      <TabsTrigger disabled={cItem === null} value="send">
+                        Cử đi học
+                      </TabsTrigger>
+                      <TabsTrigger disabled={cItem === null} value="retire">
+                        Nghỉ hưu
+                      </TabsTrigger>
+                      <TabsTrigger disabled={cItem === null} value="dual">
+                        Kiêm nhiệm
+                      </TabsTrigger>
+                      <TabsTrigger disabled={cItem === null} value="secondment">
+                        Biệt phái
+                      </TabsTrigger>
+                      <TabsTrigger
+                        disabled={cItem === null}
+                        value="increase-salary-regular"
+                      >
+                        Nâng lương thường xuyên
+                      </TabsTrigger>
+                      <TabsTrigger
+                        disabled={cItem === null}
+                        value="increase-salary-early"
+                      >
+                        Nâng lương trước hạn
+                      </TabsTrigger>
+                    </ScrollArea>
+                  </TabsList>
+                  <TabsContent value="list" className="w-full">
+                    {cItem && (
+                      <TableProvider isHidden>
+                        <Suspense
+                          fallback={
+                            <DataTableSkeleton
+                              columnCount={3}
+                              searchableColumnCount={2}
+                              filterableColumnCount={2}
+                              cellWidths={['10rem']}
+                              shrinkZero
+                            />
+                          }
+                        >
+                          <RecordsTable
+                            formDisciplines={formDisciplines}
+                            departments={allDepartments}
+                            cDepartment={cItem}
+                            isAll={false}
+                            records={records}
+                            qualifications={qualifications}
+                            religions={religions}
+                            ethnicities={ethnicities}
+                            duties={duties}
+                            appellations={appellations}
+                          />
+                        </Suspense>
+                      </TableProvider>
+                    )}
+                  </TabsContent>
+                  <TabsContent value="retire" className="w-full">
+                    {/* <TableProvider isHidden>
                   <Suspense
                     fallback={
                       <DataTableSkeleton
@@ -348,97 +369,103 @@ export const RecordsManagementSection = ({
                     />
                   </Suspense>
                 </TableProvider> */}
-              </TabsContent>
-              <TabsContent value="mobilization" className="w-full">
-                <TableProvider isHidden>
-                  <Suspense
-                    fallback={
-                      <DataTableSkeleton
-                        columnCount={3}
-                        searchableColumnCount={2}
-                        filterableColumnCount={2}
-                        cellWidths={['10rem']}
-                        shrinkZero
-                      />
-                    }
+                  </TabsContent>
+                  <TabsContent value="mobilization" className="w-full">
+                    <TableProvider isHidden>
+                      <Suspense
+                        fallback={
+                          <DataTableSkeleton
+                            columnCount={3}
+                            searchableColumnCount={2}
+                            filterableColumnCount={2}
+                            cellWidths={['10rem']}
+                            shrinkZero
+                          />
+                        }
+                      >
+                        <MobilizationsTable
+                          childOfDepartments={childOfDepartments}
+                          formSalary={formSalary}
+                          duties={duties}
+                          civilServantRanks={civilServantRanks}
+                          salaryGrades={salaryGrades}
+                          departments={allDepartments}
+                          cDepartment={cItem}
+                          mobilizations={mobilizations}
+                        />
+                      </Suspense>
+                    </TableProvider>
+                  </TabsContent>
+                  <TabsContent value="send" className="w-full">
+                    <TableProvider isHidden>
+                      <Suspense
+                        fallback={
+                          <DataTableSkeleton
+                            columnCount={3}
+                            searchableColumnCount={2}
+                            filterableColumnCount={2}
+                            cellWidths={['10rem']}
+                            shrinkZero
+                          />
+                        }
+                      >
+                        <SendsTable
+                          cDepartment={cItem}
+                          sends={sends}
+                          qualifications={qualifications}
+                        />
+                      </Suspense>
+                    </TableProvider>
+                  </TabsContent>
+                  <TabsContent
+                    value="increase-salary-regular"
+                    className="w-full"
                   >
-                    <MobilizationsTable
-                      childOfDepartments={childOfDepartments}
-                      formSalary={formSalary}
-                      duties={duties}
-                      civilServantRanks={civilServantRanks}
+                    <IncreaseSalaryRegularSection
+                      cDepartment={cItem}
+                      records={records}
+                      listIncreasedSalaryRegular={listIncreasedSalaryRegular}
                       salaryGrades={salaryGrades}
+                    />
+                  </TabsContent>
+                  <TabsContent value="increase-salary-early" className="w-full">
+                    <IncreaseSalaryEarlySection
+                      cDepartment={cItem}
+                      records={records}
+                      listIncreasedSalaryEarly={listIncreasedSalaryEarly}
+                      salaryGrades={salaryGrades}
+                    />
+                  </TabsContent>
+                  <TabsContent value="retire" className="w-full">
+                    <RecordsRetireManagementSection
+                      recordsRetirement={recordsRetirement}
+                      cDepartment={cItem}
+                      recordsRetired={recordsRetired}
+                    />
+                  </TabsContent>
+                  <TabsContent value="dual" className="w-full">
+                    <RecordDualsTable
+                      recordDuals={recordDuals}
+                      duties={duties}
+                      cDepartment={cItem}
+                    />
+                  </TabsContent>
+                  <TabsContent value="secondment" className="w-full">
+                    <RecordSecondmentsTable
+                      recordSecondments={recordSecondments}
+                      duties={duties}
                       departments={allDepartments}
                       cDepartment={cItem}
-                      mobilizations={mobilizations}
                     />
-                  </Suspense>
-                </TableProvider>
-              </TabsContent>
-              <TabsContent value="send" className="w-full">
-                <TableProvider isHidden>
-                  <Suspense
-                    fallback={
-                      <DataTableSkeleton
-                        columnCount={3}
-                        searchableColumnCount={2}
-                        filterableColumnCount={2}
-                        cellWidths={['10rem']}
-                        shrinkZero
-                      />
-                    }
-                  >
-                    <SendsTable
-                      cDepartment={cItem}
-                      sends={sends}
-                      qualifications={qualifications}
-                    />
-                  </Suspense>
-                </TableProvider>
-              </TabsContent>
-              <TabsContent value="increase-salary-regular" className="w-full">
-                <IncreaseSalaryRegularSection
-                  cDepartment={cItem}
-                  records={records}
-                  listIncreasedSalaryRegular={listIncreasedSalaryRegular}
-                  salaryGrades={salaryGrades}
-                />
-              </TabsContent>
-              <TabsContent value="increase-salary-early" className="w-full">
-                <IncreaseSalaryEarlySection
-                  cDepartment={cItem}
-                  records={records}
-                  listIncreasedSalaryEarly={listIncreasedSalaryEarly}
-                  salaryGrades={salaryGrades}
-                />
-              </TabsContent>
-              <TabsContent value="retire" className="w-full">
-                <RecordsRetireManagementSection
-                  recordsRetirement={recordsRetirement}
-                  cDepartment={cItem}
-                  recordsRetired={recordsRetired}
-                />
-              </TabsContent>
-              <TabsContent value="dual" className="w-full">
-                <RecordDualsTable
-                  recordDuals={recordDuals}
-                  duties={duties}
-                  cDepartment={cItem}
-                />
-              </TabsContent>
-              <TabsContent value="secondment" className="w-full">
-                <RecordSecondmentsTable
-                  recordSecondments={recordSecondments}
-                  duties={duties}
-                  departments={allDepartments}
-                  cDepartment={cItem}
-                />
-              </TabsContent>
-            </Tabs>
-            {/* </div> */}
-            {/* <ScrollBar orientation="horizontal" /> */}
-          </div>
-        </div>
+                  </TabsContent>
+                </Tabs>
+                {/* </div> */}
+                {/* <ScrollBar orientation="horizontal" /> */}
+              </div>
+            </div>
+          </TabsContent>
+        </Tabs>
+
         {/* </ResizablePanel>
           </ResizablePanelGroup> */}
         {/* </div> */}

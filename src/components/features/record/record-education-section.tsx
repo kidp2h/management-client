@@ -1,8 +1,5 @@
 import { Separator } from '@/components/ui/separator';
-import {
-  getRecordById,
-  getTrainingsRecordById,
-} from '@/db/queries/records';
+import { getRecordById, getTrainingsRecordById } from '@/db/queries/records';
 import React from 'react';
 import RecordTrainingTable from './training/record-training-table';
 import { getAllQualifications } from '@/db/queries/qualifications';

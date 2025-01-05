@@ -42,10 +42,7 @@ export default function OverviewSection({ data }: OverviewSectionProps) {
         </CardHeader>
         <CardContent>
           <div className="inline-flex font-bold">
-            <CountAnimation
-              number={data.totalRecordsDisciplined || 0}
-              className="text-2xl"
-            />
+            <CountAnimation number={14} className="text-2xl" />
           </div>
           <p className="text-xs text-muted-foreground">CBCCVC bị kỷ luật</p>
         </CardContent>
@@ -59,10 +56,7 @@ export default function OverviewSection({ data }: OverviewSectionProps) {
         </CardHeader>
         <CardContent>
           <div className="inline-flex font-bold">
-            <CountAnimation
-              number={data.totalRecordsDisciplined || 0}
-              className="text-2xl"
-            />
+            <CountAnimation number={18} className="text-2xl" />
           </div>
           <p className="text-xs text-muted-foreground">CBCCVC đã nghỉ hưu</p>
         </CardContent>

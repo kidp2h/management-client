@@ -50,6 +50,7 @@ import {
   recordsWorkExperience,
   religions,
   salaryGrades,
+  typeContracts,
 } from '@/db/schema';
 import { takeFirstOrThrow } from '@/db/utils';
 import { filterColumn } from '@/lib/filter-column';
@@ -61,7 +62,10 @@ import type { DrizzleWhere } from '@/types';
 import { subDays, subMonths } from 'date-fns';
 import { alias } from 'drizzle-orm/pg-core';
 
-export async function getRecords(input: Partial<GetRecordsSchema>) {
+export async function getRecords(
+  input: Partial<GetRecordsSchema>,
+  department?: boolean,
+) {
   noStore();
   try {
     const offset = (input.page! - 1) * input.per_page!;
@@ -144,8 +148,10 @@ export async function getRecords(input: Partial<GetRecordsSchema>) {
             isSelectable: true,
           })
         : undefined,
-      !!input.departments
-        ? eq(recordsDepartments.departmentId, input.departments)
+      department
+        ? !!input.departments
+          ? eq(recordsDepartments.departmentId, input.departments)
+          : undefined
         : undefined,
       // !!input.englishCertification
       //   ? filterColumn({
@@ -495,9 +501,14 @@ export async function getContractsRecordById(id: string) {
           name: formRecruitments.name,
           id: formRecruitments.id,
         },
+        typeContract: typeContracts.name,
       })
       .from(recordsContract)
       .leftJoin(records, eq(records.id, recordsContract.recordId))
+      .leftJoin(
+        typeContracts,
+        eq(recordsContract.typeContract, typeContracts.id),
+      )
       .leftJoin(
         formRecruitments,
         eq(recordsContract.recruimentType, formRecruitments.id),

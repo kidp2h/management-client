@@ -1,14 +1,8 @@
-import {
-  eq,
-  getTableColumns,
-} from 'drizzle-orm';
+import { eq, getTableColumns } from 'drizzle-orm';
 import { unstable_noStore as noStore } from 'next/cache';
 
 import { db } from '@/db';
-import {
-  records,
-  recordsParty,
-} from '@/db/schema';
+import { records, recordsParty } from '@/db/schema';
 // import type { GetPartyRecordSchema } from '@/lib/zod/schemas/record-schema';
 
 // export async function getRecordsParty(input: Partial<GetPartyRecordSchema>) {

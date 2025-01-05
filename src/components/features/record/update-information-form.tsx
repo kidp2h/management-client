@@ -6,7 +6,6 @@ import { DatePicker } from '@/components/ui/date-picker';
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -179,7 +178,7 @@ export default function UpdateInformationForm({
   const form = useForm<z.infer<typeof updateInformationRecordSchema>>({
     // resolver: zodResolver(updateInformationRecordSchema),
     defaultValues: {
-      // ...defaultValues,
+      ...defaultValues,
       // _province: defaultValues.province,
       // hometownAddress: defaultValues.hometown?.split('|')[0] || null,
       // hometownWard: defaultValues.hometown?.split('|')[1] || null,
@@ -2063,11 +2062,11 @@ export default function UpdateInformationForm({
           Cập nhật
         </Button>
       </form>
-      <pre className="mt-5 block">
+      {/* <pre className="mt-5 block">
         <FormDescription>
           <code>{JSON.stringify(defaultValues, null, 2)}</code>
         </FormDescription>
-      </pre>
+      </pre> */}
     </Form>
   );
 }

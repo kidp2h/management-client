@@ -15,9 +15,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 import { Button } from '@/components/ui/button';
-import {
-  getDepartmentsByRecord,
-} from '@/db/queries/departments';
+import { getDepartmentsByRecord } from '@/db/queries/departments';
 
 export function getColumns(
   departmentsOfRecord?: ReturnType<typeof getDepartmentsByRecord>,

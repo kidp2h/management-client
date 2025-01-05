@@ -3,9 +3,7 @@ import { clerkClient, type User } from '@clerk/nextjs/server';
 import { revalidatePath } from 'next/cache';
 
 import { createRecord } from '@/db/actions/records';
-import type {
-  CreateUserSchema,
-} from '@/lib/zod/schemas/user-schema';
+import type { CreateUserSchema } from '@/lib/zod/schemas/user-schema';
 import { Data } from '@/components/ui/fancy-combobox';
 
 export const createUser = async (

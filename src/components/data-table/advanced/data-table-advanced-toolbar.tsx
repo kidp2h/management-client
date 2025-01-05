@@ -13,6 +13,7 @@ import type { DataTableFilterField, DataTableFilterOption } from '@/types';
 
 import { DataTableFilterItem } from './data-table-filter-item';
 import { DataTableMultiFilter } from './data-table-multi-filter';
+import { v4 } from 'uuid';
 
 interface DataTableAdvancedToolbarProps<TData>
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -34,7 +35,7 @@ export function DataTableAdvancedToolbar<TData>({
   const options = React.useMemo<DataTableFilterOption<TData>[]>(() => {
     return filterFields.map(field => {
       return {
-        id: crypto.randomUUID(),
+        id: v4(),
         label: field.label,
         value: field.value,
         key: field.key,

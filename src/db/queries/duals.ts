@@ -1,9 +1,6 @@
 import 'server-only';
 
-import {
-  eq,
-  getTableColumns,
-} from 'drizzle-orm';
+import { eq, getTableColumns } from 'drizzle-orm';
 import { unstable_noStore as noStore } from 'next/cache';
 
 import { db } from '@/db';

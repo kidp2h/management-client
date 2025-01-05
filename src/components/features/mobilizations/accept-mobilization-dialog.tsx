@@ -1,12 +1,7 @@
 'use client';
 
 import type { Row } from '@tanstack/react-table';
-import {
-  Barcode,
-  Building,
-  House,
-  ListOrdered,
-} from 'lucide-react';
+import { Barcode, Building, House, ListOrdered } from 'lucide-react';
 import * as React from 'react';
 import { toast } from 'sonner';
 
@@ -42,15 +37,11 @@ import { DatePicker } from '@/components/ui/date-picker';
 import { useMediaQuery } from '@/hooks/use-media-query';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import {
-  acceptMobilizationSchema,
-} from '@/lib/zod/schemas/record-schema';
+import { acceptMobilizationSchema } from '@/lib/zod/schemas/record-schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { Combobox } from '@/components/ui/combobox';
-import {
-  acceptMobilization,
-} from '@/db/actions/mobilizations';
+import { acceptMobilization } from '@/db/actions/mobilizations';
 import { getAllFormSalary } from '@/db/queries/form-salary';
 import { getAllCivilServantRanks } from '@/db/queries/civil-servant-ranks';
 import { getAllSalaryGrades } from '@/db/queries/salary-grades';
