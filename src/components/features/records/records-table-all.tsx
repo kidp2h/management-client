@@ -35,7 +35,7 @@ interface RecordsTableProps {
   formDisciplines: ReturnType<typeof getAllFormDisciplines>;
   isAll?: boolean;
 }
-export const RecordsTable = ({
+export const RecordsTableAll = ({
   records: _records,
   cDepartment,
   religions,
@@ -146,11 +146,7 @@ export const RecordsTable = ({
   ];
 
   const { table } = useDataTable({
-    data: cDepartment
-      ? data?.filter(i => {
-          return i.department.id === cDepartment?.id;
-        }) || []
-      : [],
+    data,
     columns,
     enableAdvancedFilter: featureFlags.includes('advancedFilter'),
     pageCount,

@@ -68,7 +68,7 @@ export function MobilizationRecordDialog({
   const form = useForm<z.infer<typeof mobilizationRecordSchema>>({
     resolver: zodResolver(mobilizationRecordSchema),
     defaultValues: {
-      fromDepartment: currentDepartment.id,
+      fromDepartment: currentDepartment?.id,
     },
   });
   const { data } = React.use(departments);

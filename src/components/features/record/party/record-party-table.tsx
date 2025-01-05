@@ -54,7 +54,7 @@ export default function RecordPartiesTable({
           table={table}
           deleteDialog={
             <DeletePartiesDialog
-              name="kỷ luật"
+              name="công tác Đảng"
               parties={table
                 .getFilteredSelectedRowModel()
                 .rows.map(row => row.original)}
@@ -64,9 +64,9 @@ export default function RecordPartiesTable({
           createDialog={
             record?.id ? (
               <CreateDataDialog
-                name="kỷ luật"
+                name="công tác Đảng"
                 form={CreatePartyForm}
-                description="Tạo kỷ luật mới"
+                description="Tạo công tác Đảng"
                 data={{
                   recordId: record.id,
                 }}

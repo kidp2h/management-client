@@ -53,13 +53,14 @@ export default async function RecordsManagementPage({
   const recordSecondments = getAllRecordSecondments();
   return (
     <RecordsManagementSection
+      recordsExceptDepartment={getRecords(search, false)}
       listIncreasedSalaryRegular={listIncreasedSalaryRegular}
       formSalary={formSalary}
       duties={duties}
       civilServantRanks={civilServantRanks}
       salaryGrades={salaryGrades}
       allDepartments={allDepartments}
-      records={getRecords(search)}
+      records={getRecords(search, true)}
       religions={religions}
       ethnicities={ethnicities}
       mobilizations={mobilizations}

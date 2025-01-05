@@ -136,9 +136,10 @@ export default React.memo(() => {
       </div>
       <div className="mt-5 flex flex-col gap-5">
         <Tabs defaultValue="account" className="w-full">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="account">Thông tin tài khoản</TabsTrigger>
-            <TabsTrigger value="password">Mật khẩu</TabsTrigger>
+          <TabsList className="w-full">
+            <TabsTrigger value="password" className="w-full">
+              Mật khẩu
+            </TabsTrigger>
           </TabsList>
           <TabsContent value="account">
             <Card>

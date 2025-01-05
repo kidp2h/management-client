@@ -6,9 +6,7 @@ import { CreateDataDialog } from '@/components/common/create-data-dialog';
 import { DataTableToolbarActions } from '@/components/common/data-table-toolbar-actions';
 import { DataTableAdvancedToolbar } from '@/components/data-table/advanced/data-table-advanced-toolbar';
 import { DataTable } from '@/components/data-table/data-table';
-import type {
-  getAllRecordsDepartments,
-} from '@/db/queries/departments';
+import type { getAllRecordsDepartments } from '@/db/queries/departments';
 import type { Departments } from '@/db/schema';
 import { useDataTable } from '@/hooks/use-data-table';
 import { useTable } from '@/providers/table-provider';

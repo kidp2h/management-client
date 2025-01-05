@@ -27,9 +27,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer';
-import {
-  deleteRecordsDepartment,
-} from '@/db/actions/departments';
+import { deleteRecordsDepartment } from '@/db/actions/departments';
 import type { Departments } from '@/db/schema';
 import { useMediaQuery } from '@/hooks/use-media-query';
 

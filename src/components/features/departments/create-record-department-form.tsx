@@ -1,12 +1,8 @@
 import React, { use, useTransition } from 'react';
 import { toast } from 'sonner';
 
-import {
-  createRecordDepartment,
-} from '@/db/actions/departments';
-import {
-  createRecordDepartmentSchema,
-} from '@/lib/zod/schemas/department-schema';
+import { createRecordDepartment } from '@/db/actions/departments';
+import { createRecordDepartmentSchema } from '@/lib/zod/schemas/department-schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';

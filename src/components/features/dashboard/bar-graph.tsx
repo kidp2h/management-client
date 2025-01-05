@@ -1,6 +1,6 @@
 'use client';
 
-import { eachDayOfInterval, format, subDays } from 'date-fns';
+import { format, subDays } from 'date-fns';
 import * as React from 'react';
 import { Bar, BarChart, CartesianGrid, XAxis } from 'recharts';
 
@@ -43,21 +43,61 @@ export function BarGraph({ data }: BarGraphProps) {
   const [activeChart, setActiveChart] =
     React.useState<keyof typeof chartConfig>('disciplined');
   // const chartData = data.applicationsRecent3Months;
-  const dateRange = React.useMemo(() => {
-    const endDate = new Date();
-    const startDate = subDays(endDate, 90); // 90 days for approximately 3 months
-    return eachDayOfInterval({ start: startDate, end: endDate });
-  }, []);
+  // const dateRange = React.useMemo(() => {
+  //   const endDate = new Date();
+  //   const startDate = subDays(endDate, 90); // 90 days for approximately 3 months
+  //   return eachDayOfInterval({ start: startDate, end: endDate });
+  // }, []);
+  // const formattedData = React.useMemo(() => {
+  //   return dateRange.map(date => {
+  //     const formattedDate = format(date, 'yyyy-MM-dd');
+  //     // const dataForDate = chartData.find(
+  //     //   item => format(new Date(item.date), 'yyyy-MM-dd') === formattedDate,
+  //     // );
+  //     const dataDisciplinedForDate = data.recordsDisciplinedRecent3Months.find(
+  //       item => format(new Date(item.date), 'yyyy-MM-dd') === formattedDate,
+  //     );
+  //     const dataRetiredForDate = data.recordsRetiredRecent3Months.find(
+  //       item => format(new Date(item.date), 'yyyy-MM-dd') === formattedDate,
+  //     );
+  //     return {
+  //       date: formattedDate,
+  //       disciplined: dataDisciplinedForDate?.count || 0,
+  //       retired: dataRetiredForDate?.count || 0,
+  //     };
+  //   });
+  // }, [data, dateRange]);
+  const dateRange = Array.from(
+    { length: 90 },
+    (_, i) => format(subDays(new Date(), 89 - i), 'yyyy-MM-dd'), // Generate formatted dates
+  );
+  const today = new Date();
+  const recordsDisciplinedRecent3Months = [
+    { date: format(subDays(today, 10), 'yyyy-MM-dd'), count: 5 },
+    { date: format(subDays(today, 30), 'yyyy-MM-dd'), count: 4 },
+    { date: format(subDays(today, 50), 'yyyy-MM-dd'), count: 3 },
+    { date: format(subDays(today, 70), 'yyyy-MM-dd'), count: 2 },
+  ];
+
+  const recordsRetiredRecent3Months = [
+    { date: format(subDays(today, 15), 'yyyy-MM-dd'), count: 6 },
+    { date: format(subDays(today, 35), 'yyyy-MM-dd'), count: 5 },
+    { date: format(subDays(today, 55), 'yyyy-MM-dd'), count: 4 },
+    { date: format(subDays(today, 75), 'yyyy-MM-dd'), count: 3 },
+  ];
+
+  const _data = {
+    recordsDisciplinedRecent3Months,
+    recordsRetiredRecent3Months,
+  };
+
   const formattedData = React.useMemo(() => {
     return dateRange.map(date => {
       const formattedDate = format(date, 'yyyy-MM-dd');
-      // const dataForDate = chartData.find(
-      //   item => format(new Date(item.date), 'yyyy-MM-dd') === formattedDate,
-      // );
-      const dataDisciplinedForDate = data.recordsDisciplinedRecent3Months.find(
+      const dataDisciplinedForDate = _data.recordsDisciplinedRecent3Months.find(
         item => format(new Date(item.date), 'yyyy-MM-dd') === formattedDate,
       );
-      const dataRetiredForDate = data.recordsRetiredRecent3Months.find(
+      const dataRetiredForDate = _data.recordsRetiredRecent3Months.find(
         item => format(new Date(item.date), 'yyyy-MM-dd') === formattedDate,
       );
       return {
@@ -66,11 +106,18 @@ export function BarGraph({ data }: BarGraphProps) {
         retired: dataRetiredForDate?.count || 0,
       };
     });
-  }, [data, dateRange]);
+  }, [dateRange, _data]);
+
   const count = React.useMemo(() => {
     return {
-      disciplined: data.recordsDisciplinedRecent3Months.length,
-      retired: data.recordsRetiredRecent3Months.length,
+      disciplined: _data.recordsDisciplinedRecent3Months.reduce(
+        (sum, record) => sum + record.count,
+        0,
+      ),
+      retired: _data.recordsRetiredRecent3Months.reduce(
+        (sum, record) => sum + record.count,
+        0,
+      ),
     };
   }, [formattedData, activeChart]);
   return (

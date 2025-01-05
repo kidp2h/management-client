@@ -112,20 +112,23 @@ export function DetailChangesRecordDialog({
             </DialogDescription>
           </DialogHeader>
           {/* {JSON.stringify(approve.changes)} */}
-          {approve?.changes?.map(change => (
-            <div key={change.key}>
-              <span className="text-wrap text-sm">
-                {fields?.[change.key] || change.key}:{' '}
-                {/* {change.oldValue?.split('.').length > 1
+          <div className="h-56 overflow-auto">
+            {approve?.changes?.map(change => (
+              <div key={change.key}>
+                <span className="text-wrap text-sm ">
+                  {fields?.[change.key] || change.key}:{' '}
+                  {/* {change.oldValue?.split('.').length > 1
                   ? change.oldValue?.split('.')?.[1] || ''
                   : change.oldValue}{' '} */}
-                -&gt;{' '}
-                {change.newValue?.split('.').length > 1
-                  ? change.newValue?.split('.')?.[1] || ''
-                  : change.newValue}
-              </span>
-            </div>
-          ))}
+                  -&gt;{' '}
+                  {''?.split('.')?.length > 1
+                    ? change.newValue?.split('.')?.[1] || ''
+                    : change.newValue}
+                </span>
+              </div>
+            ))}
+          </div>
+
           <DialogFooter className="gap-2 sm:space-x-0">
             <DialogClose asChild>
               {/* <Button variant="outline">Huỷ</Button> */}

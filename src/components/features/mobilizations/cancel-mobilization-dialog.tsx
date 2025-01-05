@@ -27,9 +27,7 @@ import {
 
 import { useMediaQuery } from '@/hooks/use-media-query';
 
-import {
-  deleteMobilization,
-} from '@/db/actions/mobilizations';
+import { deleteMobilization } from '@/db/actions/mobilizations';
 
 interface CancelMobilizationDialogProps
   extends React.ComponentPropsWithoutRef<typeof Dialog> {

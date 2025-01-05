@@ -34,6 +34,7 @@ import { Separator } from '@/components/ui/separator';
 import { type DataTableConfig, dataTableConfig } from '@/config/data-table';
 import { useDebounce } from '@/hooks/use-debounce';
 import type { DataTableFilterOption } from '@/types';
+import { v4 } from 'uuid';
 
 interface DataTableMultiFilterProps<TData> {
   table: Table<TData>;
@@ -356,7 +357,7 @@ export function MultiFilterRow<TData>({
               setSelectedOptions(prev => [
                 ...prev,
                 {
-                  id: crypto.randomUUID(),
+                  id: v4(),
                   label: selectedOption.label,
                   value: selectedOption.value,
                   options: selectedOption.options ?? [],

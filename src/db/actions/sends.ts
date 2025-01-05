@@ -4,9 +4,7 @@ import { eq, inArray } from 'drizzle-orm';
 import { revalidatePath, unstable_noStore as noStore } from 'next/cache';
 
 import { db } from '@/db';
-import {
-  recordsSend,
-} from '@/db/schema';
+import { recordsSend } from '@/db/schema';
 import { getErrorMessage } from '@/lib/handle-error';
 import { CreateSendRecordSchema } from '@/lib/zod/schemas/record-schema';
 

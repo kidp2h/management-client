@@ -44,13 +44,14 @@ export function getColumns(): ColumnDef<any>[] {
       enableSorting: false,
       enableHiding: false,
     },
+
     {
-      accessorKey: 'record.code',
+      accessorKey: 'record.fullName',
       meta: {
-        label: 'Mã cán bộ',
+        label: 'Họ và tên',
       },
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Mã cán bộ" />
+        <DataTableColumnHeader column={column} title="Họ và tên" />
       ),
       cell: ({ cell }) => (
         <div className="w-full">{cell.getValue() as React.ReactNode}</div>
@@ -59,12 +60,66 @@ export function getColumns(): ColumnDef<any>[] {
       enableHiding: true,
     },
     {
-      accessorKey: 'record.fullName',
+      accessorKey: 'from',
       meta: {
-        label: 'Họ và tên',
+        label: 'Từ ngày',
       },
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Họ và tên" />
+        <DataTableColumnHeader column={column} title="Từ ngày" />
+      ),
+      cell: ({ cell }) => (
+        <div className="w-full">
+          {
+            dayjs(cell.getValue() as string).format(
+              'D-MM-YYYY',
+            ) as React.ReactNode
+          }
+        </div>
+      ),
+      enableSorting: false,
+      enableHiding: true,
+    },
+    {
+      accessorKey: 'to',
+      meta: {
+        label: 'Đến ngày',
+      },
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="Đến ngày" />
+      ),
+      cell: ({ cell }) => (
+        <div className="w-full">
+          {
+            dayjs(cell.getValue() as string).format(
+              'D-MM-YYYY',
+            ) as React.ReactNode
+          }
+        </div>
+      ),
+      enableSorting: false,
+      enableHiding: true,
+    },
+    {
+      accessorKey: 'organization',
+      meta: {
+        label: 'Tổ chức Đảng',
+      },
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="Tổ chức Đảng" />
+      ),
+      cell: ({ cell }) => (
+        <div className="w-full">{cell.getValue() as React.ReactNode}</div>
+      ),
+      enableSorting: false,
+      enableHiding: true,
+    },
+    {
+      accessorKey: 'dutyParty',
+      meta: {
+        label: 'Chức vụ Đảng',
+      },
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="Chức vụ Đảng" />
       ),
       cell: ({ cell }) => (
         <div className="w-full">{cell.getValue() as React.ReactNode}</div>

@@ -10,7 +10,6 @@ import {
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
@@ -83,18 +82,6 @@ export function UserNav() {
         </TooltipProvider>
 
         <DropdownMenuContent className="w-56" align="end" forceMount>
-          <DropdownMenuLabel className="font-normal">
-            <div className="flex flex-col space-y-1">
-              <p className="text-sm font-medium leading-none">
-                {!isLoaded || !user?.fullName ? (
-                  <Skeleton className="mb-2 h-3 w-full" />
-                ) : (
-                  user?.fullName
-                )}
-              </p>
-            </div>
-          </DropdownMenuLabel>
-          <DropdownMenuSeparator />
           <DropdownMenuGroup>
             <DropdownMenuItem className="hover:cursor-pointer" asChild>
               <SheetTrigger className="w-full">

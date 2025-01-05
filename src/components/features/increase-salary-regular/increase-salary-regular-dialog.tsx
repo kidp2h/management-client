@@ -1,13 +1,7 @@
 'use client';
 
 import type { Row } from '@tanstack/react-table';
-import {
-  Binary,
-  Book,
-  Building,
-  HandCoins,
-  ListOrdered,
-} from 'lucide-react';
+import { Binary, Book, Building, HandCoins, ListOrdered } from 'lucide-react';
 import * as React from 'react';
 import { toast } from 'sonner';
 
@@ -48,9 +42,7 @@ import {
 import { useMediaQuery } from '@/hooks/use-media-query';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import {
-  increaseSalarySchema,
-} from '@/lib/zod/schemas/record-schema';
+import { increaseSalarySchema } from '@/lib/zod/schemas/record-schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { Combobox } from '@/components/ui/combobox';

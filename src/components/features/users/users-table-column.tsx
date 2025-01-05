@@ -1,13 +1,7 @@
 import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 import type { ColumnDef } from '@tanstack/react-table';
 import dayjs from 'dayjs';
-import {
-  CircleUser,
-  History,
-  Mail,
-  ShieldPlus,
-  Timer,
-} from 'lucide-react';
+import { CircleUser, History, Mail, ShieldPlus, Timer } from 'lucide-react';
 import React from 'react';
 
 import { UpdateDataSheet } from '@/components/common/update-data-sheet';
