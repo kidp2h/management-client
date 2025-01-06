@@ -84,11 +84,7 @@ export function getMenuList(
                 label: 'Chức vụ',
                 active: pathname.includes('/duties'),
               },
-              {
-                href: '/positions',
-                label: 'Vị trí việc làm',
-                active: pathname.includes('/positions'),
-              },
+
               {
                 href: '/religions',
                 label: 'Tôn giáo',
