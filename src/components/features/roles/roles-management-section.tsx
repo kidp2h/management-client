@@ -5,6 +5,7 @@ import AutoBreadcrumb from '@/components/common/auto-breadcrumb';
 import MainContent from '@/components/common/main-content';
 import { DataTableSkeleton } from '@/components/data-table/data-table-skeleton';
 import type {
+  getAllRoles,
   getDetailConfigRole,
   getDetailConfigRoleApprove,
   getRoles,
@@ -28,12 +29,14 @@ import { toast } from 'sonner';
 
 export interface RolesManagementSectionProps {
   roles: ReturnType<typeof getRoles>;
+  allRoles: ReturnType<typeof getAllRoles>;
   configRole: ReturnType<typeof getDetailConfigRole>;
   configRoleApprove: ReturnType<typeof getDetailConfigRoleApprove>;
 }
 export default function RolesManagementSection({
   roles,
   configRole,
+  allRoles,
   configRoleApprove,
 }: RolesManagementSectionProps) {
   const items = [
@@ -45,6 +48,7 @@ export default function RolesManagementSection({
   ];
 
   const { data: dataRoles } = React.use(roles);
+  const { data: allRolesData } = React.use(allRoles);
   const { data: dataConfigRole } = React.use(configRole);
   const { data: dataConfigRoleApprove } = React.use(configRoleApprove);
 
@@ -125,10 +129,12 @@ export default function RolesManagementSection({
           className="w-52"
           type="normal"
           placeholder="Chọn vai trò làm quản lý"
-          dataset={dataRoles.map(r => ({
-            label: r.name,
-            value: r.id,
-          }))}
+          dataset={
+            allRolesData?.map(r => ({
+              label: r.name,
+              value: r.id,
+            })) || []
+          }
         />
         <Button
           className="mt-4"
@@ -165,10 +171,12 @@ export default function RolesManagementSection({
           className="w-52"
           type="normal"
           placeholder="Chọn vai trò làm duyệt hồ sơ"
-          dataset={dataRoles.map(r => ({
-            label: r.name,
-            value: r.id,
-          }))}
+          dataset={
+            allRolesData?.map(r => ({
+              label: r.name,
+              value: r.id,
+            })) || []
+          }
         />
         <Button
           className="mt-4"

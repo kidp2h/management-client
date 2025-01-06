@@ -2,6 +2,7 @@ import React from 'react';
 
 import RolesManagementSection from '@/components/features/roles/roles-management-section';
 import {
+  getAllRoles,
   getDetailConfigRole,
   getDetailConfigRoleApprove,
   getRoles,
@@ -20,10 +21,12 @@ export default async function RolesManagementPage({
   const roles = getRoles(search);
   const configRole = getDetailConfigRole();
   const configRoleApprove = getDetailConfigRoleApprove();
+  const allRoles = getAllRoles();
 
   return (
     <RolesManagementSection
       roles={roles}
+      allRoles={allRoles}
       configRole={configRole}
       configRoleApprove={configRoleApprove}
     />
