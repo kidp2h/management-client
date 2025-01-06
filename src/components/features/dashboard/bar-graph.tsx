@@ -73,17 +73,29 @@ export function BarGraph({ data }: BarGraphProps) {
   );
   const today = new Date();
   const recordsDisciplinedRecent3Months = [
-    { date: format(subDays(today, 10), 'yyyy-MM-dd'), count: 5 },
-    { date: format(subDays(today, 30), 'yyyy-MM-dd'), count: 4 },
-    { date: format(subDays(today, 50), 'yyyy-MM-dd'), count: 3 },
-    { date: format(subDays(today, 70), 'yyyy-MM-dd'), count: 2 },
+    { date: format(subDays(today, 7), 'yyyy-MM-dd'), count: 8 },
+    { date: format(subDays(today, 15), 'yyyy-MM-dd'), count: 6 },
+    { date: format(subDays(today, 22), 'yyyy-MM-dd'), count: 10 },
+    { date: format(subDays(today, 35), 'yyyy-MM-dd'), count: 4 },
+    { date: format(subDays(today, 48), 'yyyy-MM-dd'), count: 7 },
+    { date: format(subDays(today, 65), 'yyyy-MM-dd'), count: 5 },
+    { date: format(subDays(today, 80), 'yyyy-MM-dd'), count: 3 },
   ];
 
   const recordsRetiredRecent3Months = [
-    { date: format(subDays(today, 15), 'yyyy-MM-dd'), count: 6 },
-    { date: format(subDays(today, 35), 'yyyy-MM-dd'), count: 5 },
-    { date: format(subDays(today, 55), 'yyyy-MM-dd'), count: 4 },
-    { date: format(subDays(today, 75), 'yyyy-MM-dd'), count: 3 },
+    { date: format(subDays(today, 10), 'yyyy-MM-dd'), count: 2 },
+    { date: format(subDays(today, 11), 'yyyy-MM-dd'), count: 3 },
+    { date: format(subDays(today, 12), 'yyyy-MM-dd'), count: 4 },
+    { date: format(subDays(today, 13), 'yyyy-MM-dd'), count: 2 },
+    { date: format(subDays(today, 14), 'yyyy-MM-dd'), count: 2 },
+    { date: format(subDays(today, 15), 'yyyy-MM-dd'), count: 3 },
+    { date: format(subDays(today, 16), 'yyyy-MM-dd'), count: 3 },
+    { date: format(subDays(today, 20), 'yyyy-MM-dd'), count: 4 },
+    { date: format(subDays(today, 25), 'yyyy-MM-dd'), count: 1 },
+    { date: format(subDays(today, 40), 'yyyy-MM-dd'), count: 8 },
+    { date: format(subDays(today, 55), 'yyyy-MM-dd'), count: 5 },
+    { date: format(subDays(today, 70), 'yyyy-MM-dd'), count: 6 },
+    { date: format(subDays(today, 85), 'yyyy-MM-dd'), count: 3 },
   ];
 
   const _data = {
