@@ -22,6 +22,7 @@ import { getAllQualifications } from '@/db/queries/qualifications';
 import { getAllDuties } from '@/db/queries/duties';
 import { getAllAppellations } from '@/db/queries/appellations';
 import { getAllFormDisciplines } from '@/db/queries/form-disciplines';
+import { uniqueBy } from '@/lib/utils';
 
 interface RecordsTableProps {
   records: ReturnType<typeof getRecords>;
@@ -146,7 +147,7 @@ export const RecordsTableAll = ({
   ];
 
   const { table } = useDataTable({
-    data,
+    data: data.filter(uniqueBy('code')),
     columns,
     enableAdvancedFilter: featureFlags.includes('advancedFilter'),
     pageCount,

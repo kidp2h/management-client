@@ -96,17 +96,24 @@ export async function deleteRecords(input: { ids: string[] }) {
 }
 export async function deleteRecordsDepartment(input: {
   ids: string[];
-  departmentId: string;
+  departmentId: string | null;
 }) {
   try {
-    await db
-      .delete(recordsDepartments)
-      .where(
-        and(
-          inArray(recordsDepartments.recordId, input.ids),
-          eq(recordsDepartments.departmentId, input.departmentId),
-        ),
-      );
+    if (input.departmentId != null) {
+      await db
+        .delete(recordsDepartments)
+        .where(
+          and(
+            inArray(recordsDepartments.recordId, input.ids),
+            eq(recordsDepartments.departmentId, input.departmentId),
+          ),
+        );
+    } else {
+      console.log('null');
+      await db
+        .delete(recordsDepartments)
+        .where(inArray(recordsDepartments.recordId, input.ids));
+    }
 
     revalidatePath('/records');
 
@@ -115,6 +122,7 @@ export async function deleteRecordsDepartment(input: {
       error: null,
     };
   } catch (err) {
+    console.log(err);
     return {
       data: null,
       error: getErrorMessage(err),

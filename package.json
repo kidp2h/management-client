@@ -14,6 +14,7 @@
     "start": "next start",
     "clean": "rimraf .next out coverage",
     "lint": "eslint .",
+    "db:seed": "dotenv -e .env -- npx tsx ./src/db/seed.ts",
     "lint:fix": "eslint . --fix",
     "check-types": "tsc --noEmit --pretty",
     "commit": "cz",

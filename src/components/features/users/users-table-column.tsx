@@ -20,6 +20,8 @@ import {
 import { DeleteUsersDialog } from './delete-user-dialog';
 import UpdateUserForm from './update-user-form';
 import { Roles } from '@/db/schema';
+import { useRouter } from 'next/navigation';
+import { encode } from 'js-base64';
 
 export interface DataColumnsUsers {
   roles: Roles[];
@@ -221,6 +223,7 @@ export function getColumns({ roles }: DataColumnsUsers): ColumnDef<any, any>[] {
         const [showDeleteUserDialog, setShowDeleteUserDialog] =
           React.useState(false);
         React.useEffect(() => {});
+        const router = useRouter();
         const [isUpdatePending, startUpdateTransition] = React.useTransition();
         return (
           <>
@@ -252,6 +255,16 @@ export function getColumns({ roles }: DataColumnsUsers): ColumnDef<any, any>[] {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-40">
+                <DropdownMenuItem
+                  onSelect={() =>
+                    router.replace(
+                      `/record/${encode((row as any).original.publicMetadata.record.id)}`,
+                    )
+                  }
+                >
+                  {/* {JSON.stringify(row.original)} */}
+                  Xem hồ sơ
+                </DropdownMenuItem>
                 <DropdownMenuLabel className="text-xs font-bold uppercase text-muted-foreground">
                   Thao tác
                 </DropdownMenuLabel>

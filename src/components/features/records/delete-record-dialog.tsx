@@ -54,7 +54,7 @@ export function DeleteRecordsDialog({
     startDeleteTransition(async () => {
       const { error } = await deleteRecordsDepartment({
         ids: records.map(record => record.id),
-        departmentId: props.cDepartment.id,
+        departmentId: props.cDepartment?.id,
       });
       if (error) {
         toast.error(error);

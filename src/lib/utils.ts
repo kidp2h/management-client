@@ -135,3 +135,8 @@ export function extractDateParts(date: Date | null) {
     year: date.getFullYear(),
   };
 }
+
+export const uniqueBy =
+  (k, s = new Set()) =>
+  o =>
+    !s.has(o[k]) && s.add(o[k]);

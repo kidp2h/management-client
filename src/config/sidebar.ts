@@ -65,7 +65,7 @@ export function getMenuList(
 
           {
             href: '#',
-            label: 'Cấu hình',
+            label: 'Quản lý danh mục',
             active: false,
             icon: Bookmark,
             submenus: [
