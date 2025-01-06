@@ -33,7 +33,6 @@ export const UsersTable = ({
     {
       label: 'Mã cán bộ',
       value: 'username',
-      description: 'Tài khoản phải lớn hơn 3 ký tự',
       placeholder: 'Tìm kiếm mã cán bộ',
     },
   ];

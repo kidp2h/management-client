@@ -25,8 +25,9 @@ export default async function UsersManagementPage({
       orderBy: '-created_at',
     };
     if (username && username.length >= 3) {
-      query.username = `${username}`;
+      query.query = `${username}`;
     }
+    console.log(query);
     const [roles, departments] = await Promise.all([
       getAllRoles(),
       getAllDepartments(),
