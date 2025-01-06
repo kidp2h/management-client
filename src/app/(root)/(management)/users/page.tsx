@@ -21,6 +21,7 @@ export default async function UsersManagementPage({
   try {
     const query: Record<string, any> = {
       limit: 10,
+      offset: searchParams.page ? ((searchParams.page as any) - 1) * 10 : 0,
       orderBy: '-created_at',
     };
     if (username && username.length >= 3) {
